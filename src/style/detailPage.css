@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
+.topic-text{
+    font-family: 'Prompt', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    text-decoration-color: '#7d0f3f';
+}
+.detail-text{
+    font-family: 'Prompt', sans-serif;
+    font-size: 17px;
+    font-weight: 200;
+    line-height: 40px;
+    color: "#7d0f3f";
+}

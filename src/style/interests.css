@@ -1,0 +1,74 @@
+ @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
+
+.toppic{
+    text-align: center;
+    font-family: 'Prompt', sans-serif;
+    font-size: 40px;
+    margin: 20px;
+}
+.interest{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 80px;
+    
+}
+.contianner{
+    margin: 50px 20px 30px 50px;
+    
+}
+.index-one{
+    background-color: #7d0f3f;
+    box-sizing: border-box;
+    border: 1px solid #7d0f3f;
+    border-radius: 60.5px;
+    padding: 10px 20px;
+    
+}
+.contianner a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    
+}
+.index-one:hover {
+    background-color: #7d0f3f;
+    opacity: 0.7;
+    
+
+}
+.contianner a:hover{
+    color: rgb(255, 255, 255);
+}
+
+.contianner1{
+    margin: 50px 30px 30px 50px;
+    
+}
+.index-one1{
+    
+    background-color: #7d0f3f;
+    box-sizing: border-box;
+    border: 1px solid #7d0f3f;
+    border-radius: 60.5px;
+    padding: 10px 20px;
+    
+}
+.contianner1 a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    
+}
+.index-one1:hover {
+    background-color: #7d0f3f;
+    opacity: 0.7;
+    
+
+}
+.contianner1 a:hover{
+    color: rgb(255, 255, 255);
+}
+.interest1{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 150px;
+}

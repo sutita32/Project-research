@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
+.body-set{
+
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-bottom: 50px;
+}
+.font-head{
+    font-family: 'Prompt', sans-serif;
+    font-size: 25px;
+    font-weight: 300;
+}
+.font-normal{
+    font-family: 'Prompt', sans-serif;
+    font-size: 17px;
+    font-weight: 100;
+    line-height: 24px;
+}
+.login_btn{
+    background-color:#7d0f3f;
+	border-radius:22px;
+	border:1px solid #6e103b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family: 'Prompt', sans-serif;
+	font-size:14px;
+	padding:10px 21px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #730b3a;
+}
+.font-bold{
+    font-family: 'Prompt', sans-serif;
+}
+.font-medium{
+    font-family: 'Prompt', sans-serif;
+}

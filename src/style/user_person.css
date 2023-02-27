@@ -1,0 +1,28 @@
+.toppics{
+    display: flex;
+    list-style-type: none;
+    padding-left: 10rem;
+}
+.toppics_li{
+    background-color: #7d0f3f;
+    color: aliceblue;
+    padding-left: 5rem;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size:14px;
+
+
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 25px 20px 30px 50px;
+
+}.font-normal3{
+    font-family: 'Prompt', sans-serif;
+    font-size: 12px;
+}
+.font-normal4{
+    font-family: 'Prompt', sans-serif;
+    font-size: 14px;
+}

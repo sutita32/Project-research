@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+.header{
+    background: #7D0F3F;
+    
+}
+.container {
+    padding-left: 50px;
+    color: rgb(255, 255, 255);
+    height: 40px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    font-family: 'Prompt', sans-serif;
+    
+}
+.header-main {
+    background: rgb(255, 255, 255);
+    padding-left: 250px;
+    height: 130px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.menu{
+    display: flex;
+    list-style-type: none;
+    padding-right: 10rem;
+    font-family: 'Prompt', sans-serif;
+}
+.menu li {
+    padding-right: 5rem;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size:16px;
+}
+.menu li a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+.login_btn{
+    background-color:#7d0f3f;
+	border-radius:22px;
+	border:1px solid #6e103b;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+    font-family: 'Prompt', sans-serif;
+	font-size:14px;
+	padding:10px 21px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #730b3a;
+}
+.testbt{
+
+	display:inline-block;
+	cursor:pointer;
+    font-family: 'Prompt', sans-serif;
+	font-size:18px;
+	text-decoration:none;
+}

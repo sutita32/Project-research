@@ -1,0 +1,15 @@
+#back-bg-top{
+    background-size: auto;
+    background-image: url(/src/img/background_search.png);
+}
+.box-in-profile{
+
+    background-color: white;
+    background-size: auto;
+    box-shadow: 3px 3px #E2E2E2;
+    border-radius: 5px;
+}
+.line-right{
+    box-shadow: 1px 0px black;
+}
+

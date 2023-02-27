@@ -1,0 +1,9 @@
+.lower-head{
+    background: rgb(255, 255, 255);
+    padding-left: 250px;
+    height: 130px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    
+}

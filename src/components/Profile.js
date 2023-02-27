@@ -1,0 +1,175 @@
+/* eslint-disable react/jsx-pascal-case */
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react'
+import { NavLink, useNavigate } from "react-router-dom";
+import Logo from '../img/image 1.png'
+import "../style/profilePage.css";
+import { BiEdit } from "react-icons/bi";
+import { FaUserEdit } from "react-icons/fa";
+import { workData } from "./workData";
+import ProfilePage_Interest from "./profilePage_Interest";  
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+
+function Profile() {
+
+    const navigate = useNavigate();
+    const MySwal = withReactContent(Swal);
+
+    const [isLoaded, setIsLoaded] = useState(true);
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + token);
+        
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+        
+        fetch("https://www.melivecode.com/api/auth/user", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            if (result.status === 'ok'){
+                setUser(result.user)
+                setIsLoaded(false)
+            }else if (result.status === 'forbidden'){
+                MySwal.fire({
+                    html:<i>{result.message}</i>,
+                    icon: 'error'
+                }).then((value) => {
+                    navigate('/login')
+                })
+            }
+            console.log(result)
+        })
+          .catch(error => console.log('error', error));
+
+      }, [])
+      const logout = () => {
+        localStorage.removeItem('token')
+        navigate('/')
+      }
+
+      const [ShowInterestBlock] = useState(<ProfilePage_Interest />);
+  
+
+      if(isLoaded) return (<>Loading</>)
+      else{
+        return (
+            <>
+                    {/* <div>{user.fname}</div>
+            <div>{user.lname}</div>
+            <div>{user.username}</div>
+            <div>{user.email}</div>
+            <div><img src={user.avatar} width={100}/></div> */}
+            {/* <div><button onClick={logout}>LOGOUT</button></div> */}
+
+            <div class="grid grid-rows-6 min-h-[700px] w-full">
+        <div class="row-span-2 w-full">
+          <div id="back-bg-top" class="h-full w-full"></div>
+        </div>
+        <div class="row-span-4 w-full ">
+          <div class="bg-regal-red w-full h-full bg-opacity-90"></div>
+        </div>
+      </div>
+      <div class="grid place-items-center absolute w-full h-[500px] top-[300px] mb-[50px]">
+        <div class="grid grid-rows-6 rounded-[20px] w-10/12 h-full bg-[#EFEFEF] p-[11px]">
+          <div class="w-full h-full row-span-1"></div>
+          <div class="grid grid-cols-10 gap-[8px] w-full h-[410px] row-span-5">
+            <div class="grid grid-rows-10 col-span-3 gap-[8px] h-[410px] w-full">
+              <div class="box-in-profile row-span-6 py-[14px] px-[15px] overflow-y-scroll h-full w-full">
+                {ShowInterestBlock}
+              </div>
+              <div class="grid grid-rows-2 place-items-center box-in-profile row-span-4 w-full h-full">
+                <div class="relative top-[17px]">
+                  <button class="grid place-items-center grid-rows-1 w-[200px] h-[40px] hover:bg-regal-red hover:text-white rounded-more">
+                    <div class="flex">
+                      <div class="grid place-items-center h-[23px] w-[23px]">
+                        <FaUserEdit class="h-full w-full mr-[5px]" />
+                      </div>
+                      <div class="grid place-content-center"> แก้ไขโปรไฟล์</div>
+                    </div>
+                  </button>
+                </div>
+                <div class="relative bottom-[17px]">
+                <NavLink to="/forgot-pass">
+                  <button class="grid place-items-center grid-rows-1 w-[200px] h-[40px] hover:bg-regal-red hover:text-white rounded-more">
+                    <div class="flex">
+                      <div class="grid place-items-center h-[25px] w-[25px]">
+                        <BiEdit class="h-full w-full mr-[5px]" />
+                      </div>
+                      <div class="grid place-content-center">แก้ไขรหัสผ่าน</div>
+                    </div>
+                  </button>
+                </NavLink>
+                </div>
+              </div>
+            </div>
+            <div class="box-in-profile col-span-7 p-[15px]">
+              <div class="flex">
+                <svg
+                  class="h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  />
+                </svg>
+                <div> About</div>
+              </div>
+              <div class=" h-full w-full grid grid-cols-10 ">
+                <div class="grid grid-cols-10 col-span-1 place-items-center">
+                  <div class=" line-right col-span-4 w-full h-[300px] mb-[20px]"></div>
+                </div>
+                <div class="grid grid-cols-10 col-span-9 mt-[30px]">
+                  <div class="grid grid-rows-5 col-span-2">
+                    <div class="">Username</div>
+                    <div>ชื่อจริง</div>
+                    <div>นามสกุล</div>
+                    <div>Email</div>
+                    <div>เบอร์โทรศัพท์</div>
+                  </div>
+                  <div class="grid grid-rows-5 col-span-8 ">
+                    <span class="inline-block align-middle ">
+                      : &emsp;&emsp;&emsp;{user.username}
+                    </span>
+                    <div>:&emsp;&emsp;&emsp;{user.fname} </div>
+                    <div>:&emsp;&emsp;&emsp;{user.lname} </div>
+                    <div>:&emsp;&emsp;&emsp;{user.email} </div>
+                    <div>:&emsp;&emsp;&emsp;- </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid place-items-center absolute top-[228px] border-blue-700 w-full h-[140px]">
+        <img
+          src={user.avatar}
+          class="h-[140px] rounded-full"
+        ></img>
+      </div>
+            </>
+          )
+
+      }
+}
+
+export default Profile
