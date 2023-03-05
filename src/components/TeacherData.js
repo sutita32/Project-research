@@ -4,31 +4,31 @@ export const techData = [
     name: "ผศ.ดร.อัครา ประโยชน์",
     email: "akara.p@sci.kmutnb.ac.th",
     imgSrc: "http://cs.kmutnb.ac.th/img/Personnel/adp.jpg",
-    url:"/user_person/akara.p"
+    url:"/profilepage/akara.p"
   },
   {
     name: "ผศ.ดร.ลือพล พิพานเมฆาภรณ์",
     email: "luepol.p@sci.kmutnb.ac.th",
     imgSrc: "http://cs.kmutnb.ac.th/img/Personnel/tna.jpg",
-    url:"/user_person/luepol.p"
+    url:"/profilepage/luepol.p"
   },
   {
     name: "รศ.ดร.ธนภัทร์ อนุศาสน์อมรกุล",
     email: "tanapat.a@sci.kmutnb.ac.th",
     imgSrc: "http://cs.kmutnb.ac.th/img/Personnel/pls.jpg",
-    url:"/user_person/tanapat.a"
+    url:"/profilepage/tanapat.a"
   },
   {
     name: "ผศ.ดร.อัครา ประโยชน์",
     email: "akara.p@sci.kmutnb.ac.th",
     imgSrc: "http://cs.kmutnb.ac.th/img/Personnel/adp.jpg",
-    url:"/user_person/akara.p"
+    url:"/profilepage/akara.p"
   },
   {
     name: "ผศ.ดร.ลือพล พิพานเมฆาภรณ์",
     email: "luepol.p@sci.kmutnb.ac.th",
     imgSrc: "http://cs.kmutnb.ac.th/img/Personnel/tna.jpg",
-    url:"/user_person/luepol.p"
+    url:"/profilepage/luepol.p"
   },
   {
     name: "รศ.ดร.ธนภัทร์ อนุศาสน์อมรกุล",

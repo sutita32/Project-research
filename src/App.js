@@ -5,13 +5,13 @@ import Banner_search from '../src/components/Banner_search'
 import Interest from './components/Interests'
 import Contacts from './components/contacts'
 import Footer from './components/Footer'
-import Lower from './components/lower'
 import LoginUser from './components/loginUser'
 import {Routes, Route} from "react-router-dom";
 import Register from './components/Register'
 import Profile from './components/Profile'
-import Login_home from './components/login_home'
 import User_person from './components/User_person'
+import Login_Admin from './Admin/Login_Admin'
+import Edit_Amin from './Admin/Edit_Amin'
 import Form_forgotpass from './components/Form_forgotpass'
 import PrivateComponent from './components/PrivateComponent'
 import Search_searchBar from './components/Search_searchBar'
@@ -27,6 +27,7 @@ import { workData } from "./components/workData";
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from 'react-router-dom'
+import ProfilePage_Edit from './components/profilePage_Edit'
 
 
 import Swal from 'sweetalert2'
@@ -37,7 +38,7 @@ function Home_Page(props){
   return <>
     <Banner_search />
     <Interest/>
-    <Contacts sendTeacherIndex={(item) => {props.sendTeacherIndex(item)}}/>
+    <Contacts sendTeacherIndex={(item) => props.sendTeacherIndex(item)}/>
   </>
 }
 
@@ -64,6 +65,7 @@ function App() {
 const [teacherIndex, setTeacherIndex] = useState(0);
 const sendTeacherIndex = (val) =>{
   setTeacherIndex(val);
+  console.log(val)
 };
 
 //เอาไว้รับค่าว่าใครlogin
@@ -71,8 +73,6 @@ const [loginstatuss, setloginstatuss] = useState(0);
 const settloginstatuss = (val) => {
   setloginstatuss(val);
 };
-
-console.log(loginstatuss)
   return (
       <>
         <Header loginstatus={loginstatuss}/>
@@ -105,8 +105,7 @@ console.log(loginstatuss)
         />
         <Route
           path={techData[teacherIndex].url}
-          element={<User_person 
-            getid={teacherIndex}
+          element={<ProfilePage
             />}
         />
           <Route element={<PrivateComponent/>}/>
@@ -115,13 +114,14 @@ console.log(loginstatuss)
             <Route path="/register" element={<Register/>}/>
             <Route path="/james" element={<Static/>}/>
             <Route element={<PrivateComponent/>}>
-             <Route path="/profile" element={<Profile/>}/>
+             <Route path="/profile" element={<ProfilePage_Edit/>}/>
              </Route>
-             <Route path="/user_person" element={<User_person/>}/>
+             <Route path="/profilepage" element={<ProfilePage/>}/>
              <Route path="/forgot-pass" element={<Form_forgotpass/>}/>
              <Route path="/Static" element={<Static/>}/>
+             <Route path="/login_admin" element={<Login_Admin/>}/>
+             <Route path="/edit_admin" element={<Edit_Amin/>}/>
              <Route path="/profile_aj" element={<Profile_aj getid={teacherIndex}/>}/>
-
 
           </Routes>
         </div>   

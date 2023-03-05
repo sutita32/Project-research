@@ -9,10 +9,10 @@ import "../style/user_person.css";
 function User_person_data() {
   return (
     <>
-      <tr class="bg-white ">
+      <tr className="bg-white ">
         <th
           scope="row"
-          class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap "
+          className="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap "
         >
           <a href="#">
             Improvement of speech emotion recognition with neural network

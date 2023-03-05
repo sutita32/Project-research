@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+
 .head{
     text-align:center;
     font-family: 'Prompt', sans-serif;
@@ -6,5 +8,7 @@
     color: #7d0f3f;
 }
 .font-contacts{
-    font-family: 'Prompt', sans-serif;
+        font-family: 'Prompt', sans-serif;
+        font-size: 15px;
+        font-weight: 100;
 }

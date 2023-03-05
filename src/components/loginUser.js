@@ -13,23 +13,8 @@ import withReactContent from 'sweetalert2-react-content'
 
 function LoginUser(props) {
   const [loginstatus,setloginstatus] = useState("public")
-  const [focusState1, setFocusState1] =  useState("z-30 head-login-left-focus relative bottom-[-30px] left-[-2.5px]   h-[70px] w-[200px]  focus:outline-none")
-  const [focusState2, setFocusState2] =  useState("z-10 head-login-right relative bottom-[-30px] right-[-3.5px]   h-[70px] w-[200px]  focus:outline-none")
+  const [focusState2, setFocusState2] =  useState("z-10 head-login-right relative bottom-[-30px] right-[-3.5px] h-[70px] w-[400px]  focus:outline-none border-2 border-red-500")
 
-  const focusNow1 = () => {
-  setloginstatus("public")
-  setFocusState1("z-30 head-login-left-focus relative bottom-[-30px] left-[-2.5px]   h-[70px] w-[200px] focus:outline-none");
-  setFocusState2("z-10 head-login-right relative bottom-[-30px] right-[-3.5px]   h-[70px] w-[200px] focus:outline-none");  }
-
-  const focusNow2 = () => {
-  setloginstatus("private")
-  setFocusState1("z-10 head-login-left relative bottom-[-30px] left-[-2.5px]   h-[70px] w-[200px] focus:outline-none");
-  setFocusState2("z-30 head-login-right-focus relative bottom-[-30px] right-[-3.5px]   h-[70px] w-[200px] focus:outline-none");  }
-
-  const Checkk = () => {
-    console.log(focusState1);
-    console.log(focusState2);
-  }
 
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
@@ -78,18 +63,7 @@ function LoginUser(props) {
                 icon: 'success',
             }).then((value) => {
               localStorage.setItem('token',result.accessToken)
-                if (loginstatus==="public")
-                {
-                  navigate('/profile')
-                  props.loginstatus(loginstatus);
-                }
-                else if (loginstatus==="private")
-                {
-                  navigate('/profile_aj')
-                  console.log(loginstatus)
-                  props.loginstatus(loginstatus);
-                }
-                
+                  navigate('/profile')  
             })
         }else {
             MySwal.fire({
@@ -111,7 +85,7 @@ function LoginUser(props) {
         <div className="input-container">
           <label>Username </label>
           <input 
-            className='block text-sm py-3 px-4 rounded-lg w-full border outline-none' 
+            className='block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:border-black focus:ring-0' 
             type="text" 
             name="uname" 
             placeholder='username'
@@ -123,7 +97,7 @@ function LoginUser(props) {
         <div className="input-container">
           <label>Password </label>
           <input 
-            className='block text-sm py-3 px-4 rounded-lg w-full border outline-none' 
+            className='block text-sm py-3 px-4 rounded-[10px] w-full border outline-none focus:border-black focus:ring-0' 
             type="password" 
             name="pass" 
             placeholder='password'
@@ -169,16 +143,9 @@ function LoginUser(props) {
   <>
     <div class="h-[30px] w-full bg-regal-red"></div>
     <div className="form-2">
-      <ui class="slect">
-        <button onClick={focusNow1} class={focusState1}>
-          <a class='btn-1 '>สำหรับบุคคลทั่วไป</a>
-        </button>
-        <button onClick={focusNow2} class={focusState2}>
-          <a class='btn-1 '>สำหรับอาจารย์</a>
-        </button>
-      </ui>
       <div className="z-20 login-form">
-        <div onClick={Checkk} className="title">LOGIN</div>
+        <div class="text-center mb-[3rem] mt-[2rem] text-[18px]">สำหรับภาควิชาการคอมพิวเตอร์</div>
+        <div  className="title"><a href='/login_admin'>LOGIN</a></div>
         { renderForm}
       </div>
     </div>

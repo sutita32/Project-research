@@ -30,7 +30,7 @@ function Search() {
                 <input
                   type="text"
                   id="simple-search"
-                  class="h-14 bg-gray-200 text-gray-800 text-sm rounded-full font-medium  block w-full pl-10 p-2.5 "
+                  class="h-14 bg-gray-200 text-gray-800 text-sm rounded-[9999px] font-medium  block w-full pl-10 p-2.5 focus:border-black focus:ring-0"
                   placeholder="พิมพ์คำที่ต้องการจะค้นหาที่นี่.."
                   required
                 />

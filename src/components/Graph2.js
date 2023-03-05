@@ -1,40 +1,49 @@
-import React from 'react'
-import { Doughnut } from "react-chartjs-2";
-import { UserData_AJ } from './Graph_aj';
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import { UserData_AJ } from "./Graph_aj";
+import { UserData } from "./Garph_stat";
+import { typePerYearAll } from "./Graph_Type";
+import { personPerYearAll } from "./Graph_Person";
+import "chart.js/auto";
 
-const data = {
-    labels: UserData_AJ.map((item)=>item.name),
-    datasets: [{
-      label: 'จำนวนงานวิจัย',
-      data: UserData_AJ.map((item)=>item.data_num),
-      backgroundColor: UserData_AJ.map((item)=>item.color),
-      hoverOffset: 20
-    }]
+function Graph1({ typesNow, yearNow }) {
+  var dataShow;
+  if (typesNow === "จำแนกตามประเภท") {
+    dataShow = typePerYearAll[2565 - yearNow];
+  } else if (typesNow === "จำแนกตามผู้วิจัย") {
+    dataShow = personPerYearAll[2565 - yearNow];
+  }
+  const data = {
+    labels: dataShow.map((item) => item.name),
+    datasets: [
+      {
+        label: "",
+        data: dataShow.map((item) => item.data_num),
+        backgroundColor: dataShow.map((item) => item.color),
+        hoverOffset: 20,
+      },
+    ],
   };
 
-const options = {
-        plugins: {
-            legend: {
-                display:false,
-                position:'bottom',
-                labels:{
-                    boxWidth:20,
-                    boxHeight:10
-                }
-            }
-        },
-        layout:{
-            padding:20
-        }
-    
-}
-
-function Graph1() {
+  const options = {
+    plugins: {
+      legend: {
+        display: false,
+        position: "bottom",
+      },
+      labels: {
+        display: false,
+      },
+    },
+    layout: {
+      padding: 20,
+    },
+  };
   return (
     <>
-    <Doughnut data={data} options={options}></Doughnut>
+      <Bar data={data} options={options}></Bar>
     </>
-  )
+  );
 }
 
-export default Graph1
+export default Graph1;
