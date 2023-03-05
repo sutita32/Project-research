@@ -60,51 +60,51 @@ function Profile() {
             <div><img src={user.avatar} width={100}/></div> */}
             {/* <div><button onClick={logout}>LOGOUT</button></div> */}
 
-            <div class="grid grid-rows-6 min-h-[700px] w-full">
-        <div class="row-span-2 w-full">
-          <div id="back-bg-top" class="h-full w-full"></div>
+            <div className="grid grid-rows-6 min-h-[700px] w-full">
+        <div className="row-span-2 w-full">
+          <div id="back-bg-top" className="h-full w-full"></div>
         </div>
-        <div class="row-span-4 w-full ">
-          <div class="bg-regal-red w-full h-full bg-opacity-90"></div>
+        <div className="row-span-4 w-full ">
+          <div className="bg-regal-red w-full h-full bg-opacity-90"></div>
         </div>
       </div>
-      <div class="grid place-items-center absolute w-full h-[500px] top-[300px] mb-[50px]">
-        <div class="grid grid-rows-6 rounded-[20px] w-10/12 h-full bg-[#EFEFEF] p-[11px]">
-          <div class="w-full h-full row-span-1"></div>
-          <div class="grid grid-cols-10 gap-[8px] w-full h-[410px] row-span-5">
-            <div class="grid grid-rows-10 col-span-3 gap-[8px] h-[410px] w-full">
-              <div class="box-in-profile row-span-6 py-[14px] px-[15px] overflow-y-scroll h-full w-full">
+      <div className="grid place-items-center absolute w-full h-[500px] top-[300px] mb-[50px]">
+        <div className="grid grid-rows-6 rounded-[20px] w-10/12 h-full bg-[#EFEFEF] p-[11px]">
+          <div className="w-full h-full row-span-1"></div>
+          <div className="grid grid-cols-10 gap-[8px] w-full h-[410px] row-span-5">
+            <div className="grid grid-rows-10 col-span-3 gap-[8px] h-[410px] w-full">
+              <div className="box-in-profile row-span-6 py-[14px] px-[15px] overflow-y-scroll h-full w-full">
                 {ShowInterestBlock}
               </div>
-              <div class="grid grid-rows-2 place-items-center box-in-profile row-span-4 w-full h-full">
-                <div class="relative top-[17px]">
-                  <button class="grid place-items-center grid-rows-1 w-[200px] h-[40px] hover:bg-regal-red hover:text-white rounded-more">
-                    <div class="flex">
-                      <div class="grid place-items-center h-[23px] w-[23px]">
-                        <FaUserEdit class="h-full w-full mr-[5px]" />
+              <div className="grid grid-rows-2 place-items-center box-in-profile row-span-4 w-full h-full">
+                <div className="relative top-[17px]">
+                  <button className="grid place-items-center grid-rows-1 w-[200px] h-[40px] hover:bg-regal-red hover:text-white rounded-more">
+                    <div className="flex">
+                      <div className="grid place-items-center h-[23px] w-[23px]">
+                        <FaUserEdit className="h-full w-full mr-[5px]" />
                       </div>
-                      <div class="grid place-content-center"> แก้ไขโปรไฟล์</div>
+                      <div className="grid place-content-center"> แก้ไขโปรไฟล์</div>
                     </div>
                   </button>
                 </div>
-                <div class="relative bottom-[17px]">
+                <div className="relative bottom-[17px]">
                 <NavLink to="/forgot-pass">
-                  <button class="grid place-items-center grid-rows-1 w-[200px] h-[40px] hover:bg-regal-red hover:text-white rounded-more">
-                    <div class="flex">
-                      <div class="grid place-items-center h-[25px] w-[25px]">
-                        <BiEdit class="h-full w-full mr-[5px]" />
+                  <button className="grid place-items-center grid-rows-1 w-[200px] h-[40px] hover:bg-regal-red hover:text-white rounded-more">
+                    <div className="flex">
+                      <div className="grid place-items-center h-[25px] w-[25px]">
+                        <BiEdit className="h-full w-full mr-[5px]" />
                       </div>
-                      <div class="grid place-content-center">แก้ไขรหัสผ่าน</div>
+                      <div className="grid place-content-center">แก้ไขรหัสผ่าน</div>
                     </div>
                   </button>
                 </NavLink>
                 </div>
               </div>
             </div>
-            <div class="box-in-profile col-span-7 p-[15px]">
-              <div class="flex">
+            <div className="box-in-profile col-span-7 p-[15px]">
+              <div className="flex">
                 <svg
-                  class="h-5"
+                  className="h-5"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -119,20 +119,20 @@ function Profile() {
                 </svg>
                 <div> About</div>
               </div>
-              <div class=" h-full w-full grid grid-cols-10 ">
-                <div class="grid grid-cols-10 col-span-1 place-items-center">
-                  <div class=" line-right col-span-4 w-full h-[300px] mb-[20px]"></div>
+              <div className=" h-full w-full grid grid-cols-10 ">
+                <div className="grid grid-cols-10 col-span-1 place-items-center">
+                  <div className=" line-right col-span-4 w-full h-[300px] mb-[20px]"></div>
                 </div>
-                <div class="grid grid-cols-10 col-span-9 mt-[30px]">
-                  <div class="grid grid-rows-5 col-span-2">
-                    <div class="">Username</div>
+                <div className="grid grid-cols-10 col-span-9 mt-[30px]">
+                  <div className="grid grid-rows-5 col-span-2">
+                    <div className="">Username</div>
                     <div>ชื่อจริง</div>
                     <div>นามสกุล</div>
                     <div>Email</div>
                     <div>เบอร์โทรศัพท์</div>
                   </div>
-                  <div class="grid grid-rows-5 col-span-8 ">
-                    <span class="inline-block align-middle ">
+                  <div className="grid grid-rows-5 col-span-8 ">
+                    <span className="inline-block align-middle ">
                       : &emsp;&emsp;&emsp;{user.username}
                     </span>
                     <div>:&emsp;&emsp;&emsp;{user.first_name} </div>
@@ -146,10 +146,15 @@ function Profile() {
           </div>
         </div>
       </div>
-      <div class="grid place-items-center absolute top-[228px] border-blue-700 w-full h-[140px]">
+      <div className="grid place-items-center absolute top-[228px] border-blue-700 w-full h-[140px]">
         <img
+<<<<<<< HEAD
           // src={user.avatar}
           class="h-[140px] rounded-full"
+=======
+          src={user.avatar}
+          className="h-[140px] rounded-full"
+>>>>>>> 5afb1639f6f42836f715475786aa4e0db4f6f127
         ></img>
       </div>
             </>

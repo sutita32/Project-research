@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable jsx-a11y/no-redundant-roles */
@@ -27,133 +26,355 @@ function Contacts(props) {
   function SetData(props) {
     return (
       <>
-        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center m-[10px]">
-          <div class="grid place-items-end col-span-3 ">
-            <img
-              class="h-[80px] rounded-full"
-              src={techData[currentIndex + 0].imgSrc}
-            ></img>
+        <div class="grid grid-rows-4 divide-y place-content-center">
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px]">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 0].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="h-auto w-auto text-start">
+                <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 0)} to={techData[currentIndex + 0].url}>{techData[currentIndex + 0].name}</NavLink>
+                
+              </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 0].email}
+              </div>
+            </div>
           </div>
-          <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3">
-              <NavLink to={techData[currentIndex + 0].url} onClick={()=>props.sendTeacherIndex(currentIndex + 0)}>
-                {techData[currentIndex + 0].name}
-                </NavLink>
-                </div>
-            <div>{techData[currentIndex + 0].email}</div>
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 1].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="h-auto w-auto text-start">
+              <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 1)} to={techData[currentIndex + 1].url}>{techData[currentIndex + 1].name}</NavLink>
+              </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 1].email}
+              </div>
+            </div>
+          </div>
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 2].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="h-auto w-auto text-start">
+              <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 2)} to={techData[currentIndex + 2].url}>{techData[currentIndex + 2].name}</NavLink>
+               </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 2].email}
+              </div>
+            </div>
+          </div>
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 3].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="h-auto w-auto text-start">
+              <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 3)} to={techData[currentIndex + 3].url}>{techData[currentIndex + 3].name}</NavLink>
+              </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 3].email}
+              </div>
+            </div>
           </div>
         </div>
-        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
+        <div class="grid grid-rows-4 divide-y place-content-center">
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] my-[10px] ">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 4].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="h-auto w-auto text-start">
+              <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 4)} to={techData[currentIndex + 4].url}>{techData[currentIndex + 4].name}</NavLink>
+              </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 4].email}
+              </div>
+            </div>
+          </div>
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] my-[10px] ">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 5].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="h-auto w-auto text-start">
+              <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 5)} to={techData[currentIndex + 5].url}>{techData[currentIndex + 5].name}</NavLink>
+              </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 5].email}
+              </div>
+            </div>
+          </div>
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] my-[10px] ">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 6].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="h-auto w-auto text-start">
+              <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 6)} to={techData[currentIndex + 6].url}>{techData[currentIndex + 6].name}</NavLink>
+              </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 6].email}
+              </div>
+            </div>
+          </div>
+          <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] my-[10px] ">
+            <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+              <img
+                alt=""
+                class=""
+                src={techData[currentIndex + 7].imgSrc}
+              ></img>
+            </div>
+            <div class="col-span-7 place-items-start h-full w-full pt-[15px] ">
+              <div class="h-auto w-auto text-start">
+              <NavLink onClick={()=>props.sendTeacherIndex(currentIndex + 7)} to={techData[currentIndex + 7].url}>{techData[currentIndex + 7].name}</NavLink>
+              </div>
+              <div class="h-auto w-auto text-start">
+                {techData[currentIndex + 7].email}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 0].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 0].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 0].email}
+            </div>
+          </div>
+        </div>
+        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 1].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 1].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 1].email}
+            </div>
+          </div>
+        </div>
+        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 2].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 2].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 2].email}
+            </div>
+          </div>
+        </div>
+        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 3].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 3].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 3].email}
+            </div>
+          </div>
+        </div> */}
+
+        {/* <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 4].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 4].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 4].email}
+            </div>
+          </div>
+        </div>
+        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 5].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 5].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 5].email}
+            </div>
+          </div>
+        </div>
+        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 6].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 6].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 6].email}
+            </div>
+          </div>
+        </div>
+        <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] ">
+          <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
+            <img alt="" class="" src={techData[currentIndex + 7].imgSrc}></img>
+          </div>
+          <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 7].name}
+            </div>
+            <div class="h-auto w-auto text-start">
+              {techData[currentIndex + 7].email}
+            </div>
+          </div>
+        </div> */}
+        {/* <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
           <div class="grid place-items-end col-span-3 ">
             <img
+              alt=""
               class="h-[80px] rounded-full"
               src={techData[currentIndex + 1].imgSrc}
             ></img>
           </div>
           <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3"><NavLink to={techData[currentIndex + 1].url} onClick={()=>props.sendTeacherIndex(currentIndex + 1)}>
-                {techData[currentIndex + 1].name}
-                </NavLink></div>
+            <div class="pt-3">{techData[currentIndex + 1].name}</div>
             <div>{techData[currentIndex + 1].email}</div>
           </div>
         </div>
         <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
           <div class="grid place-items-end col-span-3 ">
             <img
+              alt=""
               class="h-[80px] rounded-full"
               src={techData[currentIndex + 2].imgSrc}
             ></img>
           </div>
           <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3"><NavLink to={techData[currentIndex + 2].url} onClick={()=>props.sendTeacherIndex(currentIndex + 2)}>
-                {techData[currentIndex + 2].name}
-                </NavLink></div>
+            <div class="pt-3">{techData[currentIndex + 2].name}</div>
             <div>{techData[currentIndex + 2].email}</div>
           </div>
         </div>
         <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
           <div class="grid place-items-end col-span-3 ">
             <img
+              alt=""
               class="h-[80px] rounded-full"
               src={techData[currentIndex + 3].imgSrc}
             ></img>
           </div>
           <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3"><NavLink to={techData[currentIndex + 3].url} onClick={()=>props.sendTeacherIndex(currentIndex + 3)}>
-                {techData[currentIndex + 3].name}
-                </NavLink></div>
+            <div class="pt-3">{techData[currentIndex + 3].name}</div>
             <div>{techData[currentIndex + 3].email}</div>
           </div>
         </div>
         <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
           <div class="grid place-items-end col-span-3 ">
             <img
+              alt=""
               class="h-[80px] rounded-full"
               src={techData[currentIndex + 4].imgSrc}
             ></img>
           </div>
           <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3"><NavLink to={techData[currentIndex + 4].url} onClick={()=>props.sendTeacherIndex(currentIndex + 4)}>
-                {techData[currentIndex + 4].name}
-                </NavLink></div>
+            <div class="pt-3">{techData[currentIndex + 4].name}</div>
             <div>{techData[currentIndex + 4].email}</div>
           </div>
         </div>
         <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
           <div class="grid place-items-end col-span-3 ">
             <img
+              alt=""
               class="h-[80px] rounded-full"
               src={techData[currentIndex + 5].imgSrc}
             ></img>
           </div>
           <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3"><NavLink to={techData[currentIndex + 5].url} onClick={()=>props.sendTeacherIndex(currentIndex + 5)}>
-                {techData[currentIndex + 5].name}
-                </NavLink></div>
+            <div class="pt-3">{techData[currentIndex + 5].name}</div>
             <div>{techData[currentIndex + 5].email}</div>
           </div>
         </div>
         <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
           <div class="grid place-items-end col-span-3 ">
             <img
+              alt=""
               class="h-[80px] rounded-full"
               src={techData[currentIndex + 6].imgSrc}
             ></img>
           </div>
           <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3"><NavLink to={techData[currentIndex + 6].url} onClick={()=>props.sendTeacherIndex(currentIndex + 6)}>
-                {techData[currentIndex + 6].name}
-                </NavLink></div>
+            <div class="pt-3">{techData[currentIndex + 6].name}</div>
             <div>{techData[currentIndex + 6].email}</div>
           </div>
         </div>
         <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] place-self-center">
           <div class="grid place-items-end col-span-3 ">
             <img
+              alt=""
               class="h-[80px] rounded-full"
               src={techData[currentIndex + 7].imgSrc}
             ></img>
           </div>
           <div class="grid grid-rows-2 col-span-7">
-            <div class="pt-3"><NavLink to={techData[currentIndex + 7].url} onClick={()=>props.sendTeacherIndex(currentIndex + 7)}>
-                {techData[currentIndex + 7].name}
-                </NavLink></div>
+            <div class="pt-3">{techData[currentIndex + 7].name}</div>
             <div>{techData[currentIndex + 7].email}</div>
           </div>
-        </div>
+        </div> */}
       </>
     );
   }
-
   return (
     <>
       <div className="head">
         Persons (Dept. of Computer Science Faculty of Science)
       </div>
       <div class="grid">
-        <div class="place-self-center h-[400px] w-10/12">
-          <div class="grid max-w grid-cols-2 grid-rows-4 mx-auto text-center">
-            <SetData class="transition ease-in-out delay-150" sendTeacherIndex={(item)=>{props.sendTeacherIndex(item)}}/>
+        <div class="place-self-center h-[400px] w-full">
+          <div class="grid w-[1400px] grid-cols-2 mx-auto text-center divide-x">
+            <SetData sendTeacherIndex={(item)=>props.sendTeacherIndex(item)}/>
           </div>
         </div>
       </div>

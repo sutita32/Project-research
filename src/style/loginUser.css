@@ -49,10 +49,11 @@
   
   .login-form {
     background-color: #ffffff;
-    padding: 5rem;
-    /* border-radius: 20px; */
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    padding-bottom: 5rem;
+    padding-left:5rem ;
+    padding-right: 5rem;
+
+    border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   .head-login-left{

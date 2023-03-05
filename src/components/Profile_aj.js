@@ -116,49 +116,49 @@ function Profile_aj() {
 
         return (
             <div>
-                <div class="h-[30px] w-full bg-regal-red"></div>
-                <div class="p-16">
-                    <div class="relative p-8 bg-white shadow mt-24">
-                        <div class="grid grid-cols-1 md:grid-cols-3">
-                            <div class="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0"></div>
-                            <div class="relative ">
-                                <div class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center">
+                <div className="h-[30px] w-full bg-regal-red"></div>
+                <div className="p-16">
+                    <div className="relative p-8 bg-white shadow mt-24">
+                        <div className="grid grid-cols-1 md:grid-cols-3">
+                            <div className="grid grid-cols-3 text-center order-last md:order-first mt-20 md:mt-0"></div>
+                            <div className="relative ">
+                                <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center">
                                     <img
-                                        class="h-full w-full rounded-full "
+                                        className="h-full w-full rounded-full "
                                         src={user.avatar}
                                         alt=""
                                     />
                                 </div>
                             </div>
 
-                            <div class="space-x-8 md:mt-0 "></div>
+                            <div className="space-x-8 md:mt-0 "></div>
                         </div>
 
-                        <div class="mt-20 m-1 text-center border-b pb-12 ">
-                            <h1 class="text-xl font-medium text-gray-700 mt-[150px]">
+                        <div className="mt-20 m-1 text-center border-b pb-12 ">
+                            <h1 className="text-xl font-medium text-gray-700 mt-[150px]">
                                 {user.fname} {user.lname}
                             </h1>
-                            <p class="font-light text-gray-600 mt-3">
+                            <p className="font-light text-gray-600 mt-3">
                                 ชื่อภาษาอังกฤษ
                             </p>
 
-                            <p class="mt-8 text-gray-700 font-semibold">วุฒิการศึกษา</p>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-8 text-gray-700 font-semibold">วุฒิการศึกษา</p>
+                            <p className="mt-2 text-gray-500">
                                 ปริญญาโท วท.ม. (วิศวกรรมซอฟต์แวร์) จุฬาลงกรณ์มหาวิทยาลัย{" "}
                             </p>
-                            <p class="mt-2 text-gray-500">
+                            <p className="mt-2 text-gray-500">
                                 ปริญปริญาตรี วท.บ. (วิทยาการคอมพิวเตอร์) มหาวิทยาลัยขอนแก่น
                             </p>
-                            <p class="grid place-content-center mt-[10px]">
-                                <div class="flex h-[30px] w-auto">
-                                    <HiOutlineMail class="mr-[10px] h-full w-[30px] text-regal-red" />
+                            <p className="grid place-content-center mt-[10px]">
+                                <div className="flex h-[30px] w-auto">
+                                    <HiOutlineMail className="mr-[10px] h-full w-[30px] text-regal-red" />
                                     {user.email}
                                 </div>
                             </p>
                         </div>
 
-                        <div class="mt-20 m-1 text-left border-b pb-12">
-                            <label class="text-gray-800 text-left font-bold lg:px-16">
+                        <div className="mt-20 m-1 text-left border-b pb-12">
+                            <label className="text-gray-800 text-left font-bold lg:px-16">
                                 Interest
                             </label>
                             <ul className="toppics">
@@ -168,11 +168,11 @@ function Profile_aj() {
                                 <li className="toppics_li">{database[3].username}</li>
                             </ul>
                         </div>
-                        <div class="flex ">
-                            <button onClick={clickScholar} class={scholarBtn} autoFocus="true">
+                        <div className="flex ">
+                            <button onClick={clickScholar} className={scholarBtn} autoFocus="true">
                                 Scholar
                             </button>
-                            <button onClick={clickScopus} class={scopusBtn}>
+                            <button onClick={clickScopus} className={scopusBtn}>
                                 Scopus
                             </button>
                             </div>
@@ -182,7 +182,7 @@ function Profile_aj() {
                             fill="none" viewBox="0 0 24 24" 
                             stroke-width="1.5" 
                             stroke="currentColor" 
-                            class="w-6 h-6">
+                            className="w-6 h-6">
                         <path 
                             stroke-linecap="round" 
                             stroke-linejoin="round" 
@@ -196,21 +196,21 @@ function Profile_aj() {
 
 
 
-                            <div class="mt-[13px] flex flex-col justify-center">
-                                <table class="w-full text-sm text-left text-gray-800">
-                                    <thead class="text-xs text-white uppercase bg-regal-red ">
+                            <div className="mt-[13px] flex flex-col justify-center">
+                                <table className="w-full text-sm text-left text-gray-800">
+                                    <thead className="text-xs text-white uppercase bg-regal-red ">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 rounded-l-lg font-medium">
+                                            <th scope="col" className="px-6 py-3 rounded-l-lg font-medium">
                                                 Product name
                                             </th>
-                                            <th scope="col" class=" px-6 py-3 font-medium">
+                                            <th scope="col" className=" px-6 py-3 font-medium">
                                                 YEAR
                                             </th>
-                                            <th scope="col" class=" px-6 py-3 font-medium">
+                                            <th scope="col" className=" px-6 py-3 font-medium">
                                                 CITED BY
                                             </th>
-                                            <th scope="col" class="px-6 py-3 font-medium"></th>
-                                            <th scope="col" class="px-3 py-3 rounded-r-lg font-medium"></th>
+                                            <th scope="col" className="px-6 py-3 font-medium"></th>
+                                            <th scope="col" className="px-3 py-3 rounded-r-lg font-medium"></th>
                                         </tr>
                                     </thead>
                                     <tbody>{dataTable}</tbody>
