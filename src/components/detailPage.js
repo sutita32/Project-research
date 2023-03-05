@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/alt-text */
-import React from "react";
+import React , { useEffect, useState }from "react";
 import { workData } from "./workData";
 import "../style/detailPage.css";
 import LineChart from "./LineChart";
@@ -28,8 +29,9 @@ function SetBackButton({ index }) {
     </>
   );
 }
-
-function detailPage({ getid }) {
+ 
+function detailPage({ getid ,data}) {
+  console.log("getID=>",getid)
   return (
     <>
       <div class="bg-regal-red w-full h-10"></div>
@@ -45,29 +47,32 @@ function detailPage({ getid }) {
               </div>
             </div>
             <div class="col-span-7 px-4 text-regal-red-text">
-              <p class="topic-text mb-4">{workData[getid - 1].topic}</p>
+              <p class="topic-text mb-4">{data[getid].name_research}</p>
               <div class="detail-text grid grid-rows-7">
                 <div class="grid grid-cols-8">
                   <div class="col-span-2">ผู้วิจัย</div>
-                  <div class="col-span-6">: {workData[getid - 1].userName}</div>
+                  {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
+                  <div class="col-span-6">: {data[getid].title_name+data[getid].firstname_professor+" "+data[getid].lastname_professor}</div>
                 </div>
                 <div class="grid grid-cols-8">
                   <div class="col-span-2">วันที่เผยแพร่</div>
-                  <div class="col-span-6">: {workData[getid - 1].date}</div>
+                  {/* <div class="col-span-6">: {workData[getid - 1].date}</div> */}
+                  <div class="col-span-6">: {new Date(data[getid].Publication_date).toLocaleDateString('en-US') }</div>
                 </div>
                 <div class="grid grid-cols-8">
                   <div class="col-span-2">conference</div>
-                  <div class="col-span-6">: {workData[getid - 1].id}</div>
+                  {/* <div class="col-span-6">: {workData[getid - 1].id}</div> */}
+                  <div class="col-span-6">: {data[getid].conference}</div>
                 </div>
                 <div class="grid grid-cols-8">
-                  <div class="col-span-2">punlisher iee</div>
-                  <div class="col-span-6">: {workData[getid - 1].userName}</div>
+                  {/* <div class="col-span-2">punlisher iee</div> */}
+                  {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
+                  <div class="col-span-6">: {data[getid].title_name+data[getid].firstname_professor+" "+data[getid].lastname_professor}</div>
                 </div>
                 <div class="grid grid-cols-8">
                   <div class="col-span-2">รายละเอียด</div>
                   <div class="col-span-6 ">
-                    : 88888888888888888888888888 8888888888888888888888
-                    8888888888888888888888 888888 88888888 888888888888888
+                    : {data[getid].Description}
                   </div>
                 </div>
                 <div class="grid grid-cols-8">
@@ -78,7 +83,8 @@ function detailPage({ getid }) {
                 </div>
                 <div class="grid grid-cols-8">
                   <div class="col-span-2">ลิงก์</div>
-                  <div class="col-span-6">: {workData[getid - 1].userName}</div>
+                  {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
+                  <div class="col-span-6">: {data[getid].title_name+data[getid].firstname_professor+" "+data[getid].lastname_professor}</div>
                 </div>
               </div>
             </div>

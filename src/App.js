@@ -32,6 +32,10 @@ import { Link, NavLink } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
+
+////
+let Searchdata = 0;
+
 function Home_Page(props){
 
   return <>
@@ -40,18 +44,37 @@ function Home_Page(props){
     <Contacts sendTeacherIndex={(item) => {props.sendTeacherIndex(item)}}/>
   </>
 }
-
+  
 /*ฟังก์ชันเอาหน้ามาต่อกัน */
-function SearchPage({ data1, sendWorkIndex }) {
+function SearchPage({ data1, sendWorkIndex ,sendsearch}) {
+  const [searchdata, setsearchdata] = useState([]);
+  const [searchdatafilter, setsearchdatafilter] = useState(null);
+  const settsearchdata = (val)=>{
+    // console.log('dawdwadawd55555',val)
+    
+    setsearchdata(val)
+  }
+  const settsearchdatafilter = (val)=>{
+    // console.log('dawdwadawd5555555555555555',val)
+    
+    // setsearchdata(temp)
+    setsearchdatafilter({data:val , keyword :searchdata.keyword})
+  }
+  sendsearch(searchdata)
   return (
     <>
-      <Search_searchBar />
-      <Search_body data1={data1} sendWorkIndex={sendWorkIndex} />
-      <Search_bottom page_now={data1} />
+      <Search_searchBar searchdata={(item)=>{settsearchdata(item)}}/>
+      <Search_body 
+        searchdata={searchdata} 
+        data1={data1} 
+        sendWorkIndex={sendWorkIndex}
+        setsearchdata = {(item)=> settsearchdatafilter(item)}
+        />
+      <Search_bottom page_now={data1} searchdata={searchdatafilter ? searchdatafilter : searchdata}  />
     </>
   );
 }
-
+const resultsearchpage =[];
 function App() {
   
   //เอาไว้รับค่าตอนกดเข้างานวิจัย
@@ -72,7 +95,20 @@ const settloginstatuss = (val) => {
   setloginstatuss(val);
 };
 
-console.log(loginstatuss)
+const [workData, setworkData] = useState(null);
+  const sendworkData = (val) => {
+    setworkData(val);
+  };
+
+  for(let i =1 ;i< 100 ;i++){
+    resultsearchpage.push(
+      <Route
+          path={"/search/"+i.toString()}
+          element={<SearchPage data1={i.toString()} sendWorkIndex={sendWorkIndex} sendsearch={sendworkData} />}
+        />
+      
+    )
+  }
   return (
       <>
         <Header loginstatus={loginstatuss}/>
@@ -81,10 +117,10 @@ console.log(loginstatuss)
           <Routes> 
 
           <Route
-          path="/search"
-          element={<SearchPage data1="1" sendWorkIndex='1' />}
+          path="/search/"
+          element={<SearchPage data1="1" sendWorkIndex={sendWorkIndex}   sendsearch={sendworkData}/>}
         />
-          <Route
+          {/* <Route
           path="/search/1"
           element={<SearchPage data1="1" sendWorkIndex={sendWorkIndex} />}
         />
@@ -93,16 +129,18 @@ console.log(loginstatuss)
           path="/search/2"
           element={<SearchPage data1="2" sendWorkIndex={sendWorkIndex} />}
         />
-        ;
+        ; */}
+        { resultsearchpage }
+        
+    
         <Route
-          path="/search/3"
-          element={<SearchPage data1="3" sendWorkIndex={sendWorkIndex} />}
+          // path={workIndex ? `/${workData.data[workIndex].name_research}/`: '/'}
+          path='search/detail'
+          element={<DetailPage getid={workIndex ? workIndex: -1} data={workIndex ? workData.data: []}/>}
         />
-        ;
-        <Route
-          path={workData[workIndex].url}
-          element={<DetailPage getid={workData[workIndex].id} />}
-        />
+       
+      
+        
         <Route
           path={techData[teacherIndex].url}
           element={<User_person 

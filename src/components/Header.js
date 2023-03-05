@@ -50,7 +50,7 @@ function Header({loginstatus}) {
                                         <Link to="/Static" className={getNavClass}>สถิติ</Link>
                                     </li>
                                     <li className="menu-link" >
-                                        <Link to={loginstatus==="public" ? "/profile" : "/profile_aj"} className={getNavClass}>โปรไฟล์</Link>
+                                        <Link to={loginstatus === "public" ? "/profile" : "/profile_aj"} className={getNavClass}>โปรไฟล์</Link>
                                     </li>
                                     <li className="menu-link" >
                                         <Link onClick={logouts} to="/login" >ออกจากระบบ</Link>
