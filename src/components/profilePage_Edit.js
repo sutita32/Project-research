@@ -11,7 +11,7 @@ import { useState } from "react";
 import ProfilePageInterest from "./profilePage_Interest";
 import { HiOutlineMail } from "react-icons/hi";
 import Scholar from "./scholar_Edit";
-import Scopus from "./scopus _Edit";
+import Scopus from "./scopus_Edit";
 import { FiEdit2 } from "react-icons/fi";
 import { Button, Modal, Upload, Space, Tag, Select, DatePicker  } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -20,6 +20,8 @@ import { techData } from "./TeacherData_set";
 import {IoMdAdd} from 'react-icons/io'
 import {BiEditAlt} from "react-icons/bi"
 import {RiDeleteBin6Line} from "react-icons/ri"
+import { Bar } from "react-chartjs-2";
+
 import { NavLink, useNavigate } from "react-router-dom";
 const log = (e) => {
   console.log(e);
@@ -374,6 +376,37 @@ function ProfilePage_Edit() {
   // const word = workData[0].userName.split(" ");
   if( isLoading) return ( <>Loading.......</>)
   else return (
+  const word = workData[0].userName.split(" ");
+
+  function Graph() {
+    const data = {
+      labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      datasets: [
+        {
+          label: "My First Dataset",
+          data: [65, 59, 80, 81, 56, 55, 40, 20],
+          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+          borderColor: ["rgba(255, 99, 132, 0.2)"],
+          borderWidth: 1,
+        },
+      ],
+    };
+    const options = {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      responsive: true,
+    };
+    return (
+      <>
+        <Bar data={data} options={options}></Bar>
+      </>
+    );
+  }
+
+  return (
     <div className="relative">
       <div class="z-[-1] absolute grid grid-rows-6 h-full w-full">
         <div class="row-span-2 w-full">
@@ -600,6 +633,12 @@ function ProfilePage_Edit() {
                   <HiOutlineMail className="mr-[10px] h-full w-[30px] text-regal-red" />
                   {email}
                 </div>
+                
+              </div>
+            </div>
+            <div className="grid place-items-center w-full h-fit">
+              <div class="h-[260px] w-[1000px] grid place-items-center">
+                <Graph />
               </div>
             </div>
             <div className="grid place-items-center w-full h-[10px]">
@@ -612,18 +651,20 @@ function ProfilePage_Edit() {
                 </div>
               </div>
             </div>
-            <div className="flex w-full h-[100px]">
-              <div className="w-[160px] h-[30px] "></div>
-              {
+            <div className="flex w-full h-fit">
+              <div className="w-[140px] h-full "></div>
+              <div className="w-full h-fit flex flex-wrap">
+                {
               dataskill.map((item) => (
-                <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
-                  {item.name_coreskill}
-                </div>
-              ))
+                  <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
+                    {item.name_coreskill}
+                  </div>
+                ))
               }
+              </div>
             </div>
             <div className="grid place-items-center w-full h-[10px]">
-              <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300"></div>
+              <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300 mt-[15px]"></div>
             </div>
             <div className="relative flex mt-[20px] ml-[30px]">
               <button onClick={clickScholar} className={scholarBtn}>

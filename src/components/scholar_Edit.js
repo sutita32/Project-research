@@ -9,6 +9,8 @@ import { BiEdit } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
+import { useEffect } from "react";
 
 function Scholar({getdata}) {
   console.log("getdata=>",getdata)
@@ -112,11 +114,8 @@ function Scholar({getdata}) {
    ))} 
     </>
   );
-  return (
-    <>
-      {renderTable}
-    </>
-  );
+
+  return <>{renderTable}</>;
 }
 
 export default Scholar;
