@@ -11,7 +11,7 @@ import { useState } from "react";
 import ProfilePageInterest from "./profilePage_Interest";
 import { HiOutlineMail } from "react-icons/hi";
 import Scholar from "./scholar_Edit";
-import Scopus from "./scopus _Edit";
+import Scopus from "./scopus_Edit";
 import { FiEdit2 } from "react-icons/fi";
 import { Button, Modal, Upload, Space, Tag, Select, DatePicker  } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -527,16 +527,18 @@ const [isModal2Open, setIsModal2Open] = useState(false);
                 </div>
               </div>
             </div>
-            <div className="flex w-full h-[100px]">
-              <div className="w-[160px] h-[30px] "></div>
-              {interest.map((item) => (
-                <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
-                  {item}
-                </div>
-              ))}
+            <div className="flex w-full h-fit">
+              <div className="w-[140px] h-full "></div>
+              <div className="w-full h-fit flex flex-wrap">
+                {interest.map((item) => (
+                  <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="grid place-items-center w-full h-[10px]">
-              <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300"></div>
+              <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300 mt-[15px]"></div>
             </div>
             <div className="relative flex mt-[20px] ml-[30px]">
               <button onClick={clickScholar} className={scholarBtn}>
