@@ -1,1 +1,1 @@
-export const types = [{ name: "จำแนกตามประเภท" }, { name: "จำแนกตามผู้วิจัย" }];
+export const types = [{ name: "จำแนกทั้งหมด" }, { name: "จำแนกตาม Scholar" },{ name: "จำแนกตาม Scopus" }];

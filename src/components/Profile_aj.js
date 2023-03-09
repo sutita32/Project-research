@@ -26,32 +26,41 @@ function Profile_aj() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
+        console.log(token)
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + token);
+        if(localStorage.getItem('user')){
+            setUser(JSON.parse(localStorage.getItem('user')));
+            setIsLoaded(false)
+        }
+        if(! token){
+            localStorage.clear();
+            navigate('/login')
+        }
+        
+        // var requestOptions = {
+        //     method: 'GET',
+        //     headers: myHeaders,
+        //     redirect: 'follow'
+        // };
 
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch("https://www.melivecode.com/api/auth/user", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if (result.status === 'ok') {
-                    setUser(result.user)
-                    setIsLoaded(false)
-                } else if (result.status === 'forbidden') {
-                    MySwal.fire({
-                        html: <i>{result.message}</i>,
-                        icon: 'error'
-                    }).then((value) => {
-                        navigate('/login')
-                    })
-                }
-                console.log(result)
-            })
-            .catch(error => console.log('error', error));
+        // fetch("https://www.melivecode.com/api/auth/user", requestOptions)
+        //     .then(response => response.json())
+        //     .then(result => {
+        //         if (result.status === 'ok') {
+        //             setUser(result.user)
+        //             setIsLoaded(false)
+        //         } else if (result.status === 'forbidden') {
+        //             MySwal.fire({
+        //                 html: <i>{result.message}</i>,
+        //                 icon: 'error'
+        //             }).then((value) => {
+        //                 navigate('/login')
+        //             })
+        //         }
+        //         console.log(result)
+        //     })
+        //     .catch(error => console.log('error', error));
 
     }, [])
 

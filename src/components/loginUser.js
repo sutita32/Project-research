@@ -16,6 +16,12 @@ function LoginUser(props) {
   const [focusState2, setFocusState2] =  useState("z-10 head-login-right relative bottom-[-30px] right-[-3.5px] h-[70px] w-[400px]  focus:outline-none border-2 border-red-500")
 
 
+
+  const Checkk = () => {
+    // console.log(focusState1);
+    console.log(focusState2);
+  }
+
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
 
@@ -33,16 +39,16 @@ function LoginUser(props) {
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault(); //ป้องกันการเปลี่ยนแปลงหน้า
-
+    console.log(loginstatus)
     var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
+    myHeaders.append("Content-Type", "application/json");
+    if(loginstatus==="public"){
+      // console.log("hhhhhh")
       var raw = JSON.stringify({
-        "username": inputs.uname,
-        "password": inputs.pass,
-        "expiresIn": 600000
+        "email": inputs.uname,
+        "password": inputs.pass
       });
 
       var requestOptions = {
@@ -51,30 +57,36 @@ function LoginUser(props) {
         body: raw,
         redirect: 'follow'
       };
-
-      fetch("https://www.melivecode.com/api/login", requestOptions)
-        .then(response => response.json())
-        
-        .then(result => {
-          if (result.status === 'ok'){
-              localStorage.setItem("user",JSON.stringify(result))
-            MySwal.fire({
-                html:<i>{result.message}</i>,
-                icon: 'success',
-            }).then((value) => {
-              localStorage.setItem('token',result.accessToken)
-                  navigate('/profile')  
-            })
-        }else {
-            MySwal.fire({
-                html:<i>{result.message}</i>,
+      
+      await fetch("http://localhost:4000/api/auth/login-professor", requestOptions)
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        if( result.user ){
+              localStorage.setItem("user",JSON.stringify(result.user))
+              MySwal.fire({
+                  html:<i>{result.msg}</i>,
+                  icon: 'success',
+              }).then((value) => {
+                localStorage.setItem('token',result.accessToken)
+                  if (loginstatus==="public")
+                  {
+                    navigate('/profile')
+                    props.loginstatus(loginstatus);
+                  }
+              })
+            }else{
+              MySwal.fire({
+                html:<i>{result.msg}</i>,
                 icon: 'error'
-            })
-        }
-        })
-        .catch(error => console.log('error', error));
-          console.log(inputs);
-       
+              })
+            }
+
+        return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+    }
   }
 
 
@@ -83,7 +95,7 @@ function LoginUser(props) {
     <div className="form">
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username </label>
+          <label>E-mail </label>
           <input 
             className='block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:border-black focus:ring-0' 
             type="text" 

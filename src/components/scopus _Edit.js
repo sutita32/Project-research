@@ -3,18 +3,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React,{useEffect, useState} from "react";
+import React,{useState,useEffect} from "react";
 import "../style/user_person.css";
-import { BiEdit } from "react-icons/bi";
-import { MdDeleteForever } from "react-icons/md";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
-import { useEffect } from "react";
 
-function Scholar({getdata}) {
-  console.log("getdata=>",getdata)
-  // const [dataScholar, setDatascholar] = useState([
+function Scopus({getdata}) {
+
+  // const [dataScopus, setDatascopus] = useState([
   //   {
   //     id: 1,
   //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
@@ -39,52 +35,26 @@ function Scholar({getdata}) {
   //     year: '2015',
   //     cited: '38'
   //   },
-  //   {
-  //     id: 4,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  //   {
-  //     id: 5,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  //   {
-  //     id: 6,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
   // ])
-  const [dataScholar, setDatascholar] = useState(getdata);
-
+  const [dataScopus, setDatascopus] = useState(getdata);
   function handleDeleteClike(id){
-    const removeItem = dataScholar.filter(dataScholar =>{
-      return dataScholar.ID_research !== id
+    const removeItem = dataScopus.filter(dataScopus =>{
+      return dataScopus.ID_research !== id
     })
-    setDatascholar(removeItem)
-  }
+    setDatascopus(removeItem)
+  };
   useEffect(()=>{
     let research= [];
     for(let i=0;i<getdata.length ;i++){
-      if(getdata[i].ID_Type === 1){
+      if(getdata[i].ID_Type === 2){
         research.push(getdata[i]);
       }
     }
-    setDatascholar(research)
+    setDatascopus(research)
   },[]);
-  
   const renderTable=(
     <>
-   {dataScholar.map((item,index)=> (
+   {dataScopus.map((item, index)=> (
        <div class="bg-white grid grid-cols-10" key={item.ID_research}>
        <div
          scope="row"
@@ -114,8 +84,11 @@ function Scholar({getdata}) {
    ))} 
     </>
   );
-
-  return <>{renderTable}</>;
+  return (
+    <>
+      {renderTable}
+    </>
+  );
 }
 
-export default Scholar;
+export default Scopus;
