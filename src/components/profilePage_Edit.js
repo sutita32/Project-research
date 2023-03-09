@@ -522,7 +522,6 @@ const [isModal2Open, setIsModal2Open] = useState(false);
             <div className="flex justify-center w-full h-[300px] ">
               <div className=" text-center font-bold1">
                 <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
-                  <div className=" h-[160px] w-[160px] rounded-full bg-[#EFEFEF] translate-y-[-60%] "></div>
                 </div>
                 <div className="text-[19px] py-[3px]">
                   {fnamet}
@@ -709,12 +708,17 @@ const [isModal2Open, setIsModal2Open] = useState(false);
           </div>
         </div>
       </div>
-      <div class="z-[10] grid place-items-center absolute top-[148px] w-full h-[140px]">
+      <div class="z-[20] grid place-items-center absolute top-[148px] w-full h-[140px]">
         <img
           alt=""
           src={imgsrc}
-          class="h-[140px] w-[140px] rounded-full object-cover"
+          className="h-[140px] w-[140px] rounded-full object-cover"
         ></img>
+      </div>
+      <div class="z-[10] grid place-items-center absolute top-[140px] w-full h-[80px] transform translate-y-[100%] overflow-hidden">
+        <div className="relative transform translate-y-[-50%]">
+          <div className="bg-[#EFEFEF] h-[160px] w-[160px] rounded-full object-cover"></div>
+        </div>
       </div>
     </div>
   );

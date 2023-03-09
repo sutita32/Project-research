@@ -106,7 +106,6 @@ function ProfilePage() {
             <div className="flex justify-center w-full h-[300px] ">
               <div className=" text-center font-bold1">
                 <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
-                  <div className=" h-[160px] w-[160px] rounded-full bg-[#EFEFEF] translate-y-[-60%] "></div>
                 </div>
                 <div className="text-[19px] py-[3px]">ชื่อภาษาไทย</div>
                 <div className="py-[3px]">ชื่อภาษาอังกฤษ</div>
@@ -184,12 +183,17 @@ function ProfilePage() {
           </div>
         </div>
       </div>
-      <div class="grid place-items-center absolute top-[148px] w-full h-[140px]">
+      <div class="z-[20] grid place-items-center absolute top-[148px] w-full h-[140px]">
         <img
           alt=""
           src="https://scontent.fbkk10-1.fna.fbcdn.net/v/t1.6435-9/167084877_3611020235663621_2658686305999705607_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE9xNBp92oD8Rz3CeAFljiBnJ4aVVDnRQ6cnhpVUOdFDnCTQAt13QeMfFvW20lOrTfdkQGLuL6guH3CN9Kp4kHB&_nc_ohc=Dp0n9pWkKUAAX8i1Vmx&_nc_ht=scontent.fbkk10-1.fna&oh=00_AfCOiEO4hw7988SRJsyf_wtv912O74OZ2wXt2Mn8--ewYA&oe=641EA01B"
-          class="h-[140px] rounded-full"
+          className="h-[140px] w-[140px] rounded-full object-cover"
         ></img>
+      </div>
+      <div class="z-[10] grid place-items-center absolute top-[140px] w-full h-[80px] transform translate-y-[100%] overflow-hidden">
+        <div className="relative transform translate-y-[-50%]">
+          <div className="bg-[#EFEFEF] h-[160px] w-[160px] rounded-full object-cover"></div>
+        </div>
       </div>
     </div>
   );
