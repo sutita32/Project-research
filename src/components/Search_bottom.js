@@ -40,7 +40,7 @@ function Make_dot() {
 }
 
 function Search_bottom({ page_now , searchdata}) {
-  
+  console.log("page_now=>",page_now)
   // if(searchdatafilter){
   //   console.log("dadwad1223=>",searchdatafilter);
   //   let npage = 0;
@@ -58,7 +58,7 @@ function Search_bottom({ page_now , searchdata}) {
   //     }
   // }
   if(searchdata){
-    console.log("dadwad=>",searchdata);
+    // console.log("dadwad=>",searchdata);
     let npage = 0;
     if(searchdata.data){
       // console.log("npage =>",searchdata.data.length)
@@ -67,7 +67,6 @@ function Search_bottom({ page_now , searchdata}) {
       // console.log("npage =>",npage)
       for(let i= 1;i <= npage+1; i++){
         resultbtpage.push(
-          // eslint-disable-next-line react/jsx-pascal-case
           <Make_circle data1={i} 
             page_now={page_now} 
           />

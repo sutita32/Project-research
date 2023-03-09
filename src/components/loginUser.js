@@ -15,22 +15,10 @@ function LoginUser(props) {
   const [loginstatus,setloginstatus] = useState("public")
   const [focusState2, setFocusState2] =  useState("z-10 head-login-right relative bottom-[-30px] right-[-3.5px] h-[70px] w-[400px]  focus:outline-none border-2 border-red-500")
 
-  const focusNow1 = () => {
 
-  setloginstatus("public")
-
-  setFocusState1("z-30 head-login-left-focus relative bottom-[-30px] left-[-2.5px]   h-[70px] w-[200px] focus:outline-none");
-  setFocusState2("z-10 head-login-right relative bottom-[-30px] right-[-3.5px]   h-[70px] w-[200px] focus:outline-none");  }
-
-  const focusNow2 = () => {
-
-  setloginstatus("private")
-
-  setFocusState1("z-10 head-login-left relative bottom-[-30px] left-[-2.5px]   h-[70px] w-[200px] focus:outline-none");
-  setFocusState2("z-30 head-login-right-focus relative bottom-[-30px] right-[-3.5px]   h-[70px] w-[200px] focus:outline-none");  }
 
   const Checkk = () => {
-    console.log(focusState1);
+    // console.log(focusState1);
     console.log(focusState2);
   }
 
@@ -59,7 +47,7 @@ function LoginUser(props) {
     if(loginstatus==="public"){
       // console.log("hhhhhh")
       var raw = JSON.stringify({
-        "username": inputs.uname,
+        "email": inputs.uname,
         "password": inputs.pass
       });
 
@@ -70,7 +58,7 @@ function LoginUser(props) {
         redirect: 'follow'
       };
       
-      await fetch("http://localhost:4000/api/auth/login-user", requestOptions)
+      await fetch("http://localhost:4000/api/auth/login-professor", requestOptions)
       .then(response => {
         return response.json();
       })
@@ -98,52 +86,6 @@ function LoginUser(props) {
         return console.log(result);
       })
       .catch(error => console.log('error', error));
-    }else if(loginstatus=== "private") {
-
-      console.log("llllll")
-      let raw = JSON.stringify({
-        "username": inputs.uname,
-        "password": inputs.pass
-      });
-      
-      let requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-      
-      fetch("http://localhost:4000/api/auth/login-admin", requestOptions)
-        .then(response => {
-          return response.json();
-        })
-        .then(result => {
-            if( result.accessToken ){
-              localStorage.setItem("user",JSON.stringify(result.user))
-              MySwal.fire({
-                  html:<i>{result.msg}</i>,
-                  icon: 'success',
-              }).then((value) => {
-                localStorage.setItem('token',result.accessToken)
-                  if (loginstatus==="private")
-                  {
-                    navigate('/profile_aj')
-                    console.log(loginstatus)
-                    props.loginstatus(loginstatus);
-                  }
-              })
-            }else{
-              MySwal.fire({
-                html:<i>{result.msg}</i>,
-                icon: 'error'
-              })
-            }
-    
-            return console.log(result);
-        })
-        .catch(error => {
-          return console.log('error', error);
-        });
     }
   }
 
@@ -153,7 +95,7 @@ function LoginUser(props) {
     <div className="form">
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username </label>
+          <label>E-mail </label>
           <input 
             className='block text-sm py-3 px-4 rounded-lg w-full border outline-none focus:border-black focus:ring-0' 
             type="text" 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/profilePage.css";
 import { BiEdit } from "react-icons/bi";
 import { FaUserEdit } from "react-icons/fa";
@@ -9,7 +9,98 @@ import { HiOutlineMail } from "react-icons/hi";
 import Scholar from "./scholar";
 import Scopus from "./scopus";
 
-function ProfilePage() {
+function ProfilePage({getid}) {
+  // console.log("getid=>",getid)
+  const [isLoading , setIsLoading] = useState(true);
+  const [datapro , setdatapro] =useState([]);
+  const [dataresearch , setdataresearch] = useState([]);
+  const [dataskill , setdataskill]=useState([]);
+  const [dataqulification , setqulification] =useState([]);
+  
+  useEffect(()=>{
+    console.log("getid =>",getid)
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      "userID": getid
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:4000/api/professor/get-data-not-verify", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result.massage === "professor is Success" || result.data){
+          setdatapro(result.data[0]);
+          setIsLoading(false);
+        }
+        return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+    
+    
+    raw = JSON.stringify({
+      "id": getid
+    });
+
+    requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:4000/api/search/getresearch-idpro", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if( result.data){
+          setdataresearch(result.data);
+          setIsLoading(false);
+          setDataTable(<Scholar getdata={result.data}/>);
+        }
+        // return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+    
+      raw = JSON.stringify({
+        "id": getid
+      });
+  
+      requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if( result.data){
+            setdataskill(result.data);
+            setIsLoading(false);
+          }
+          // return console.log(result);
+        })
+        .catch(error => console.log('error', error));
+      
+        fetch("http://localhost:4000/api/professor/get-qulificationbyidpro", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if( result.data){
+            setqulification(result.data);
+            setIsLoading(false);
+          }
+          return console.log("qulification=>",result);
+        })
+        .catch(error => console.log('error', error));
+  } , [])
   //เอาไว้อัพเดต focus
   const [scholarBtn, setScholartBtn] = useState(
     "h-[35px] w-auto bg-regal-red text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4 outline-none"
@@ -27,7 +118,7 @@ function ProfilePage() {
       "h-[35px] w-auto bg-white text-regal-red border-regal-red border-2 hover:bg-regal-red hover:text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     console.log("กดสกอลา");
-    setDataTable(<Scholar />);
+    setDataTable(<Scholar getdata={dataresearch}/>);
     setTimeout(() => {
       window.scrollTo({
         top: 1000,
@@ -45,7 +136,7 @@ function ProfilePage() {
       "h-[35px] w-auto bg-regal-red text-white border-regal-red border-2 rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     console.log("กดสกอปัส");
-    setDataTable(<Scopus />);
+    setDataTable(<Scopus getdata={dataresearch}/>);
     setTimeout(() => {
       window.scrollTo({
         top: 1000,
@@ -54,10 +145,12 @@ function ProfilePage() {
     }, 100);
   };
 
-  const [dataTable, setDataTable] = useState(<Scholar />);
+  const [dataTable, setDataTable] = useState(<Scholar getdata={dataresearch}/>);
   //แบ่งชื่อ-นามสกุล
   const word = workData[0].userName.split(" ");
 
+  if(isLoading) return( <>Loading.....</>)
+  else
   return (
     <div className="relative">
       <div class="z-[-1] absolute grid grid-rows-6 h-full w-full">
@@ -77,17 +170,20 @@ function ProfilePage() {
                 <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
                   <div className=" h-[160px] w-[160px] rounded-full bg-[#EFEFEF] translate-y-[-60%] "></div>
                 </div>
-                <div className="text-[19px] py-[3px]">ชื่อภาษาไทย</div>
-                <div className="py-[3px]">ชื่อภาษาอังกฤษ</div>
+                <div className="text-[19px] py-[3px]">{datapro.title_name+datapro.firstname_professor+" "+datapro.lastname_professor}</div>
+                <div className="py-[3px]">{datapro.Keyword}</div>
                 <div className=" font-bold mt-[30px] py-[3px]">
                   วุฒิการศึกษา
                 </div>
-                <div className="py-[3px]">ปริญญาตรีที่แมกซิโก</div>
-                <div className="py-[3px]">ปริญญาโทที่เมืองเช็ก</div>
-                <div className="py-[3px]">ปริญญาเอกที่วัดหลวงพ่อโต</div>
+                { dataqulification.map((item,index)=>(
+                  <div className="py-[3px]">{item.name_qualification}</div>
+                
+                ))
+                }
+
                 <div className="flex h-[30px] w-auto mt-[30px] py-[3px]">
                   <HiOutlineMail className="mr-[10px] h-full w-[30px] text-regal-red" />
-                  mioamdicjdai@gmail.com
+                  {datapro.Email}
                 </div>
               </div>
             </div>
@@ -102,12 +198,19 @@ function ProfilePage() {
               </div>
             </div>
             <div className="flex w-full h-[100px]">
-              <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[170px]">
+              {
+                dataskill.map((item,index)=>(
+                  <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[170px]">
+                    {item.name_coreskill}
+                  </div>
+                ))
+              }
+              {/* <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[170px]">
                 Machine Learning
               </div>
               <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
                 Machine Learning
-              </div>
+              </div> */}
             </div>
             <div className="grid place-items-center w-full h-[10px]">
               <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300"></div>
@@ -149,7 +252,7 @@ function ProfilePage() {
       <div class="grid place-items-center absolute top-[148px] w-full h-[140px]">
         <img
           alt=""
-          src="https://scontent.fbkk10-1.fna.fbcdn.net/v/t1.6435-9/167084877_3611020235663621_2658686305999705607_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE9xNBp92oD8Rz3CeAFljiBnJ4aVVDnRQ6cnhpVUOdFDnCTQAt13QeMfFvW20lOrTfdkQGLuL6guH3CN9Kp4kHB&_nc_ohc=Dp0n9pWkKUAAX8i1Vmx&_nc_ht=scontent.fbkk10-1.fna&oh=00_AfCOiEO4hw7988SRJsyf_wtv912O74OZ2wXt2Mn8--ewYA&oe=641EA01B"
+          src={datapro.img}
           class="h-[140px] rounded-full"
         ></img>
       </div>

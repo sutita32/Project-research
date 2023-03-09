@@ -148,13 +148,8 @@ function Profile() {
       </div>
       <div className="grid place-items-center absolute top-[228px] border-blue-700 w-full h-[140px]">
         <img
-<<<<<<< HEAD
           // src={user.avatar}
           class="h-[140px] rounded-full"
-=======
-          src={user.avatar}
-          className="h-[140px] rounded-full"
->>>>>>> 5afb1639f6f42836f715475786aa4e0db4f6f127
         ></img>
       </div>
             </>

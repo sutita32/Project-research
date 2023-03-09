@@ -61,7 +61,7 @@ function SearchPage({ data1, sendWorkIndex ,sendsearch}) {
     // setsearchdata(temp)
     setsearchdatafilter({data:val , keyword :searchdata.keyword})
   }
-  sendsearch(searchdata)
+  sendsearch(searchdata);
   return (
     <>
       <Search_searchBar searchdata={(item)=>{settsearchdata(item)}}/>
@@ -70,7 +70,7 @@ function SearchPage({ data1, sendWorkIndex ,sendsearch}) {
         data1={data1} 
         sendWorkIndex={sendWorkIndex}
         setsearchdata = {(item)=> settsearchdatafilter(item)}
-        />
+      />
       <Search_bottom page_now={data1} searchdata={searchdatafilter ? searchdatafilter : searchdata}  />
     </>
   );
@@ -96,24 +96,21 @@ const [loginstatuss, setloginstatuss] = useState(0);
 const settloginstatuss = (val) => {
   setloginstatuss(val);
 };
-<<<<<<< HEAD
 
 const [workData, setworkData] = useState(null);
   const sendworkData = (val) => {
     setworkData(val);
+    console.log("workData=>",val)
   };
-
   for(let i =1 ;i< 100 ;i++){
     resultsearchpage.push(
       <Route
           path={"/search/"+i.toString()}
-          element={<SearchPage data1={i.toString()} sendWorkIndex={sendWorkIndex} sendsearch={sendworkData} />}
-        />
+          element={<SearchPage data1={i.toString()} sendWorkIndex={sendWorkIndex} sendsearch={sendworkData} getdata={workData}/>}
+      />
       
     )
   }
-=======
->>>>>>> 5afb1639f6f42836f715475786aa4e0db4f6f127
   return (
       <>
         <Header loginstatus={loginstatuss}/>
@@ -123,14 +120,14 @@ const [workData, setworkData] = useState(null);
 
           <Route
           path="/search/"
-          element={<SearchPage data1="1" sendWorkIndex={sendWorkIndex}   sendsearch={sendworkData}/>}
+          element={<SearchPage data1="1" sendWorkIndex={sendWorkIndex}   sendsearch={(item)=> sendworkData(item)}/>}
         />
           {/* <Route
           path="/search/1"
           element={<SearchPage data1="1" sendWorkIndex={sendWorkIndex} />}
         />
-        ;
-        <Route
+        ; */}
+        {/* <Route
           path="/search/2"
           element={<SearchPage data1="2" sendWorkIndex={sendWorkIndex} />}
         />
@@ -140,28 +137,36 @@ const [workData, setworkData] = useState(null);
     
         <Route
           // path={workIndex ? `/${workData.data[workIndex].name_research}/`: '/'}
-          path='search/detail'
-          element={<DetailPage getid={workIndex ? workIndex: -1} data={workIndex ? workData.data: []}/>}
+          path={`/search/${workIndex.data1}/detail/`}
+          element={<DetailPage getid={workIndex ? workIndex: -1} data ={workData ? workData.data : []}/>}
         />
-       
+       <Route
+          path={`/search/detail/`}
+          element={<DetailPage getid={workIndex ? workIndex: -1} data ={workData ? workData.data : []}/>}
+        />
       
         
         <Route
-          path={techData[teacherIndex].url}
-          element={<ProfilePage
+          path={`id=${teacherIndex}`}
+          element={<ProfilePage getid={teacherIndex ? teacherIndex : 0}
+            />}
+        />
+        <Route
+          path={`Static/id=${teacherIndex}`}
+          element={<ProfilePage getid={teacherIndex ? teacherIndex : 0}
             />}
         />
           <Route element={<PrivateComponent/>}/>
             <Route path="/" element={<Home_Page sendTeacherIndex={(item)=> {sendTeacherIndex(item)}}/>}/>
             <Route path="/login" element={<LoginUser loginstatus={(item)=>{settloginstatuss(item)}}/>}/>
             <Route path="/register" element={<Register/>}/>
-            <Route path="/james" element={<Static/>}/>
+            <Route path="/james" element={<Static />}/>
             <Route element={<PrivateComponent/>}>
              <Route path="/profile" element={<ProfilePage_Edit/>}/>
              </Route>
              <Route path="/profilepage" element={<ProfilePage/>}/>
              <Route path="/forgot-pass" element={<Form_forgotpass/>}/>
-             <Route path="/Static" element={<Static/>}/>
+             <Route path="/Static" element={<Static sendTeacherIndex={(item)=> {sendTeacherIndex(item)}}/>}/>
              <Route path="/login_admin" element={<Login_Admin/>}/>
              <Route path="/edit_admin" element={<Edit_Amin/>}/>
              <Route path="/profile_aj" element={<Profile_aj getid={teacherIndex}/>}/>

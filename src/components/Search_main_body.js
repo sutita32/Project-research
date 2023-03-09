@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { workData } from "./workData";
+// import { workData } from "./workData";
 
 
 
@@ -44,9 +44,9 @@ function Search_main_body({ data1, sendWorkIndex , searchdata }) {
     <>
       { data_show ? 
         data_show.map((item, index) => (
-          <NavLink to='detail'
+          <NavLink to={`detail/`}
           // {`/${item.name_research}/`} 
-          onClick={() => sendWorkIndex(index)}>
+          onClick={() => sendWorkIndex({index,data1})}>
             <div
               key={index}
               class="h-auto mx-auto pt-2 px-6 transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300 "

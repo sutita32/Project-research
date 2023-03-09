@@ -20,7 +20,7 @@ import { techData } from "./TeacherData_set";
 import {IoMdAdd} from 'react-icons/io'
 import {BiEditAlt} from "react-icons/bi"
 import {RiDeleteBin6Line} from "react-icons/ri"
-
+import { NavLink, useNavigate } from "react-router-dom";
 const log = (e) => {
   console.log(e);
 };
@@ -34,16 +34,23 @@ const getBase64 = (file) =>
   });
 
 function ProfilePage_Edit() {
+  const navigate = useNavigate();
+
+
+  // console.log( " auth=>",auth)
+  const [user, setUser] = useState();
   const [dataShow, setDataShow] = useState(techData);
-  const [imgsrc, setimgsrc] = useState(techData[0].imgSrc);
-  const [fnamet, setfnamet] = useState(techData[0].fnamet);
-  const [lnamet, setlnamet] = useState(techData[0].lnamet);
-  const [fnamee, setfnamee] = useState(techData[0].fnamee);
-  const [lnamee, setlnamee] = useState(techData[0].lnamee);
-  const [study, setstudy] = useState(techData[0].study);
+  const [imgsrc, setimgsrc] = useState("");
+  const [fnamet, setfnamet] = useState("");
+  const [lnamet, setlnamet] = useState("");
+  
+
+  const [fnamee, setfnamee] = useState("");
+  const [lnamee, setlnamee] = useState("");
+  const [study, setstudy] = useState();
   const [inputstudy, setinputstudy] = useState("");
-  const [email, setemail] = useState(techData[0].email);
-  const [interest, setinterest] = useState(techData[0].interest);
+  const [email, setemail] = useState("'");
+  const [interest, setinterest] = useState("");
   const [inputinterest, setinputinterest] = useState("");
   // const [previewOpen, setPreviewOpen] = useState(false);
   const [uploadImage, setUploadImage] = useState({
@@ -61,6 +68,78 @@ function ProfilePage_Edit() {
       url: imgsrc,
     },
   ]);
+  const [isLoading , setIsLoading] = useState(true);
+  const [datapro , setdatapro] =useState([]);
+  const [dataresearch , setdataresearch] = useState([]);
+  const [dataskill , setdataskill]=useState([]);
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    if(!token){
+      localStorage.clear();
+      navigate('/login')
+    }else{
+      let auth ;
+      if(localStorage.getItem('user')){
+        auth = JSON.parse(localStorage.getItem('user'));
+        setUser(auth);
+        setimgsrc(auth.img);
+        setfnamet(auth.title_name+auth.firstname_professor);
+        setlnamet(auth.lastname_professor);
+        const wordname = auth.Keyword.split(" ");
+        setfnamee(wordname[0]);
+        setlnamee(wordname[1]);
+        setemail(auth.Email);
+      }
+
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      var raw = JSON.stringify({
+        "id": auth.ID_professor
+      });
+  
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch("http://localhost:4000/api/search/getresearch-idpro", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if( result.data){
+          setdataresearch(result.data);
+          setIsLoading(false);
+          setDataTable(<Scholar getdata={result.data}/>);
+        }
+        // return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+
+      raw = JSON.stringify({
+        "id": auth.ID_professor
+      });
+  
+      requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if( result.data){
+            setdataskill(result.data);
+            setIsLoading(false);
+          }
+          return console.log(result);
+        })
+        .catch(error => console.log('error', error));
+
+    }
+  },[])
   const [canedit, setcanedit] = useState(true);
 
   // const handleCancelPic = () => setPreviewOpen(false);
@@ -138,10 +217,10 @@ function ProfilePage_Edit() {
     setcanedit(true);
   };
 
-  const cancleModal = (e) => {
-    e.preventDefault();
-    console.log("cancle");
-  };
+  // const cancleModal = (e) => {
+  //   e.preventDefault();
+  //   console.log("cancle");
+  // };
 
   const inputstudychange = (e) => {
     setinputstudy(e.target.value);
@@ -168,7 +247,7 @@ function ProfilePage_Edit() {
 
 //ส่วน modal ของปุ่ม Add 
 //-------------------------------------------------
-const [isModal2Open, setIsModal2Open] = useState(false);
+  const [isModal2Open, setIsModal2Open] = useState(false);
   const [dataAddding, setDataAdding] = useState({});
   const [topicAdd, setTopicAdd] = useState("");
   const [userNameAdd, setUserNameAdd] = useState("");
@@ -264,7 +343,7 @@ const [isModal2Open, setIsModal2Open] = useState(false);
     setScopustBtn(
       "h-[35px] w-auto bg-white text-regal-red border-regal-red border-2 hover:bg-regal-red hover:text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
-    setDataTable(<Scholar />);
+    setDataTable(<Scholar getdata={dataresearch}/>);
     setTimeout(() => {
       window.scrollTo({
         top: 1000,
@@ -281,7 +360,7 @@ const [isModal2Open, setIsModal2Open] = useState(false);
     setScopustBtn(
       "h-[35px] w-auto bg-regal-red text-white border-regal-red border-2 rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
-    setDataTable(<Scopus />);
+    setDataTable(<Scopus getdata={dataresearch}/>);
     setTimeout(() => {
       window.scrollTo({
         top: 1000,
@@ -290,11 +369,11 @@ const [isModal2Open, setIsModal2Open] = useState(false);
     }, 100);
   };
 
-  const [dataTable, setDataTable] = useState(<Scholar />);
+  const [dataTable, setDataTable] = useState(<Scholar getdata={dataresearch}/>);
   //แบ่งชื่อ-นามสกุล
-  const word = workData[0].userName.split(" ");
-
-  return (
+  // const word = workData[0].userName.split(" ");
+  if( isLoading) return ( <>Loading.......</>)
+  else return (
     <div className="relative">
       <div class="z-[-1] absolute grid grid-rows-6 h-full w-full">
         <div class="row-span-2 w-full">
@@ -398,20 +477,22 @@ const [isModal2Open, setIsModal2Open] = useState(false);
                   </div>
                   <p>วุฒิการศึกษา</p>
                   <Space size={[0, 8]} wrap>
-                    {study.map((item) => (
-                      <Tag
-                        closable
-                        onClose={log}
-                        className="flex w-fit h-fit px-[8px] py-[5px] text-[14px]"
-                        closeIcon={
-                          <div className="w-[16px] h-full">
-                            <MdClose class="h-full w-full" />
-                          </div>
-                        }
-                      >
-                        {item}
-                      </Tag>
-                    ))}
+                    {
+                    // study.map((item) => (
+                    //   <Tag
+                    //     closable
+                    //     onClose={log}
+                    //     className="flex w-fit h-fit px-[8px] py-[5px] text-[14px]"
+                    //     closeIcon={
+                    //       <div className="w-[16px] h-full">
+                    //         <MdClose class="h-full w-full" />
+                    //       </div>
+                    //     }
+                    //   >
+                    //     {item}
+                    //   </Tag>
+                    // ))
+                    }
                   </Space>
                   <p></p>
 
@@ -440,7 +521,8 @@ const [isModal2Open, setIsModal2Open] = useState(false);
                   />
                   <p>Interest</p>
                   <Space size={[0, 8]} wrap>
-                    {interest.map((item) => (
+                    {
+                    dataskill.map((item) => (
                       <Tag
                         closable
                         onClose={log}
@@ -451,9 +533,10 @@ const [isModal2Open, setIsModal2Open] = useState(false);
                           </div>
                         }
                       >
-                        {item}
+                        {item.name_coreskill}
                       </Tag>
-                    ))}
+                    ))
+                    }
                   </Space>
                   <p></p>
                   <input
@@ -508,9 +591,11 @@ const [isModal2Open, setIsModal2Open] = useState(false);
                 <div className=" font-bold mt-[30px] py-[3px]">
                   วุฒิการศึกษา
                 </div>
-                {study.map((item) => (
-                  <div className="py-[3px]">{item}</div>
-                ))}
+                {
+                // study.map((item) => (
+                //   <div className="py-[3px]">{item}</div>
+                // ))
+                }
                 <div className="flex h-[30px] w-auto mt-[30px] py-[3px]">
                   <HiOutlineMail className="mr-[10px] h-full w-[30px] text-regal-red" />
                   {email}
@@ -529,11 +614,13 @@ const [isModal2Open, setIsModal2Open] = useState(false);
             </div>
             <div className="flex w-full h-[100px]">
               <div className="w-[160px] h-[30px] "></div>
-              {interest.map((item) => (
+              {
+              dataskill.map((item) => (
                 <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
-                  {item}
+                  {item.name_coreskill}
                 </div>
-              ))}
+              ))
+              }
             </div>
             <div className="grid place-items-center w-full h-[10px]">
               <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300"></div>

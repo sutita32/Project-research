@@ -47,6 +47,8 @@ function Search(props) {
               data :result.data,
               keyword :inputs.search
             });
+            localStorage.setItem("temp", inputs.search);
+            localStorage.setItem("dataresearch",JSON.stringify(result.data));
             navigate('/search/')
           }else{
             props.searchdata({

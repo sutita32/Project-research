@@ -11,6 +11,7 @@ import { NavLink } from "react-router-dom";
 const data_krub = 15;
 
 const data_year_list = [
+  "แสดงตามปีที่เลือก",
   "แสดงปีที่ต่ำกว่าปีที่เลือก",
   "แสดงปีที่มากกว่าปีที่เลือก",
 ];
@@ -26,7 +27,7 @@ let tempdata ;
 function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
   const [checkyear, setchecksyear] = useState(new Array(100).fill(false));
   const [checkteach, setcheckteach] = useState(new Array(100).fill(false));
-
+  const [checklist, setchecklist] = useState(0);
   
   const {keyword ,data } = searchdata;
 
@@ -62,14 +63,12 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
         data_year[j] = {
           year : yearr,
           N : count,
-          // isAdded :false
         };
         
       }else if(yearr !== temp1){
         data_year.push({
           year : yearr,
           N : 1,
-          // isAdded :false
         });
         count=1;
         j++;
@@ -106,48 +105,61 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
   const focusteach = (position ) =>{
     let updatedCheckedState = checkteach;
     updatedCheckedState[position] = !updatedCheckedState[position]
+    
     setcheckteach(updatedCheckedState);
   }
- 
+  const focuslist = (e) =>{
+    // let updatedCheckedState = checklist;
+    // updatedCheckedState[position] = !updatedCheckedState[position]
+    // for(let i =0;i<checklist.length;i++){
+    //   if(position !== i) updatedCheckedState[i] = false ;
+    // }
+    // console.log('updatedCheckedState=>',updatedCheckedState)
+    setchecklist(e.target.value);
+    // console.log('updatedCheckedState=>',checklist)
+  }
   const fillteryear = async (event) =>{
     // event.preventDefault();
-    console.log("datadatadatadata  =>",data.length)
+    // console.log("datadatadatadata  =>",data.length)
     tempdata =null
     let test= [];
-    for(let i=0;i < data_year.length;i++){
-      if(checkyear[i]){
-        // console.log("year cheak "+i+ "=>",data_year[i]);
-        for(let j =0 ;j < data_name_list.length;j++){
-          if(checkteach[j]){
-            // console.log("Teach cheak "+j+ "=>",data_name_list[j]);
-            // console.log(" DATA.length =>", data.length)
-            for(let k = 0; k < data.length ;k++){
-              // console.log("push Keyword =>",data[k].Keyword)
-              let yearr = new Date(data[k].Publication_date).getFullYear();
-              // console.log("push yearr =>",yearr)
-              if(data_name_list[j].keyword === data[k].Keyword && data_year[i].year === yearr){
-                // console.log("push tempdata =>",data[k])
-                test.push(data[k]);
+    
+      for(let i=0;i < data_year.length;i++){
+        if(checkyear[i]){
+          // console.log("year cheak "+i+ "=>",data_year[i]);
+          for(let j =0 ;j < data_name_list.length;j++){
+            if(checkteach[j]){
+              // console.log("Teach cheak "+j+ "=>",data_name_list[j]);
+              // console.log(" DATA.length =>", data.length)
+              for(let k = 0; k < data.length ;k++){
+                // console.log("push Keyword =>",data[k].Keyword)
+                let yearr = new Date(data[k].Publication_date).getFullYear();
+                // console.log("push yearr =>",yearr)
+                if(data_name_list[j].keyword === data[k].Keyword && data_year[i].year === yearr){
+                  // console.log("push tempdata =>",data[k])
+                  test.push(data[k]);
+                }
               }
             }
           }
         }
       }
-    }
+   
+    
   
-    console.log("tempdata =>",test)
-    console.log("tempdata =>",tempdata)
+    // console.log("tempdata =>",test)
+    // console.log("tempdata =>",tempdata)
     tempdata = test;
-    console.log("tempdata =>",tempdata)
+    // console.log("tempdata =>",tempdata)
     setDATA(tempdata);
     setsearchdata(DATA);
   }
   
   return (
-    <div className="body-set">
+    <div className="body-set" onAbort={localStorage.setItem("temp", "delete")}>
       <div className="grid grid-cols-8">
         <div className=" col-span-6 font-head px-8 pt-8 pb-5">
-          <div >ค้นหา: {keyword}</div>
+          <div >ค้นหา: {keyword ? keyword:"ยังไม่ได้ค้นหา...."}</div>
           <div>ผลลัพธ์ทั้งหมด: {data ? data.length : 0 } รายการ</div>
           { DATA ? 
           <div>กรองเจอ : {DATA ? DATA.length : 0 } รายการ</div>
@@ -156,14 +168,14 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
         </div>
       </div>
       <div className="grid grid-cols-8 gap-4">
-        { DATA ?
+        { data?
           // displaysearch(data1,sendWorkIndex,tempdata ? tempdata:data)
           <div className="col-span-6">
-            <Search_main_body data1={data1} sendWorkIndex={sendWorkIndex} searchdata={DATA } />
+            <Search_main_body data1={data1} sendWorkIndex={sendWorkIndex} searchdata={data } />
           </div>
           :
           <div className="col-span-6">
-            <Search_main_body data1={data1} sendWorkIndex={sendWorkIndex} searchdata={data } />
+            <Search_main_body data1={data1} sendWorkIndex={sendWorkIndex} searchdata={DATA } />
           </div>
         }
         <div className=" col-span-2 ">
@@ -178,7 +190,7 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
               <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">ปีที่เผยแพร่</div>
                 <p className="text-gray-700 text-base">
-                  <div className="flex items-center mr-4">
+                  {/* <div className="flex items-center mr-4">
                     <input
                       id="inline-checkbox-checked"
                       type="checkbox"
@@ -192,15 +204,23 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
                     >
                       แสดงตามปีที่เลือก
                     </label>
-                  </div>
+                  </div> */}
 
-                  
-                  {data_year_list.map((item, index) => (
+                <select id="list" onChange={focuslist}>
+                  {
+                    data_year_list.map((item, index)=>(
+                      <option value={index} >{item}</option>
+                    ))
+                  }
+                </select>
+                  {/* {data_year_list.map((item, index) => (
                     <div key={index} class="flex items-center mr-4">
                       <input
                         id={index}
                         type="checkbox"
-                        value=""
+                        value={index}
+                        checked = {!checklist[index]}
+                        onChange={() => focuslist(index)}
                         class="w-4 h-4 accent-regal-red bg-gray-100 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:bg-gray-700"
                       />
                       <label
@@ -210,7 +230,7 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
                         {item}
                       </label>
                     </div>
-                  ))}
+                  ))} */}
                 
                   <div class="grid grid-cols-3 p-5">
                     {data_year.map((item, index)=>(
@@ -267,7 +287,7 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
             </div>
             <div class="h-4"></div>
             <div class="w-4/12 h-auto mx-auto">
-              <NavLink to="/search/" exact>
+              <NavLink to="/search/" >
                 <button
                 type="submit"
                 class="text-white bg-regal-red font-medium py-2.5 px-6 rounded-full text-sm transition ease-in-out hover:-translate-1 hover:scale-105 duration-300 cursor-pointer"
