@@ -7,7 +7,7 @@ export const techData = [
     study: ["โรงเรียนปมปม", "โรงเรียนกึมกึ๋ย"],
     email: "akara.p@sci.kmutnb.ac.th",
     imgSrc: "http://cs.kmutnb.ac.th/img/Personnel/adp.jpg",
-    interest: ["ขนมหวาน", "ป็อกกาแลต"],
+    interest: ["ขนมหวาน", "ป็อกกาแลต",],
   },
   {
     fnamet: "ผศ.ดร.สยมภพ",

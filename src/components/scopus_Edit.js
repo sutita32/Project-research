@@ -3,17 +3,14 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../style/user_person.css";
-import { BiEdit } from "react-icons/bi";
-import { MdDeleteForever } from "react-icons/md";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
-import { useEffect } from "react";
 
-function Scholar() {
-  const [dataScholar, setDatascholar] = useState([
+function Scopus() {
+  const [dataScopus, setDatascopus] = useState([
     {
       id: 1,
       pname:
@@ -255,21 +252,16 @@ function Scholar() {
       cited: "38",
     },
   ]);
-
   function handleDeleteClike(id) {
-    const removeItem1 = dataScholar.filter((dataScholar) => {
-      return dataScholar.id !== id;
+    const removeItem = dataScopus.filter((dataScopus) => {
+      return dataScopus.id !== id;
     });
-    setDatascholar(removeItem1);
-    const removeItem2 = dataShow.filter((dataShow) => {
-      return dataShow.id !== id;
-    });
-    setDataShow(removeItem2);
+    setDatascopus(removeItem);
   }
 
   const [pageNow, setPageNow] = useState(1);
   const [dataShow, setDataShow] = useState(
-    dataScholar.slice(pageNow * 10 - 10, 11)
+    dataScopus.slice(pageNow * 10 - 10, 11)
   );
 
   const clickRight = () => {
@@ -281,7 +273,7 @@ function Scholar() {
   };
 
   useEffect(() => {
-    setDataShow(dataScholar.slice(pageNow * 10 - 10, pageNow * 10));
+    setDataShow(dataScopus.slice(pageNow * 10 - 10, pageNow * 10));
   }, [pageNow]);
 
   const renderTable = (
@@ -330,7 +322,7 @@ function Scholar() {
             <button
               onClick={clickRight}
               className={
-                pageNow === Math.ceil(dataScholar.length / 10)
+                pageNow === Math.ceil(dataScopus.length / 10)
                   ? "text-white cursor-default"
                   : ""
               }
@@ -342,8 +334,7 @@ function Scholar() {
       </div>
     </>
   );
-
   return <>{renderTable}</>;
 }
 
-export default Scholar;
+export default Scopus;

@@ -8,6 +8,7 @@ import ProfilePageInterest from "./profilePage_Interest";
 import { HiOutlineMail } from "react-icons/hi";
 import Scholar from "./scholar";
 import Scopus from "./scopus";
+import { Bar } from "react-chartjs-2";
 
 function ProfilePage() {
   //เอาไว้อัพเดต focus
@@ -54,9 +55,39 @@ function ProfilePage() {
     }, 100);
   };
 
+  const interData = ['lllllllllllllllllllll', 'aasdsdsaduiohndwqw', 'qejfiw', 'wEIFHJEI', 'EQWOFIJQI', 'WEOFM', 'wqundoqnduqdqdhqoudhwoqdhwoqdhqwodhwqou'];
+
   const [dataTable, setDataTable] = useState(<Scholar />);
   //แบ่งชื่อ-นามสกุล
   const word = workData[0].userName.split(" ");
+
+  function Graph() {
+    const data = {
+      labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      datasets: [
+        {
+          label: "My First Dataset",
+          data: [65, 59, 80, 81, 56, 55, 40, 20],
+          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+          borderColor: ["rgba(255, 99, 132, 0.2)"],
+          borderWidth: 1,
+        },
+      ],
+    };
+    const options = {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      responsive: true,
+    };
+    return (
+      <>
+        <Bar data={data} options={options}></Bar>
+      </>
+    );
+  }
 
   return (
     <div className="relative">
@@ -91,6 +122,11 @@ function ProfilePage() {
                 </div>
               </div>
             </div>
+            <div className="grid place-items-center w-full h-fit">
+              <div class="h-[260px] w-[1000px] grid place-items-center">
+                <Graph />
+              </div>
+            </div>
             <div className="grid place-items-center w-full h-[10px]">
               <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300"></div>
             </div>
@@ -101,12 +137,14 @@ function ProfilePage() {
                 </div>
               </div>
             </div>
-            <div className="flex w-full h-[100px]">
-              <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[170px]">
-                Machine Learning
-              </div>
-              <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
-                Machine Learning
+            <div className="flex w-full h-fit mb-[20px]">
+              <div className="w-[140px] h-full "></div>
+              <div className="w-full h-fit flex flex-wrap">
+                {interData.map((item) => (
+                  <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
+                    {item}
+                  </div>
+                ))}
               </div>
             </div>
             <div className="grid place-items-center w-full h-[10px]">
