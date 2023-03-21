@@ -35,7 +35,7 @@ function Login_Admin() {
       var raw = JSON.stringify({
         "username": inputs.uname,
         "password": inputs.pass,
-        "expiresIn": 600000
+        // "expiresIn": 600000
       });
 
       var requestOptions = {
@@ -45,14 +45,14 @@ function Login_Admin() {
         redirect: 'follow'
       };
 
-      fetch("https://www.melivecode.com/api/login", requestOptions)
+      fetch("http://localhost:4000/api/auth/login-admin", requestOptions)
         .then(response => response.json())
         
         .then(result => {
-          if (result.status === 'ok'){
-              localStorage.setItem("user",JSON.stringify(result))
+          if (result.user){
+              localStorage.setItem("user",JSON.stringify(result.user))
             MySwal.fire({
-                html:<i>{result.message}</i>,
+                html:<i>{result.msg}</i>,
                 icon: 'success',
             }).then((value) => {
               localStorage.setItem('token',result.accessToken)
@@ -61,7 +61,7 @@ function Login_Admin() {
             })
         }else {
             MySwal.fire({
-                html:<i>{result.message}</i>,
+                html:<i>{result.msg}</i>,
                 icon: 'error'
             })
         }

@@ -8,14 +8,13 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 
 function Header({loginstatus}) {
     const auth = localStorage.getItem('user');
-
+    const role = localStorage.getItem('Role');
     const navigate = useNavigate();
     const logouts = () => {
         localStorage.clear();
         navigate('/login')
-      }
-
-
+    }
+    
 
     function getNavClass(navLinkProps) {
         let navClass = 'testbt';
@@ -37,26 +36,46 @@ function Header({loginstatus}) {
                         <img src={Logo} alt="image 1.png" className="Logo" width="150" />
                         {
                             auth ?
+                                role === "Admin" ?
+                                    <ul className='menu' >
+                                        <li className="menu-link" >
+                                            <NavLink className={getNavClass} to="/" exact>หน้าแรก</NavLink>
+                                        </li>
 
-                                <ul className='menu' >
-                                    <li className="menu-link" >
-                                        <NavLink className={getNavClass} to="/" exact>หน้าแรก</NavLink>
-                                    </li>
+                                        <li className="menu-link" >
+                                            <Link to="/search" className={getNavClass}>ค้นหา</Link>
+                                        </li>
+                                        <li className="menu-link" >
+                                            <Link to="/Static" className={getNavClass}>สถิติ</Link>
+                                        </li>
+                                        <li className="menu-link" >
+                                            <Link to={"/edit_admin"} className={getNavClass}>Admin</Link>
+                                        </li>
+                                        <li className="menu-link" >
+                                            <Link onClick={logouts} to="/login" >ออกจากระบบ</Link>
+                
+                                        </li>
+                                    </ul>
+                                    :
+                                    <ul className='menu' >
+                                        <li className="menu-link" >
+                                            <NavLink className={getNavClass} to="/" exact>หน้าแรก</NavLink>
+                                        </li>
 
-                                    <li className="menu-link" >
-                                        <Link to="/search" className={getNavClass}>ค้นหา</Link>
-                                    </li>
-                                    <li className="menu-link" >
-                                        <Link to="/Static" className={getNavClass}>สถิติ</Link>
-                                    </li>
-                                    <li className="menu-link" >
-                                        <Link to="/profile" className={getNavClass}>โปรไฟล์</Link>
-                                    </li>
-                                    <li className="menu-link" >
-                                        <Link onClick={logouts} to="/login" >ออกจากระบบ</Link>
-            
-                                    </li>
-                                </ul>
+                                        <li className="menu-link" >
+                                            <Link to="/search" className={getNavClass}>ค้นหา</Link>
+                                        </li>
+                                        <li className="menu-link" >
+                                            <Link to="/Static" className={getNavClass}>สถิติ</Link>
+                                        </li>
+                                        <li className="menu-link" >
+                                            <Link to={"/profile"} className={getNavClass}>โปรไฟล์</Link>
+                                        </li>
+                                        <li className="menu-link" >
+                                            <Link onClick={logouts} to="/login" >ออกจากระบบ</Link>
+                
+                                        </li>
+                                    </ul>
                                 :
 
                                 <ul className='menu' >

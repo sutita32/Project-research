@@ -23,37 +23,23 @@ function Profile() {
     const MySwal = withReactContent(Swal);
 
     const [isLoaded, setIsLoaded] = useState(true);
-    const [user, setUser] = useState([]);
+    const [user, setUser] = useState();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + token);
-        
-        var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-        };
-        
-        fetch("https://www.melivecode.com/api/auth/user", requestOptions)
-          .then(response => response.json())
-          .then(result => {
-            if (result.status === 'ok'){
-                setUser(result.user)
-                setIsLoaded(false)
-            }else if (result.status === 'forbidden'){
-                MySwal.fire({
-                    html:<i>{result.message}</i>,
-                    icon: 'error'
-                }).then((value) => {
-                    navigate('/login')
-                })
-            }
-            console.log(result)
-        })
-          .catch(error => console.log('error', error));
+        console.log("user => ",JSON.parse(localStorage.getItem('user')))
 
+        if(localStorage.getItem('user')){
+          setUser(JSON.parse(localStorage.getItem('user')));
+          setIsLoaded(false)
+        }
+        
+        if(!token){
+          localStorage.clear();
+          navigate('/login')
+        }
       }, [])
       const logout = () => {
         localStorage.removeItem('token')
@@ -62,7 +48,7 @@ function Profile() {
 
       const [ShowInterestBlock] = useState(<ProfilePage_Interest />);
   
-
+      // console.log(user)
       if(isLoaded) return (<>Loading</>)
       else{
         return (
@@ -149,10 +135,10 @@ function Profile() {
                     <span className="inline-block align-middle ">
                       : &emsp;&emsp;&emsp;{user.username}
                     </span>
-                    <div>:&emsp;&emsp;&emsp;{user.fname} </div>
-                    <div>:&emsp;&emsp;&emsp;{user.lname} </div>
-                    <div>:&emsp;&emsp;&emsp;{user.email} </div>
-                    <div>:&emsp;&emsp;&emsp;- </div>
+                    <div>:&emsp;&emsp;&emsp;{user.first_name} </div>
+                    <div>:&emsp;&emsp;&emsp;{user.last_name} </div>
+                    <div>:&emsp;&emsp;&emsp;{user.Email} </div>
+                    <div>:&emsp;&emsp;&emsp;{user.phonenumber}</div>
                   </div>
                 </div>
               </div>
@@ -162,8 +148,8 @@ function Profile() {
       </div>
       <div className="grid place-items-center absolute top-[228px] border-blue-700 w-full h-[140px]">
         <img
-          src={user.avatar}
-          className="h-[140px] rounded-full"
+          // src={user.avatar}
+          class="h-[140px] rounded-full"
         ></img>
       </div>
             </>

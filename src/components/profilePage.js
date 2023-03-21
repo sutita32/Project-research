@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/profilePage.css";
 import { BiEdit } from "react-icons/bi";
 import { FaUserEdit } from "react-icons/fa";
@@ -9,8 +9,99 @@ import { HiOutlineMail } from "react-icons/hi";
 import Scholar from "./scholar";
 import Scopus from "./scopus";
 import { Bar } from "react-chartjs-2";
+function ProfilePage(props) {
+  // console.log("getid=>",getid)
 
-function ProfilePage() {
+  const [isLoading , setIsLoading] = useState(true);
+  const [datapro , setdatapro] =useState([]);
+  const [dataresearch , setdataresearch] = useState([]);
+  const [dataskill , setdataskill]=useState([]);
+  const [dataqulification , setqulification] =useState([]);
+  
+  useEffect(()=>{
+    // console.log("getid =>",getid)
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    let raw = JSON.stringify({
+      "userID": props.getid
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:4000/api/professor/get-data-not-verify", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result.massage === "professor is Success" || result.data){
+          setdatapro(result.data[0]);
+          setIsLoading(false);
+        }
+        // return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+    
+    
+    raw = JSON.stringify({
+      "id": props.getid
+    });
+
+    requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:4000/api/search/getresearchbypro", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if( result.data){
+          setdataresearch(result.data);
+          setIsLoading(false);
+          setDataTable(<Scholar getdata={result.data} sendResearchIndex={(item) =>props.sendResearchIndex(item) }/>);
+        }
+        // return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+    
+      raw = JSON.stringify({
+        "id": props.getid
+      });
+  
+      requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if( result.data){
+            setdataskill(result.data);
+            setIsLoading(false);
+          }
+          // return console.log(result);
+        })
+        .catch(error => console.log('error', error));
+      
+        fetch("http://localhost:4000/api/professor/get-qulificationbyidpro", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if( result.data){
+            setqulification(result.data);
+            setIsLoading(false);
+          }
+          // return console.log("qulification=>",result);
+        })
+        .catch(error => console.log('error', error));
+  } , [])
   //เอาไว้อัพเดต focus
   const [scholarBtn, setScholartBtn] = useState(
     "h-[35px] w-auto bg-regal-red text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4 outline-none"
@@ -28,7 +119,7 @@ function ProfilePage() {
       "h-[35px] w-auto bg-white text-regal-red border-regal-red border-2 hover:bg-regal-red hover:text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     console.log("กดสกอลา");
-    setDataTable(<Scholar />);
+    setDataTable(<Scholar getdata={dataresearch} sendResearchIndex={(item) =>props.sendResearchIndex(item) }/>);
     setTimeout(() => {
       window.scrollTo({
         top: 1000,
@@ -46,7 +137,7 @@ function ProfilePage() {
       "h-[35px] w-auto bg-regal-red text-white border-regal-red border-2 rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     console.log("กดสกอปัส");
-    setDataTable(<Scopus />);
+    setDataTable(<Scopus getdata={dataresearch} sendResearchIndex={(item) =>props.sendResearchIndex(item) }/>);
     setTimeout(() => {
       window.scrollTo({
         top: 1000,
@@ -55,25 +146,49 @@ function ProfilePage() {
     }, 100);
   };
 
-  const interData = ['lllllllllllllllllllll', 'aasdsdsaduiohndwqw', 'qejfiw', 'wEIFHJEI', 'EQWOFIJQI', 'WEOFM', 'wqundoqnduqdqdhqoudhwoqdhwoqdhqwodhwqou'];
 
-  const [dataTable, setDataTable] = useState(<Scholar />);
+  const [dataTable, setDataTable] = useState(<Scholar getdata={dataresearch} sendResearchIndex={(item) =>props.sendResearchIndex(item) }/>);
   //แบ่งชื่อ-นามสกุล
   const word = workData[0].userName.split(" ");
 
   function Graph() {
+
+    let year =[];
+    let sum =[];
+    if(dataresearch.length> 0){
+      year.push(new Date(dataresearch[0].Publication_date).getFullYear());
+      let tempy = new Date(dataresearch[0].Publication_date).getFullYear();
+      let c =1;
+      for(let i=1;i<dataresearch.length;i++){
+        let y =new Date(dataresearch[i].Publication_date).getFullYear();
+        if(y === tempy) c++;
+        else{
+          year.push(y);
+          tempy = y;
+          sum.push(c);
+          c = 1;
+        }
+        if( i === dataresearch.length-1){
+          // year.push(y);
+          // tempy = y;
+          sum.push(c);
+        }
+      }
+    }
+    
     const data = {
-      labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+      labels: year,
       datasets: [
         {
-          label: "My First Dataset",
-          data: [65, 59, 80, 81, 56, 55, 40, 20],
+          label: "Research is have",
+          data: sum,
           backgroundColor: ["rgba(255, 99, 132, 0.2)"],
           borderColor: ["rgba(255, 99, 132, 0.2)"],
           borderWidth: 1,
         },
       ],
     };
+
     const options = {
       plugins: {
         legend: {
@@ -89,6 +204,36 @@ function ProfilePage() {
     );
   }
 
+  // function Graph() {
+  //   const data = {
+  //     labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
+  //     datasets: [
+  //       {
+  //         label: "My First Dataset",
+  //         data: [65, 59, 80, 81, 56, 55, 40, 20],
+  //         backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+  //         borderColor: ["rgba(255, 99, 132, 0.2)"],
+  //         borderWidth: 1,
+  //       },
+  //     ],
+  //   };
+  //   const options = {
+  //     plugins: {
+  //       legend: {
+  //         display: false,
+  //       },
+  //     },
+  //     responsive: true,
+  //   };
+  //   return (
+  //     <>
+  //       <Bar data={data} options={options}></Bar>
+  //     </>
+  //   );
+  // }
+
+  if(isLoading) return( <>Loading.....</>)
+  else
   return (
     <div className="relative">
       <div class="z-[-1] absolute grid grid-rows-6 h-full w-full">
@@ -106,19 +251,25 @@ function ProfilePage() {
             <div className="flex justify-center w-full h-[300px] ">
               <div className=" text-center font-bold1">
                 <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
+                  <div className=" h-[160px] w-[160px] rounded-full bg-[#EFEFEF] translate-y-[-60%] "></div>
                 </div>
-                <div className="text-[19px] py-[3px]">ชื่อภาษาไทย</div>
-                <div className="py-[3px]">ชื่อภาษาอังกฤษ</div>
+                <div className="text-[19px] py-[3px]">{datapro.title_name+datapro.firstname_professor+" "+datapro.lastname_professor}</div>
+                <div className="py-[3px]">{datapro.Keyword}</div>
                 <div className=" font-bold mt-[30px] py-[3px]">
                   วุฒิการศึกษา
                 </div>
-                <div className="py-[3px]">ปริญญาตรีที่แมกซิโก</div>
-                <div className="py-[3px]">ปริญญาโทที่เมืองเช็ก</div>
-                <div className="py-[3px]">ปริญญาเอกที่วัดหลวงพ่อโต</div>
-                <div className="flex h-[30px] w-auto mt-[30px] py-[3px]">
+                { dataqulification.map((item,index)=>(
+                  <div className="py-[3px]">{item.name_qualification}</div>
+                
+                ))
+                }
+                <div className="grid place-items-center">
+                  <div className="flex h-[30px] w-auto mt-[30px] py-[3px]">
                   <HiOutlineMail className="mr-[10px] h-full w-[30px] text-regal-red" />
-                  mioamdicjdai@gmail.com
+                  {datapro.Email}
                 </div>
+                </div>
+                
               </div>
             </div>
             <div className="grid place-items-center w-full h-fit">
@@ -139,9 +290,9 @@ function ProfilePage() {
             <div className="flex w-full h-fit mb-[20px]">
               <div className="w-[140px] h-full "></div>
               <div className="w-full h-fit flex flex-wrap">
-                {interData.map((item) => (
+                {dataskill.map((item) => (
                   <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
-                    {item}
+                    {item.name_coreskill}
                   </div>
                 ))}
               </div>
@@ -187,7 +338,7 @@ function ProfilePage() {
         <img
           alt=""
           src="https://scontent.fbkk10-1.fna.fbcdn.net/v/t1.6435-9/167084877_3611020235663621_2658686305999705607_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE9xNBp92oD8Rz3CeAFljiBnJ4aVVDnRQ6cnhpVUOdFDnCTQAt13QeMfFvW20lOrTfdkQGLuL6guH3CN9Kp4kHB&_nc_ohc=Dp0n9pWkKUAAX8i1Vmx&_nc_ht=scontent.fbkk10-1.fna&oh=00_AfCOiEO4hw7988SRJsyf_wtv912O74OZ2wXt2Mn8--ewYA&oe=641EA01B"
-          className="h-[140px] w-[140px] rounded-full object-cover"
+          class="h-[140px] rounded-full"
         ></img>
       </div>
       <div class="z-[10] grid place-items-center absolute top-[140px] w-full h-[80px] transform translate-y-[100%] overflow-hidden">

@@ -1,69 +1,80 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react'
+import React ,{ useEffect, useState}from 'react'
 import '../style/interests.css'
 
 
 
 function Interests() {
-  return (
+    const [dataskill , setdataskill] = useState([]);
+    const [isLoading ,setIsLoading] = useState(true);
+    const [datashow , setdatashow] = useState([]);
+
+    useEffect(()=>{
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+          
+        fetch("http://localhost:4000/api/professor/get-all-skill", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if(result.data){
+                    setdataskill(result.data);
+                    setIsLoading(false);
+                    // return result.data;
+                }
+                // return console.log("dataskill=>",result.data);
+            })
+            .catch(error => console.log('error', error));
+        
+        
+    },[]);
+
+
+    if(isLoading) return (<>Loading....</>)
+    else{
+        console.log("dataskill=>",dataskill )
+        let temp =[];
+        let t = dataskill[0].ID_coreskill;
+        let count = 1;
+        for(let i =0;i<dataskill.length;i++ ){
+            if(i=== dataskill.length-1) {
+                temp.push({
+                    data : dataskill[i],
+                    count :count+1
+                });
+                break;
+            }
+            if(t === dataskill[i].ID_coreskill){
+                count++;
+            }else{
+                temp.push({
+                    data : dataskill[i-1],
+                    count :count
+                });
+                count=1;
+                t=dataskill[i].ID_coreskill;
+            }
+        }
+        
+    return (
     <><div className='toppic'>
           Interesting
       </div>
       <div className='interest'>
-              <div className='contianner'>
-                  <a class="index-one" href='#'>
-                      <span className='button font-medium '>Artificial Intelligence</span>
-                  </a>              
-              </div>
-              <div className='contianner'>
-                  <a class="index-one" href='#'>
-                      <span className='button font-medium '>Machine Learning</span>
-                  </a>                  
-              </div>
-              <div className='contianner'>
-                  <a class="index-one" href='#'>
-                      <span className='button font-medium '>Computer Graphics</span>
-                  </a>                 
-              </div>
-              <div className='contianner'>
-                  <a class="index-one" href='#'>
-                      <span className='button font-medium '>Ad hoc Network</span>
-                  </a>
-                  
-              </div>
-              <div className='contianner'>
-                  <a class="index-one" href='#'>
-                      <span className='button'>Geostatistics</span>
-                  </a>                  
-              </div>
-          </div>
-          <div className='interest1'>
-          <div className='contianner1'>
-                  <a class="index-one1" href='#'>
-                      <span className='button1 font-medium '>Parallel Processing</span>
-                  </a>
-                  
-              </div>
-              <div className='contianner1'>
-                  <a class="index-one1" href='#'>
-                      <span className='button1 font-medium '>Human Computer Interaction</span>
-                  </a>                 
-              </div>
-              <div className='contianner1'>
-                  <a class="index-one1" href='#'>
-                      <span className='button1 font-medium '>Computer vision</span>
-                  </a>                
-              </div>
-              <div className='contianner1'>
-                  <a class="index-one1" href='#'>
-                      <span className='button1 font-medium '>Time Series</span>
-                  </a>                 
-              </div>
+            {   temp.map((item,index)=>(
+                <div className='contianner'>
+                    <a class="index-one" href='#'>
+                        <span className='button font-medium '>{item.data.name_coreskill}</span>
+                    </a>              
+                </div>
+            ))}
+
               
             </div>
 
           </>
-  )
+    )}
 }
 
 export default Interests
