@@ -106,6 +106,43 @@ function Search(props) {
       .catch(error => console.log('error', error));
     }
   }
+  useEffect(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+      "keyword": ""
+    });
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    fetch("http://localhost:4000/api/search/search-keyword", requestOptions)
+        .then(response => {
+          return response.json();
+        })
+        .then(result => {
+          
+          if(result.data != null){
+            props.searchdata({
+              data :result.data,
+              keyword :inputs.search
+            });
+            localStorage.setItem("temp", inputs.search);
+            localStorage.setItem("dataresearch",JSON.stringify(result.data));
+            navigate('/search/')
+          }else{
+            props.searchdata({
+              data :null,
+              keyword :inputs.search
+            });
+            navigate('/search/')
+          }
+          return console.log(result);
+        })
+        .catch(error => console.log('error', error));
+  },[])
 
   return (
     <>

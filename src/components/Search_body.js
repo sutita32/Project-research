@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-pascal-case */
+   // eslint-disable-next-line no-const-assign
 import { type } from "@testing-library/user-event/dist/type";
 import React, { useEffect, useState } from "react";
 import "../style/Search_body.css";
@@ -24,7 +25,7 @@ let tempdata ;
 
 
 
-function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
+function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
   const [checkyear, setchecksyear] = useState(new Array(100).fill(false));
   const [checkteach, setcheckteach] = useState(new Array(100).fill(false));
   const [checklist, setchecklist] = useState(0);
@@ -32,6 +33,9 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
   const {keyword ,data } = searchdata;
 
   const [DATA ,setDATA] = useState();
+  if(data !== DATA){
+    setDATA(data)
+  }
   // tempdata=data
   // console.log("sdadsad",data)
   if(data){
@@ -39,58 +43,45 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
     data_year.length=0;
     data_name_list.length=0;
     /* เอาไว้ลูปเลขปี && อาจารย์*/
-    let temp1 = new Date(data[0].Publication_date).getFullYear();
-    let count = 1 ;
-    let count1 = 1 ;
-    data_year.push({
-      year : temp1,
-      N : count,
-    })
-
-    data_name_list.push({
-      name : data[0].title_name + data[0].firstname_professor +" "+ data[0].lastname_professor,
-      keyword : data[0].Keyword,
+    let list_name_sort = data.sort((a, b) => {
+      return a.ID_professor - b.ID_professor;
     });
-    let j=0,k=0;
-    let temp2 = data[0].Keyword;
-    for(let i=1;i<data.length;i++){
-      let yearr = new Date(data[i].Publication_date).getFullYear();
-      let name = data[i].title_name + data[i].firstname_professor +" "+ data[i].lastname_professor;
-      // console.log("index=",i," stat=>Year=>",yearr, "&pu",data[i].Publication_date)
-      // console.log("index=",i," stat=>teacher=>",name)
-      if(yearr === temp1 ){
-        count++;
-        data_year[j] = {
-          year : yearr,
-          N : count,
-        };
-        
-      }else if(yearr !== temp1){
+    let list_year_sort = data.sort((a, b) => {
+      return new Date(a.Publication_date).getFullYear() - new Date(b.Publication_date).getFullYear() ;
+    }); 
+    // console.log("list_name_sort=>",list_name_sort)
+    // console.log("list_year_sort=>",list_year_sort)
+    let temp1 = new Date(list_year_sort[0].Publication_date).getFullYear();
+    let count = 1 ;
+    
+    for(let i=1;i<list_year_sort.length;i++){
+      let year = new Date(list_year_sort[i].Publication_date).getFullYear();
+      if(i === list_year_sort.length-1 && temp1 !== year){
         data_year.push({
-          year : yearr,
-          N : 1,
-        });
-        count=1;
-        j++;
-        temp1=yearr;
+          year : year,
+          N : count+1
+        })
+        break;
       }
-      if(temp2 === data[i].Keyword){
-        count1++;
-        data_name_list[k]= {
-          name : name,
-          keyword : data[0].Keyword,
-        };
-      }else if(temp2 !== data[i].Keyword){
-        data_name_list.push({
-          name : name,
-          keyword : data[0].Keyword,
-        });
-        k++;
+      if(temp1 === year){
+        count++;
+      }else{
+        data_year.push({
+          year : temp1,
+          N : count
+        })
+        temp1 = new Date(list_year_sort[i].Publication_date).getFullYear();
         count=1;
-        temp2=data[i].Keyword;
       }
-
     }
+
+    data_name_list = list_name_sort.filter(
+      (obj, index) =>
+      list_name_sort.findIndex((item) => item.Keyword === obj.Keyword) === index
+    );
+    // console.log("data_name_list=>",data_name_list)
+
+    // let j=0,k=0;
   }
 
 
@@ -123,7 +114,8 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
     // console.log("datadatadatadata  =>",data.length)
     tempdata =null
     let test= [];
-    
+    console.log("checkyear=>",checkyear)
+    console.log("checkteacr=>",checkteach)
       for(let i=0;i < data_year.length;i++){
         if(checkyear[i]){
           // console.log("year cheak "+i+ "=>",data_year[i]);
@@ -135,7 +127,7 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
                 // console.log("push Keyword =>",data[k].Keyword)
                 let yearr = new Date(data[k].Publication_date).getFullYear();
                 // console.log("push yearr =>",yearr)
-                if(data_name_list[j].keyword === data[k].Keyword && data_year[i].year === yearr){
+                if(data_name_list[j].Keyword === data[k].Keyword && data_year[i].year === yearr){
                   // console.log("push tempdata =>",data[k])
                   test.push(data[k]);
                 }
@@ -145,8 +137,6 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
         }
       }
    
-    
-  
     // console.log("tempdata =>",test)
     // console.log("tempdata =>",tempdata)
     tempdata = test;
@@ -168,14 +158,14 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
         </div>
       </div>
       <div className="grid grid-cols-8 gap-4">
-        { data?
+        { DATA ?
           // displaysearch(data1,sendWorkIndex,tempdata ? tempdata:data)
           <div className="col-span-6">
-            <Search_main_body data1={data1} sendWorkIndex={sendWorkIndex} searchdata={data } />
+            <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={ DATA} />
           </div>
           :
           <div className="col-span-6">
-            <Search_main_body data1={data1} sendWorkIndex={sendWorkIndex} searchdata={DATA } />
+            <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={data } />
           </div>
         }
         <div className=" col-span-2 ">
@@ -269,7 +259,7 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
                       <input
                         id={index}
                         type="checkbox"
-                        value={item.name}
+                        value={item.title_name+item.firstname_professor+" "+item.lastname_professor}
                         // checked={checkteach[index]}
                         onChange={() => focusteach( index)}
                         class="w-4 h-4 accent-regal-red bg-gray-100 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:bg-gray-700"
@@ -278,7 +268,7 @@ function Search_body({ data1, sendWorkIndex , searchdata ,setsearchdata} ) {
                         for={index}
                         class="ml-2 text-sm font-medium text-gray-900 dark:text-text-dark"
                       >
-                        {item.name}
+                        {item.title_name+item.firstname_professor+" "+item.lastname_professor}
                       </label>
                     </div>
                   ))}

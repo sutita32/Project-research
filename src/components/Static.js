@@ -40,7 +40,10 @@ function Static(props) {
         }
         // return console.log("dataresearch=>",result);
       })
-      .catch(error => console.log('error', error));
+      .catch(error => {
+        setIsLoading(true);
+        return console.log('error', error);
+      });
 
     fetch("http://localhost:4000/api/professor/get-all-data", requestOptions)
     .then(response => response.json())
@@ -51,7 +54,10 @@ function Static(props) {
       }
       // return console.log(result);
     })
-    .catch(error => console.log('error', error));
+    .catch(error => {
+      setIsLoading(true);
+      return console.log('error', error);
+    });
 
 
 
@@ -144,7 +150,7 @@ function Static(props) {
     console.log("info year=>",info)
   };
 
-  if( isLoading) return (<>Loading....</>)
+  if( isLoading && dataresearch.length === 0) return (<>Loading....</>)
   else {
     let c=1;
     dataDropdown[1].items.push({

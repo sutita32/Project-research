@@ -36,7 +36,15 @@ function detailPage({ getid, data}) {
       navigate('/search/')
       
     }
-
+      
+    
+  let wc= data[id].conference.split(" ");
+  
+  let confer=[];
+  for(let i=1;i<wc.length;i++){
+    confer.push(wc[i]+" ")
+  }
+  console.log("confer=>",confer)
   return (
     <>
       <div class="bg-regal-red w-full h-10"></div>
@@ -60,14 +68,24 @@ function detailPage({ getid, data}) {
                   <div class="col-span-6">: {data[id].title_name+data[id].firstname_professor+" "+data[id].lastname_professor}</div>
                 </div>
                 <div class="grid grid-cols-8">
+                  <div class="col-span-2">ผู้เขียน</div>
+                  {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
+                  <div class="col-span-6">: {data[id].authors}</div>
+                </div>
+                <div class="grid grid-cols-8">
                   <div class="col-span-2">วันที่เผยแพร่</div>
                   {/* <div class="col-span-6">: {workData[getid - 1].date}</div> */}
                   <div class="col-span-6">: {new Date(data[id].Publication_date).toLocaleDateString('en-US') }</div>
                 </div>
                 <div class="grid grid-cols-8">
-                  <div class="col-span-2">conference</div>
-                  {/* <div class="col-span-6">: {workData[getid - 1].id}</div> */}
-                  <div class="col-span-6">: {data[id].conference}</div>
+                  {
+                    wc[0] === "Conference" ?
+                    <><div class="col-span-2">conference</div><div class="col-span-6">: {confer}</div></>
+                    :
+                    <><div class="col-span-2">Journal
+                    </div><div class="col-span-6">: {confer}</div></>
+                  }
+                  
                 </div>
                 <div class="grid grid-cols-8">
                   {/* <div class="col-span-2">punlisher iee</div> */}
@@ -83,7 +101,7 @@ function detailPage({ getid, data}) {
                 <div class="grid grid-cols-8">
                   <div class="col-span-2">total citations</div>
                   <div class="col-span-6 pb-8">
-                    : {<LineChart h="20" w="60" />}
+                    : {data[id].Citation}
                   </div>
                 </div>
                 <div class="grid grid-cols-8">

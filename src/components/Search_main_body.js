@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 
 
 
-function Search_main_body({ data1, sendWorkIndex , searchdata }) {
+function Search_main_body({ data1, sendResearchIndex , searchdata }) {
   let data_show = [];
   console.log("searchdata => ", searchdata)
   if(searchdata){
@@ -21,32 +21,16 @@ function Search_main_body({ data1, sendWorkIndex , searchdata }) {
       
     }
   }
-  // console.log("data_show => ", data_show)
-  // if (data1 * 10 <= data_length) {
-  //   for (var i = 0; i < 10; i++) {
-  //     data_show[i] = searchdata.data[data1 * 10 - 10 + i];
-  //   }
-  // } else if (data1 * 10 > data_length) {
-  //   for (var j = 0; j < (data_length % 10) - 1; j++) {
-  //     data_show[j] = searchdata.data[data1 * 10 - 9 + j];
-  //   }
-  //   for (
-  //     var k = (data_length % 10) - 1;
-  //     k < data1 * 10 - data_length - 1;
-  //     k++
-  //   ) {
-  //     data_show[k] = "0";
-  //   }
-  // }
+
 
 
   return (
     <>
       { data_show ? 
         data_show.map((item, index) => (
-          <NavLink to={`detail/`}
+          <NavLink to={`../idresearch=${item.ID_research}`}
           // {`/${item.name_research}/`} 
-          onClick={() => sendWorkIndex({index,data1})}>
+          onClick={() => sendResearchIndex(item.ID_research)}>
             <div
               key={index}
               class="h-auto mx-auto pt-2 px-6 transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300 "

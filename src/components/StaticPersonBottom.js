@@ -85,7 +85,7 @@ function StaticPersonBottom({typesNow, dataresearch , professorlist, sendTeacher
               </div>
               <div class="grid place-items-center col-span-2">
                 
-                <NavLink onClick={()=>sendTeacherIndex(item.ID)} to={`id=${item.ID}`}><div>แสดงโปรไฟล์</div></NavLink>
+                <NavLink onClick={()=>sendTeacherIndex(item.ID)} to={`../id=${item.ID}`}><div>แสดงโปรไฟล์</div></NavLink>
               </div>
             </div>
           </div>

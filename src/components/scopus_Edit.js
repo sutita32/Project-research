@@ -9,254 +9,66 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 
-function Scopus() {
-  const [dataScopus, setDatascopus] = useState([
-    {
-      id: 1,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 2,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 3,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 4,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 5,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 6,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 7,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 8,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 9,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 10,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 11,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 12,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 13,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 14,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 15,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 16,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 17,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 18,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 19,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 20,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 21,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 22,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 23,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-    {
-      id: 24,
-      pname:
-        "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-      name: "S Prasomphan",
-      Conference:
-        "2015 International Conference on Systems, Signals and ImageProcessing …",
-      year: "2015",
-      cited: "38",
-    },
-  ]);
+function Scopus({getdata}) {
+  // const [dataScopus, setDatascopus] = useState([
+  //   {
+  //     id: 1,
+  //     pname:
+  //       "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
+  //     name: "S Prasomphan",
+  //     Conference:
+  //       "2015 International Conference on Systems, Signals and ImageProcessing …",
+  //     year: "2015",
+  //     cited: "38",
+  //   },
+  //   
+  // ]);
+  const [dataScopus, setDatascopus] = useState(getdata);
   function handleDeleteClike(id) {
-    const removeItem = dataScopus.filter((dataScopus) => {
-      return dataScopus.id !== id;
+    console.log("del id => ",id)
+    let token = localStorage.getItem('token');
+    let temp = dataScopus;
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+token);
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "researchid": id
     });
-    setDatascopus(removeItem);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:4000/api/research/del-researchbypro", requestOptions)
+      .then(response => response.text())
+      .then(result => {
+        if(result === 'delete Success'){
+          // var removeItem = dataScholar.filter(dataScholar =>{
+          //   return dataScholar.ID_research !== id
+          // })
+          var t =[];
+          for(let i=0;i<temp.length;i++){
+            if(temp[i].ID_research !== id) {
+              t.push(temp[i]) ;
+            }
+          }
+          setDatascopus(t)
+          console.log('dataafterdel',dataScopus)
+          setDataShow(dataScopus.slice(pageNow * 10 - 10, pageNow * 10));
+        }
+        return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+
+
+    // const removeItem = dataScopus.filter(dataScopus =>{
+    //   return dataScopus.ID_research !== id
+    // })
+    // setDatascopus(removeItem);
   }
 
   const [pageNow, setPageNow] = useState(1);
@@ -273,23 +85,32 @@ function Scopus() {
   };
 
   useEffect(() => {
+    let research= [];
+    for(let i=0;i<getdata.length ;i++){
+      if(getdata[i].ID_Type === 2){
+        research.push(getdata[i]);
+      }
+    }
+    setDatascopus(research);
+
     setDataShow(dataScopus.slice(pageNow * 10 - 10, pageNow * 10));
   }, [pageNow]);
 
   const renderTable = (
     <>
       {dataShow.map((item) => (
-        <div class="bg-white grid grid-cols-10" key={item.id}>
+        <div class="bg-white grid grid-cols-10" key={item.ID_research}>
           <div
             scope="row"
             class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7"
           >
-            <a href="#">{item.pname}</a>
-            <p className="text-gray-400 font-normal"> {item.name}</p>
-            <p className="text-gray-400 font-normal">{item.Conference}</p>
+            <a href="#">{item.name_research}</a>
+            <p className="text-gray-400 font-normal"> {item.Keyword}</p>
+            <p className="text-gray-400 font-normal"> {item.name_Type}</p>
+            <p className="text-gray-400 font-normal">{item.conference}</p>
           </div>
-          <div class="grid place-content-center px-6 py-4">{item.year}</div>
-          <div class="grid place-content-center px-6 py-4">{item.id}</div>
+          <div class="grid place-content-center px-6 py-4">{new Date(item.Publication_date).getFullYear()}</div>
+          <div class="grid place-content-center px-6 py-4">{item.Citation}</div>
           <div class="grid place-content-center px-6 py-4">
             <div className="flex">
               <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
@@ -298,7 +119,7 @@ function Scopus() {
               <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
                 <RiDeleteBin6Line
                   className="h-full w-full"
-                  onClick={() => handleDeleteClike(item.id)}
+                  onClick={() => handleDeleteClike(item.ID_research)}
                 />
               </button>
             </div>

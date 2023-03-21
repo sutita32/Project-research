@@ -28,7 +28,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import { Link, NavLink } from 'react-router-dom'
 import ProfilePage_Edit from './components/profilePage_Edit'
-
+import Detailresearch from './components/detailresearch';
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -47,7 +47,7 @@ function Home_Page(props){
 }
   
 /*ฟังก์ชันเอาหน้ามาต่อกัน */
-function SearchPage({ data1, sendWorkIndex ,sendsearch}) {
+function SearchPage(props) {
   const [searchdata, setsearchdata] = useState([]);
   const [searchdatafilter, setsearchdatafilter] = useState(null);
   const settsearchdata = (val)=>{
@@ -61,17 +61,17 @@ function SearchPage({ data1, sendWorkIndex ,sendsearch}) {
     // setsearchdata(temp)
     setsearchdatafilter({data:val , keyword :searchdata.keyword})
   }
-  sendsearch(searchdata);
+  props.sendsearch(searchdata);
   return (
     <>
       <Search_searchBar searchdata={(item)=>{settsearchdata(item)}}/>
       <Search_body 
         searchdata={searchdata} 
-        data1={data1} 
-        sendWorkIndex={sendWorkIndex}
+        data1={props.data1} 
+        sendResearchIndex={(item)=>props.sendResearchIndex(item)}
         setsearchdata = {(item)=> settsearchdatafilter(item)}
       />
-      <Search_bottom page_now={data1} searchdata={searchdatafilter ? searchdatafilter : searchdata}  />
+      <Search_bottom page_now={props.data1} searchdata={searchdatafilter ? searchdatafilter : searchdata}  />
     </>
   );
 }
@@ -88,9 +88,15 @@ function App() {
 const [teacherIndex, setTeacherIndex] = useState(0);
 const sendTeacherIndex = (val) =>{
   setTeacherIndex(val);
-  console.log(val)
+  // console.log(val)
 };
 
+
+const [researchIndex, setresearxhIndex] = useState(0);
+const sendResearchIndex = (val) =>{
+  setresearxhIndex(val);
+  // console.log("researchIndex=>",val)
+};
 //เอาไว้รับค่าว่าใครlogin
 const [loginstatuss, setloginstatuss] = useState(0);
 const settloginstatuss = (val) => {
@@ -100,13 +106,13 @@ const settloginstatuss = (val) => {
 const [workData, setworkData] = useState(null);
   const sendworkData = (val) => {
     setworkData(val);
-    console.log("workData=>",val)
+    // console.log("workData=>",val)
   };
   for(let i =1 ;i< 100 ;i++){
     resultsearchpage.push(
       <Route
           path={"/search/"+i.toString()}
-          element={<SearchPage data1={i.toString()} sendWorkIndex={sendWorkIndex} sendsearch={sendworkData} getdata={workData}/>}
+          element={<SearchPage data1={i.toString()}  sendResearchIndex={(item)=> {sendResearchIndex(item)}} sendsearch={sendworkData} getdata={workData}/>}
       />
       
     )
@@ -120,7 +126,7 @@ const [workData, setworkData] = useState(null);
 
           <Route
           path="/search/"
-          element={<SearchPage data1="1" sendWorkIndex={sendWorkIndex}   sendsearch={(item)=> sendworkData(item)}/>}
+          element={<SearchPage data1="1"  sendResearchIndex={(item)=> {sendResearchIndex(item)}}  sendsearch={(item)=> sendworkData(item)}/>}
         />
           {/* <Route
           path="/search/1"
@@ -140,22 +146,24 @@ const [workData, setworkData] = useState(null);
           path={`/search/${workIndex.data1}/detail/`}
           element={<DetailPage getid={workIndex ? workIndex: -1} data ={workData ? workData.data : []}/>}
         />
-       <Route
+        <Route
           path={`/search/detail/`}
           element={<DetailPage getid={workIndex ? workIndex: -1} data ={workData ? workData.data : []}/>}
         />
-      
+        <Route
+          path={`/idresearch=${researchIndex}`}
+          element={<Detailresearch getid={researchIndex}/>}
+        />
         
         <Route
-          path={`id=${teacherIndex}`}
-          element={<ProfilePage getid={teacherIndex ? teacherIndex : 0}
-            />}
+          path={`/id=${teacherIndex}`}
+          element={<ProfilePage getid={teacherIndex ? teacherIndex : 0} sendResearchIndex={(item)=> {sendResearchIndex(item)}}/>}
         />
-        <Route
+        {/* <Route
           path={`Static/id=${teacherIndex}`}
-          element={<ProfilePage getid={teacherIndex ? teacherIndex : 0}
+          element={<ProfilePage getid={teacherIndex ? teacherIndex : 0} sendResearchIndex={(item)=> {sendResearchIndex(item)}}
             />}
-        />
+        /> */}
           <Route element={<PrivateComponent/>}/>
             <Route path="/" element={<Home_Page sendTeacherIndex={(item)=> {sendTeacherIndex(item)}}/>}/>
             <Route path="/login" element={<LoginUser loginstatus={(item)=>{settloginstatuss(item)}}/>}/>

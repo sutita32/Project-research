@@ -42,6 +42,7 @@ function LoginUser(props) {
   const handleSubmit = async (event) => {
     event.preventDefault(); //ป้องกันการเปลี่ยนแปลงหน้า
     console.log(loginstatus)
+    let ch = 0;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     if(loginstatus==="public"){
@@ -64,7 +65,9 @@ function LoginUser(props) {
       })
       .then(result => {
         if( result.user ){
+              ch=1;
               localStorage.setItem("user",JSON.stringify(result.user))
+              localStorage.setItem("Role",result.Role)
               MySwal.fire({
                   html:<i>{result.msg}</i>,
                   icon: 'success',
@@ -76,16 +79,49 @@ function LoginUser(props) {
                     props.loginstatus(loginstatus);
                   }
               })
-            }else{
-              MySwal.fire({
-                html:<i>{result.msg}</i>,
-                icon: 'error'
-              })
             }
-
-        return console.log(result);
+        // return console.log(result);
       })
       .catch(error => console.log('error', error));
+    }
+    if(ch === 0){
+
+      raw = JSON.stringify({
+        "username": inputs.uname ,
+        "password": inputs.pass
+      });
+  
+      requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+  
+      fetch("http://localhost:4000/api/auth/login-admin", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if (result.user){
+            ch =1;
+            localStorage.setItem("user",JSON.stringify(result.user))
+            localStorage.setItem("Role",result.Role)
+            MySwal.fire({
+                html:<i>{result.msg}</i>,
+                icon: 'success',
+            }).then((value) => {
+              localStorage.setItem('token',result.accessToken)
+              navigate('/edit_admin')
+                
+            })
+          }else {
+              MySwal.fire({
+                  html:<i>{result.msg}</i>,
+                  icon: 'error'
+              })
+          }
+          return console.log(result);
+        })
+        .catch(error => console.log('error', error));
     }
   }
 
