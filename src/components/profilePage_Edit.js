@@ -905,7 +905,7 @@ function ProfilePage_Edit() {
             <div className="flex justify-center w-full h-[300px] ">
               <div className=" text-center font-bold1">
                 <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
-                  
+                  <div className=" h-[160px] w-[160px] rounded-full bg-[#EFEFEF] translate-y-[-60%] "></div>
                 </div>
                 <div className="text-[19px] py-[3px]">
                   {titlenamet+fnamet}
@@ -1108,8 +1108,7 @@ function ProfilePage_Edit() {
       <div class="z-[20] grid place-items-center absolute top-[148px] w-full h-[140px]">
         <img
           src={imgsrc}
-          alt=""
-          className="h-[140px] w-[140px] rounded-full object-cover"
+          class="h-[140px] w-[140px] rounded-full object-cover"
         ></img>
       </div>
       <div class="z-[10] grid place-items-center absolute top-[140px] w-full h-[80px] transform translate-y-[100%] overflow-hidden">
