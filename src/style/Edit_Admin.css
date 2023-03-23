@@ -11,6 +11,9 @@
    display: flex;
    margin-right: 10px;
 }
-.edit3{
-    margin-left: 1200px;
+.make-center{
+    margin:0 auto;
+}
+.set_head_table{
+    background-color: black;
 }

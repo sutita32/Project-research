@@ -66,20 +66,16 @@ function Detailresearch({ getid}) {
         console.log("confer=>",confer)
     return (
       <>
-        <div class="bg-regal-red w-full h-10"></div>
+        <div class="bg-regal-red w-full h-5 mb-[50px]"></div>
+        <div className="h-fit w-8/12 set_center "><p class="topic-text text-regal-red">{dataresearch.name_research}</p></div>
         <div class="flex place-content-center	">
-          <div class="flex w-8/12 h-auto mt-16 mb-8 bg-regal-red bg-opacity-30 rounded-more p-16 shadow-sm">
-            <div class="grid grid-cols-10 w-full h-full">
-              <div class="grid grid-rows-3 col-span-3">
-                <div class="pt-10 row-span-1 flex place-items-center place-content-center pr-16">
-                  <img
-                    src={dataresearch.img}
-                    class="rounded-full h-40"
-                  />
-                </div>
-              </div>
+          
+        
+          <div class="flex w-8/12 h-auto mt-[20px] mb-8 bg-regal-red bg-opacity-30 rounded-[8px] p-16 shadow-sm">
+            <div class="grid  w-full h-full">
+              
               <div class="col-span-7 px-4 text-regal-red-text">
-                <p class="topic-text mb-4">{dataresearch.name_research}</p>
+                
                 <div class="detail-text grid grid-rows-7">
                   <div class="grid grid-cols-8">
                     <div class="col-span-2">ผู้วิจัย</div>

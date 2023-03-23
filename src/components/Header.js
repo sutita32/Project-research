@@ -5,6 +5,7 @@ import React from 'react'
 import '../style/Header.css'
 import Logo from '../img/image 1.png'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import ReactTypingEffect from 'react-typing-effect'
 
 function Header({loginstatus}) {
     const auth = localStorage.getItem('user');
@@ -27,12 +28,12 @@ function Header({loginstatus}) {
     return (
         <>
 
-            <div className='header' >
+            <div className='z-[999] header sticky top-0' >
                 <div className='container'>
-                    Collecting system of professors research in the of Computer Science
+                    <ReactTypingEffect text={['Research Gathering System of Computer and Information Science Department']} speed={30} eraseDelay={1500}/>
                 </div>
                 <div className='shadow-xl'>
-                    <div className='header-main'>
+                    <div className='header-main' >
                         <img src={Logo} alt="image 1.png" className="Logo" width="150" />
                         {
                             auth ?
@@ -43,16 +44,16 @@ function Header({loginstatus}) {
                                         </li>
 
                                         <li className="menu-link" >
-                                            <Link to="/search" className={getNavClass}>ค้นหา</Link>
+                                            <NavLink to="/search" className={getNavClass}>ค้นหา</NavLink>
                                         </li>
                                         <li className="menu-link" >
-                                            <Link to="/Static" className={getNavClass}>สถิติ</Link>
+                                            <NavLink to="/Static" className={getNavClass}>สถิติ</NavLink>
                                         </li>
                                         <li className="menu-link" >
-                                            <Link to={"/edit_admin"} className={getNavClass}>Admin</Link>
+                                            <NavLink to={"/edit_admin"} className={getNavClass}>Admin</NavLink>
                                         </li>
                                         <li className="menu-link" >
-                                            <Link onClick={logouts} to="/login" >ออกจากระบบ</Link>
+                                            <NavLink onClick={logouts} to="/login" >ออกจากระบบ</NavLink>
                 
                                         </li>
                                     </ul>
@@ -63,16 +64,16 @@ function Header({loginstatus}) {
                                         </li>
 
                                         <li className="menu-link" >
-                                            <Link to="/search" className={getNavClass}>ค้นหา</Link>
+                                            <NavLink to="/search" className={getNavClass}>ค้นหา</NavLink>
                                         </li>
                                         <li className="menu-link" >
-                                            <Link to="/Static" className={getNavClass}>สถิติ</Link>
+                                            <NavLink to="/Static" className={getNavClass}>สถิติ</NavLink>
                                         </li>
                                         <li className="menu-link" >
-                                            <Link to={"/profile"} className={getNavClass}>โปรไฟล์</Link>
+                                            <NavLink to={"/profile"} className={getNavClass}>โปรไฟล์</NavLink>
                                         </li>
                                         <li className="menu-link" >
-                                            <Link onClick={logouts} to="/login" >ออกจากระบบ</Link>
+                                            <NavLink onClick={logouts} to="/login" >ออกจากระบบ</NavLink>
                 
                                         </li>
                                     </ul>
@@ -84,14 +85,14 @@ function Header({loginstatus}) {
                                         </li>
 
                                         <li className="menu-link" > 
-                                            <Link to ="/search" className={getNavClass}>ค้นหา</Link>
+                                            <NavLink to ="/search" className={getNavClass}>ค้นหา</NavLink>
                                         </li> 
                                         <li className="menu-link" >
-                                        <Link to="/Static" className={getNavClass}>สถิติ</Link>
+                                        <NavLink to="/Static" className={getNavClass}>สถิติ</NavLink>
                                     </li>
                                     <NavLink to="/login" exact>
                                         <li className="menu-link" >
-                                            <button type='button' class="login_btn" id="btnLogin" >เข้าสู่ระบบ</button>
+                                            <button type='button' class="login_btn hover:bg-[#865369] focus:bg-[#865369]" id="btnLogin" >เข้าสู่ระบบ</button>
                                         </li>
                                     </NavLink> 
                                </ul>

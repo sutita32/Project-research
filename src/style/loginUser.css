@@ -11,15 +11,19 @@
     
   }
   .form-2{
-
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 20px;
     height: 100vh;
-    background-color: aliceblue;
     font-family: 'Prompt', sans-serif;
+  }
+  .form-img{
+    background-image: url(/src/img/ภาควิชา.jpg);
+    background-size: cover;
+    background-position: 0% 50%;
+    background-size: 120%
   }
   
   input[type="text"],
@@ -116,7 +120,14 @@
   .slect2{
     padding: 1px 30px ;
   }
-  
+  .bg-btw{
+    background-color: rgba(0, 0, 0, 0.347);
+    
+  }
+  .add-font{
+    font-family: 'Prompt', sans-serif;
+    color: white;
+  }
   /*.form-bg{
   background-color: blueviolet;
   height: 740px;

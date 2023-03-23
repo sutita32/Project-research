@@ -1,29 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Prompt&display=swap");
 
-.body-set-bottom{
-    margin-left: 250px;
-    margin-right: 180px;
-    margin-bottom: 30px;
-    margin-top: 50px;
+.body-set-bottom {
+  margin-left: 250px;
+  margin-right: 180px;
+  margin-bottom: 30px;
+  margin-top: 50px;
 }
-.text-set-position{
-    padding-right: 3px;
-    position: relative;
-    bottom: 4px;
-    font-size: 25px;
-    font-weight: 500;
+.text-set-position {
+  padding-right: 3px;
+  position: relative;
+  bottom: 4px;
+  font-size: 25px;
+  font-weight: 500;
 }
-.btn-color:hover{
-    background-color: #7d0f3f;
-    color: white;
-    border: transparent;
+.btn-color:hover {
+  background-color: #7d0f3f;
+  color: white;
+  border: transparent;
 }
-.btn-color{
-    color: #000000;
-    border:1px solid #7d0f3f;
+.btn-color {
+  color: #000000;
 }
-.btn-color-active{
-    background-color: #7d0f3f;
-    color: white;
-    border: transparent;
+.btn-color-active {
+  background-color: #7d0f3f;
+  color: white;
+  border: transparent;
 }
