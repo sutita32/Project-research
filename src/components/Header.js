@@ -92,7 +92,7 @@ function Header({loginstatus}) {
                                     </li>
                                     <NavLink to="/login" exact>
                                         <li className="menu-link" >
-                                            <button type='button' class="login_btn hover:bg-[#865369] focus:bg-[#865369]" id="btnLogin" >เข้าสู่ระบบ</button>
+                                            <button type='button' class="login_btn hover:bg-[#865369] hover:text-white focus:bg-[#865369]" id="btnLogin" >เข้าสู่ระบบ</button>
                                         </li>
                                     </NavLink> 
                                </ul>
