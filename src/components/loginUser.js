@@ -7,6 +7,7 @@ import '../style/loginUser.css'
 import 'tw-elements';
 import './Header'
 
+
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
@@ -152,51 +153,32 @@ function LoginUser(props) {
             value={inputs.pass || ""} 
             onChange={handleChange}
             required />
-          
         </div>
-        <a href="/forgot-pass" className="text-sm text-blue-700 hover:underline dark:text-blue-500 justify-items-end ">Forgot Password?</a>
         <div className="button-container">
-          <input type="submit" />
+          <input type="submit"/>
         </div>
-        <p class="mt-5 text-sm ml-5">Don't have an account? <a class="underline cursor-pointer text-blue-800" href='/register'> Sign Up</a></p>
+        <div  className="text-sm text-blue-700 hover:underline w-full text-center mt-[20px]"><a href="/forgot-pass">Forgot Password?</a></div>
       </form>
     </div>
-    {/* <div className='form_1'>
-      <form  >
-        <div className="min-h-screen bg-purple-400 flex justify-center items-center">
-        <div className="py-12 px-12 bg-white rounded-2xl shadow-xl z-20">
-          <div>
-              <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer">LOGIN</h1>
-          </div>
-          <div class="space-y-4">
-            <label className=' text-gray-700'>Username </label>
-            <input type="text" placeholder="username" className="block text-sm py-3 px-4 rounded-lg w-full border outline-none" required/>
-            {renderErrorMessage("uname")}
-            <label className=' text-gray-700'>Password </label>
-            <input type="text" placeholder="Password" className="block text-sm py-3 px-4 rounded-lg w-full border outline-none" required/>
-            {renderErrorMessage("pass")}
-          </div>
-          <div className="text-center mt-6">
-            <button className="py-3 w-64 text-xl text-white bg-purple-400 rounded-2xl" onSubmit={handleSubmit}>submit</button>
-            <p className="mt-4 text-sm">Already Have An Account? <span className="underline cursor-pointer text-blue-900"> Sign In</span></p>
-			    </div>
-        </div>
-        </div>
-        </form>   
-      </div> */}
    </>
   );
 
   return (
   <>
-    <div class="h-[30px] w-full bg-regal-red"></div>
-    <div className="form-2">
-      <div className="z-20 login-form">
-        <div class="text-center mb-[3rem] mt-[2rem] text-[18px]">สำหรับภาควิชาการคอมพิวเตอร์</div>
-        <div  className="title"><a href='/login_admin'>LOGIN</a></div>
-        { renderForm}
+    <div className="relative form-img">
+      <div className='absolute top-0 left-0 h-full w-full bg-btw'></div>
+    <div className='grid grid-cols-2'>
+    <div className='grid place-content-center add-font text-[35px] ml-[60px] text-center'></div>
+      <div className="form-2">
+        <div className="z-20 login-form">
+          <div class="text-center mb-[3rem] mt-[2rem] text-[18px]"></div>
+          <div  className="title"><a href='/login_admin'>LOGIN</a></div>
+          {renderForm}
+        </div>
       </div>
     </div>
+    </div>
+   
   </>
   )
 }

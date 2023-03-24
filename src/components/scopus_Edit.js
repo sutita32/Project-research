@@ -9,7 +9,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 
-function Scopus({getdata}) {
+function Scopus(props) {
   // const [dataScopus, setDatascopus] = useState([
   //   {
   //     id: 1,
@@ -21,28 +21,30 @@ function Scopus({getdata}) {
   //     year: "2015",
   //     cited: "38",
   //   },
-  //   
+  //
   // ]);
-  
-  const [dataScopus, setDatascopus] = useState(getdata.filter((obj,index)=> {return obj.name_Type === "Scopus"}));
-  const [isLoading , setIsLoading] =useState(true);
+  const [dataScopus, setDatascopus] = useState(
+    props.getdata.filter((obj, index) => {
+      return obj.name_Type === "Scopus";
+    })
+  );
   function handleDeleteClike(id) {
     // console.log("del id => ",id)
     let token = localStorage.getItem('token');
     let temp = dataScopus;
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer "+token);
+    myHeaders.append("Authorization", "Bearer " + token);
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "researchid": id
+      researchid: id,
     });
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
       body: raw,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     fetch("http://localhost:4000/api/research/del-researchbypro", requestOptions)
@@ -55,14 +57,13 @@ function Scopus({getdata}) {
               t.push(temp[i]) ;
             }
           }
-          setDatascopus(t)
-          console.log('dataafterdel',dataScopus)
-          setDataShow(dataScopus.slice(pageNow * 10 - 10, pageNow * 10));
+          setDatascopus(t);
+          console.log("dataafterdel", dataScopus);
+          setDataShow(t.slice(pageNow * 10 - 10, pageNow * 10));
         }
         return console.log(result);
       })
-      .catch(error => console.log('error', error));
-
+      .catch((error) => console.log("error", error));
 
     // const removeItem = dataScopus.filter(dataScopus =>{
     //   return dataScopus.ID_research !== id
@@ -83,41 +84,43 @@ function Scopus({getdata}) {
     setPageNow(pageNow - 1);
   };
   useEffect(() => {
-    let research= [];
-    for(let i=0;i<getdata.length ;i++){
-      if(getdata[i].name_Type === "Scopus"){
-        research.push(getdata[i]);
-      }
-    }
-    console.log("dataScopus=>",research);
-    setDatascopus(research);
-    setDataShow(research.slice(pageNow * 10 - 10, pageNow * 10));
-    setIsLoading(false)
-  }, []);
-  useEffect(() => {
+    // let research= [];
+    // for(let i=0;i<getdata.length ;i++){
+    //   if(getdata[i].name_Type === 'Scopus'){
+    //     research.push(getdata[i]);
+    //   }
+    // }
+    // setDatascopus(research);
 
     setDataShow(dataScopus.slice(pageNow * 10 - 10, pageNow * 10));
   }, [pageNow]);
 
   const renderTable = (
     <>
-      {dataShow.map((item) => (
+      {dataShow.map((item, index) => (
         <div class="bg-white grid grid-cols-10" key={item.ID_research}>
           <div
             scope="row"
-            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7"
+            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7 overflow-hidden"
           >
             <a href="#">{item.name_research}</a>
-            <p className="text-gray-400 font-normal"> {item.Keyword}</p>
-            <p className="text-gray-400 font-normal"> {item.name_Type}</p>
-            <p className="text-gray-400 font-normal">{item.conference}</p>
+            <p className="text-gray-400 font-normal3"> {item.Keyword}</p>
+            <p className="text-gray-400 font-normal3"> {item.name_Type}</p>
+            <p className="text-gray-400 font-normal3">
+              {item.ConferenceOrJornal}
+            </p>
           </div>
-          <div class="grid place-content-center px-6 py-4">{new Date(item.Publication_date).getFullYear()}</div>
+          <div class="grid place-content-center px-6 py-4">
+            {new Date(item.Publication_date).getFullYear()}
+          </div>
           <div class="grid place-content-center px-6 py-4">{item.Citation}</div>
           <div class="grid place-content-center px-6 py-4">
             <div className="flex">
               <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
-                <BiEditAlt className="h-full w-full" />
+                <BiEditAlt
+                  onClick={() => props.openModal2(index)}
+                  className="h-full w-full"
+                />
               </button>
               <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
                 <RiDeleteBin6Line
@@ -158,8 +161,7 @@ function Scopus({getdata}) {
       </div>
     </>
   );
-  if(isLoading) return(<></>)
-  else return <>{renderTable}</>;
+   return <>{renderTable}</>;
 }
 
 export default Scopus;
