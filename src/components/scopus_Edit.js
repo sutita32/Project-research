@@ -23,9 +23,11 @@ function Scopus({getdata}) {
   //   },
   //   
   // ]);
-  const [dataScopus, setDatascopus] = useState(getdata);
+  
+  const [dataScopus, setDatascopus] = useState(getdata.filter((obj,index)=> {return obj.name_Type === "Scopus"}));
+  const [isLoading , setIsLoading] =useState(true);
   function handleDeleteClike(id) {
-    console.log("del id => ",id)
+    // console.log("del id => ",id)
     let token = localStorage.getItem('token');
     let temp = dataScopus;
     var myHeaders = new Headers();
@@ -47,9 +49,6 @@ function Scopus({getdata}) {
       .then(response => response.text())
       .then(result => {
         if(result === 'delete Success'){
-          // var removeItem = dataScholar.filter(dataScholar =>{
-          //   return dataScholar.ID_research !== id
-          // })
           var t =[];
           for(let i=0;i<temp.length;i++){
             if(temp[i].ID_research !== id) {
@@ -83,15 +82,19 @@ function Scopus({getdata}) {
   const clickLeft = () => {
     setPageNow(pageNow - 1);
   };
-
   useEffect(() => {
     let research= [];
     for(let i=0;i<getdata.length ;i++){
-      if(getdata[i].ID_Type === 2){
+      if(getdata[i].name_Type === "Scopus"){
         research.push(getdata[i]);
       }
     }
+    console.log("dataScopus=>",research);
     setDatascopus(research);
+    setDataShow(research.slice(pageNow * 10 - 10, pageNow * 10));
+    setIsLoading(false)
+  }, []);
+  useEffect(() => {
 
     setDataShow(dataScopus.slice(pageNow * 10 - 10, pageNow * 10));
   }, [pageNow]);
@@ -155,7 +158,8 @@ function Scopus({getdata}) {
       </div>
     </>
   );
-  return <>{renderTable}</>;
+  if(isLoading) return(<></>)
+  else return <>{renderTable}</>;
 }
 
 export default Scopus;

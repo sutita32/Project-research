@@ -64,11 +64,26 @@ function Scholar({getdata}) {
   //     cited: '38'
   //   },
   // ])
-  const [dataScholar, setDatascholar] = useState(getdata);
+  // data_name_list = list_name_sort.filter(
+  //   (obj, index) =>
+  //   list_name_sort.findIndex((item) => item.Keyword === obj.Keyword) === index
+  // );
+  const [dataScholar, setDatascholar] = useState(getdata.filter((obj,index)=> {return obj.name_Type === "scholar"}));
   const [pageNow, setPageNow] = useState(1);
   const [dataShow, setDataShow] = useState(
     dataScholar.slice(pageNow * 10 - 10, 11)
   );
+  const [isLoading , setIsLoading] =useState(true);
+  // useEffect(()=>{
+  //   let research= [];
+  //   for(let i=0;i<getdata.length ;i++){
+  //     if(getdata[i].ID_Type === 1){
+  //       research.push(getdata[i]);
+  //     }
+  //   }
+  //   setDatascholar(research)
+  //   setIsLoading(false);
+  // },[]);
   function handleDeleteClike(id){
     console.log("del id => ",id)
     let token = localStorage.getItem('token');
@@ -121,13 +136,21 @@ function Scholar({getdata}) {
   useEffect(()=>{
     let research= [];
     for(let i=0;i<getdata.length ;i++){
-      if(getdata[i].ID_Type === 1){
+      if(getdata[i].name_Type === "scholar"){
         research.push(getdata[i]);
       }
     }
+    console.log("dataScholar=>",research);
     setDatascholar(research)
+    setIsLoading(false)
+    // console.log("dataScholar after=>",dataScholar);
+    setDataShow(research.slice(pageNow * 10 - 10, pageNow * 10));
+  },[]);
+  useEffect(()=>{
+
     setDataShow(dataScholar.slice(pageNow * 10 - 10, pageNow * 10));
   },[pageNow]);
+  
   
   const renderTable=(
     <>
@@ -189,8 +212,9 @@ function Scholar({getdata}) {
       </div>
     </>
   );
-
-  return <>{renderTable}</>;
+  
+  if(isLoading) return( <></>)
+  else return <>{renderTable}</>;
 }
 
 export default Scholar;

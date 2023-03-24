@@ -337,7 +337,7 @@ function ProfilePage(props) {
       <div class="z-[20] grid place-items-center absolute top-[148px] w-full h-[140px]">
         <img
           alt=""
-          src="https://scontent.fbkk10-1.fna.fbcdn.net/v/t1.6435-9/167084877_3611020235663621_2658686305999705607_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeE9xNBp92oD8Rz3CeAFljiBnJ4aVVDnRQ6cnhpVUOdFDnCTQAt13QeMfFvW20lOrTfdkQGLuL6guH3CN9Kp4kHB&_nc_ohc=Dp0n9pWkKUAAX8i1Vmx&_nc_ht=scontent.fbkk10-1.fna&oh=00_AfCOiEO4hw7988SRJsyf_wtv912O74OZ2wXt2Mn8--ewYA&oe=641EA01B"
+          src={datapro.img}
           class="h-[140px] rounded-full"
         ></img>
       </div>

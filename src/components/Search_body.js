@@ -18,7 +18,6 @@ const data_year_list = [
 ];
 let data_year = [];
 let data_name_list = [];
-let tempdata ;
 
 // const num_of_year = 20;
 // const year_start = 2566;
@@ -33,13 +32,12 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
   const {keyword ,data } = searchdata;
 
   const [DATA ,setDATA] = useState();
-  if(data !== DATA){
-    setDATA(data)
-  }
+  // if(data !== DATA && DATA){
+  //   setDATA(data)
+  // }
   // tempdata=data
   // console.log("sdadsad",data)
   if(data){
-    // tempdata = data;
     data_year.length=0;
     data_name_list.length=0;
     /* เอาไว้ลูปเลขปี && อาจารย์*/
@@ -80,8 +78,6 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
       list_name_sort.findIndex((item) => item.Keyword === obj.Keyword) === index
     );
     // console.log("data_name_list=>",data_name_list)
-
-    // let j=0,k=0;
   }
 
 
@@ -112,10 +108,10 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
   const fillteryear = async (event) =>{
     // event.preventDefault();
     // console.log("datadatadatadata  =>",data.length)
-    tempdata =null
+    let tempdata =null
     let test= [];
-    console.log("checkyear=>",checkyear)
-    console.log("checkteacr=>",checkteach)
+    // console.log("checkyear=>",checkyear)
+    // console.log("checkteacr=>",checkteach)
       for(let i=0;i < data_year.length;i++){
         if(checkyear[i]){
           // console.log("year cheak "+i+ "=>",data_year[i]);
@@ -139,10 +135,13 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
    
     // console.log("tempdata =>",test)
     // console.log("tempdata =>",tempdata)
-    tempdata = test;
+    if(test.length > 0){
+      tempdata = test;
+    }
+    
     // console.log("tempdata =>",tempdata)
     setDATA(tempdata);
-    setsearchdata(DATA);
+    // setsearchdata(DATA);
   }
   
   return (
@@ -154,18 +153,18 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
           { DATA ? 
           <div>กรองเจอ : {DATA ? DATA.length : 0 } รายการ</div>
           :<div></div>
-        }
+          }
         </div>
       </div>
       <div className="grid grid-cols-8 gap-4">
-        { DATA ?
+        { data && !DATA ?
           // displaysearch(data1,sendWorkIndex,tempdata ? tempdata:data)
           <div className="col-span-6">
-            <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={ DATA} />
+            <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={ data} />
           </div>
           :
           <div className="col-span-6">
-            <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={data } />
+            <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={DATA } />
           </div>
         }
         <div className=" col-span-2 ">
