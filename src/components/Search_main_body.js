@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 
 function Search_main_body({ data1, sendResearchIndex , searchdata }) {
   let data_show = [];
-  console.log("searchdata => ", searchdata)
+  // console.log("searchdata => ", searchdata)
   if(searchdata){
     data_show.length = 0;
 

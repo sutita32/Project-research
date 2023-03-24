@@ -9,9 +9,12 @@ import { Modal, Space, Table, Select } from "antd";
 import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 import "../style/Edit_Admin.css";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function Edit_Amin(props) {
   const navigate = useNavigate();
+  const MySwal = withReactContent(Swal);
   const [data, setData] = useState([
     {
       id: 1,
@@ -161,7 +164,7 @@ function Edit_Amin(props) {
   }, []);
 
   const onExport = async (record) => {
-    console.log("record =>", record);
+    // console.log("record =>", record);
     let Idpro = record.ID_professor;
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -184,17 +187,21 @@ function Edit_Amin(props) {
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {
+          
           return result.data;
+        }else{
+          
+           return null;
         }
 
-        return null;
+       
         // return console.log(result);
       })
       .catch((error) => {
         return console.log("error", error);
       });
 
-    await console.log("datalist=>", data1);
+    // await console.log("datalist=>", data1);
     if (data1 !== null) {
       const fileType =
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
@@ -206,13 +213,21 @@ function Edit_Amin(props) {
       const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
       const data = new Blob([excelBuffer], { type: fileType });
       FileSaver.saveAs(data, fileName + fileExtension);
+      MySwal.fire({
+        html:<i>{`Export Success !!`}</i>,
+        icon: 'success',
+      })
     } else {
-      console.log("Can't Export file");
+      MySwal.fire({
+        html:<i>{`Export Fail We Can't Export file !!`}</i>,
+        icon: 'error',
+      })
+      // console.log("Can't Export file");
     }
   };
 
   const handleOk = () => {
-    console.log("valuescrap=>", valuescrap);
+    // console.log("valuescrap=>", valuescrap);
     let token = localStorage.getItem("token");
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);

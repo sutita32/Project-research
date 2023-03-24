@@ -1,3 +1,4 @@
+ // eslint-disable-next-line no-lone-blocks
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-pascal-case */
 import Header from "./components/Header";
@@ -40,7 +41,9 @@ let Searchdata = 0;
 function Home_Page(props) {
   return (
     <>
-      <Banner_search />
+      <Banner_search searchdata={(item) => {
+          props.sendsearchdata(item);
+        }}/>
       <Interest sendCoreSkillID={(item) => props.sendCoreSkillID(item)} />
       <Contacts sendTeacherIndex={(item) => props.sendTeacherIndex(item)} />
     </>
@@ -49,21 +52,43 @@ function Home_Page(props) {
 
 /*ฟังก์ชันเอาหน้ามาต่อกัน */
 function SearchPage(props) {
+  // console.log("props.searchdataprops.searchdata=>",props.searchdata)
   const [searchdata, setsearchdata] = useState([]);
   const [searchdatafilter, setsearchdatafilter] = useState(null);
+  const [focusbannersearch , setfocusbanner] =useState(0);
+  const [isLoading ,setIsLoading]=useState(true);
   const settsearchdata = (val) => {
     // console.log('dawdwadawd55555',val)
+    if(props.searchdata === null || focusbannersearch === 1){
+      setsearchdata(val);
+    }
+    props.searchdata(null)
 
-    setsearchdata(val);
   };
   const settsearchdatafilter = (val) => {
     // console.log('dawdwadawd5555555555555555',val)
 
     // setsearchdata(temp)
-    setsearchdatafilter({ data: val, keyword: searchdata.keyword });
+    setsearchdatafilter({ data: val });
   };
+  
   props.sendsearch(searchdata);
-  return (
+
+ 
+  // eslint-disable-next-line no-lone-blocks
+  useEffect(()=>{
+    
+      if(props.searchdata){
+        setsearchdata(props.searchdata);
+        setfocusbanner(1)
+      }
+
+  },[])
+
+
+  // if(isLoading && !searchdata) (<></>)
+  // else
+   return (
     <>
       <Search_searchBar
         searchdata={(item) => {
@@ -71,7 +96,7 @@ function SearchPage(props) {
         }}
       />
       <Search_body
-        searchdata={searchdata}
+        searchdata={searchdata }
         data1={props.data1}
         sendResearchIndex={(item) => props.sendResearchIndex(item)}
         setsearchdata={(item) => settsearchdatafilter(item)}
@@ -103,6 +128,11 @@ function App() {
     setresearxhIndex(val);
     // console.log("researchIndex=>",val)
   };
+  const [searchdata, setsearchdata] = useState(null);
+  const sendsearchdata = (val) => {
+    setsearchdata(val);
+    // console.log("searchdatasearchdatasearchdata=>",val)
+  };
   //เอาไว้รับค่าว่าใครlogin
   const [loginstatuss, setloginstatuss] = useState(0);
   const settloginstatuss = (val) => {
@@ -133,6 +163,7 @@ function App() {
             }}
             sendsearch={sendworkData}
             getdata={workData}
+            searchdata ={searchdata}
           />
         }
       />
@@ -153,6 +184,7 @@ function App() {
                   sendResearchIndex(item);
                 }}
                 sendsearch={(item) => sendworkData(item)}
+                searchdata ={searchdata}
               />
             }
           />
@@ -200,6 +232,7 @@ function App() {
                 sendResearchIndex={(item) => {
                   sendResearchIndex(item);
                 }}
+                sendCoreSkillID={(item)=>{ sendCoreSkillID(item)}}
               />
             }
           />
@@ -217,6 +250,8 @@ function App() {
                   sendTeacherIndex(item);
                 }}
                 sendCoreSkillID={(item) => sendCoreSkillID(item)}
+
+                sendsearchdata={(item)=> sendsearchdata(item)}
               />
             }
           />
@@ -233,10 +268,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/james" element={<Static />} />
           <Route element={<PrivateComponent />}>
-            <Route path="/profile" element={<ProfilePage_Edit />} />
+            <Route path="/profile" element={<ProfilePage_Edit sendCoreSkillID={(item) => sendCoreSkillID(item)} sendResearchIndex={(item) => sendResearchIndex(item)} />} />
             <Route
               path={`/profile/${teacherIndex}`}
-              element={<ProfilePage_Edit getID={teacherIndex} />}
+              element={<ProfilePage_Edit getID={teacherIndex} sendCoreSkillID={(item) => sendCoreSkillID(item)} sendResearchIndex={(item) => sendResearchIndex(item)}/>}
             />
           </Route>
           <Route path="/profilepage" element={<ProfilePage />} />

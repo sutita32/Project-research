@@ -102,11 +102,11 @@ function Detailresearch({ getid}) {
                     }
                     
                   </div>
-                  <div className="grid grid-cols-8">
+                  {/* <div className="grid grid-cols-8"> */}
                     {/* <div className="col-span-2">punlisher iee</div> */}
                     {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
-                    <div className="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div>
-                  </div>
+                    {/* <div className="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div> */}
+                  {/* </div> */}
                   <div className="grid grid-cols-8">
                     <div className="col-span-2">รายละเอียด</div>
                     <div className="col-span-6 ">

@@ -28,10 +28,20 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
   const [checkyear, setchecksyear] = useState(new Array(100).fill(false));
   const [checkteach, setcheckteach] = useState(new Array(100).fill(false));
   const [checklist, setchecklist] = useState(0);
-  
-  const {keyword ,data } = searchdata;
+  const [keyword ,setkeyword] =useState(searchdata.keyword);
+  const [data ,setdata] =useState(searchdata.data);
+  // const {keyword ,data } = searchdata;
+
 
   const [DATA ,setDATA] = useState();
+
+  useEffect(()=>{
+    setkeyword(searchdata.keyword);
+    setdata(searchdata.data)
+
+  },[setsearchdata])
+ 
+
   // if(data !== DATA && DATA){
   //   setDATA(data)
   // }
@@ -108,7 +118,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
   const fillteryear = async (event) =>{
     // event.preventDefault();
     // console.log("datadatadatadata  =>",data.length)
-    let tempdata =null
+    let tempdata =[];
     let test= [];
     // console.log("checkyear=>",checkyear)
     // console.log("checkteacr=>",checkteach)
@@ -141,6 +151,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
     
     // console.log("tempdata =>",tempdata)
     setDATA(tempdata);
+    setsearchdata(tempdata);
     // setsearchdata(DATA);
   }
   
@@ -150,7 +161,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
         <div className=" col-span-6 font-semibold text-slate-800 font-['Prompt'] px-8 pt-8 pb-5">
           <div >ค้นหา: {keyword ? keyword:"ยังไม่ได้ค้นหา...."}</div>
           <div>ผลลัพธ์ทั้งหมด: {data ? data.length : 0 } รายการ</div>
-          { DATA ? 
+          { DATA && data.length > 0? 
           <div>กรองเจอ : {DATA ? DATA.length : 0 } รายการ</div>
           :<div></div>
           }
@@ -195,13 +206,13 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
                     </label>
                   </div> */}
 
-                <select id="list" onChange={focuslist} className=" bg-slate-200">
+                {/* <select id="list" onChange={focuslist} className=" bg-slate-200">
                   {
                     data_year_list.map((item, index)=>(
                       <option value={index} >{item}</option>
                     ))
                   }
-                </select>
+                </select> */}
                   {/* {data_year_list.map((item, index) => (
                     <div key={index} class="flex items-center mr-4">
                       <input

@@ -8,6 +8,7 @@ import "../style/user_person.css";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
 
 function Scopus(props) {
   // const [dataScopus, setDatascopus] = useState([
@@ -103,7 +104,13 @@ function Scopus(props) {
             scope="row"
             class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7 overflow-hidden"
           >
-            <a href="#">{item.name_research}</a>
+            <NavLink
+              to={`../idresearch=${item.ID_research}`}
+              onClick={() => props.sendResearchIndex(item.ID_research)}
+            >
+              <a>{item.name_research}</a>
+            </NavLink>
+            
             <p className="text-gray-400 font-normal3"> {item.Keyword}</p>
             <p className="text-gray-400 font-normal3"> {item.name_Type}</p>
             <p className="text-gray-400 font-normal3">
@@ -118,7 +125,7 @@ function Scopus(props) {
             <div className="flex">
               <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
                 <BiEditAlt
-                  onClick={() => props.openModal2(index)}
+                  onClick={() => props.openModal2(item.ID_research)}
                   className="h-full w-full"
                 />
               </button>

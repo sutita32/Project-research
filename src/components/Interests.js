@@ -29,7 +29,7 @@ function Interests(props) {
 
   if (isLoading) return <>Loading....</>;
   else {
-    console.log("dataskill=>", dataskill);
+    // console.log("dataskill=>", dataskill);
     let temp = [];
     let t = dataskill[0].ID_coreskill;
     let count = 1;

@@ -8,10 +8,10 @@ import "chart.js/auto";
 
 function Graph1({ typesNow, yearNow , dataresearch ,professorlist, listcolor}) {
   // var dataShow;
-  console.log("dataprofessorlist =>",professorlist)
-  console.log("dataresearch =>",dataresearch)
-  console.log("yearNow =>",yearNow)
-  console.log("listcolor =>",listcolor)
+  // console.log("dataprofessorlist =>",professorlist)
+  // console.log("dataresearch =>",dataresearch)
+  // console.log("yearNow =>",yearNow)
+  // console.log("listcolor =>",listcolor)
   let dataShow =[];
   if (typesNow === "จำแนกทั้งหมด"){
     for(let i=0 ;i < professorlist.length ;i++){
