@@ -148,7 +148,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
   return (
     <div className="body-set" onAbort={localStorage.setItem("temp", "delete")}>
       <div className="grid grid-cols-8">
-        <div className=" col-span-6 font-head px-8 pt-8 pb-5">
+        <div className=" col-span-6 font-semibold text-slate-800 font-['Prompt'] px-8 pt-8 pb-5">
           <div >ค้นหา: {keyword ? keyword:"ยังไม่ได้ค้นหา...."}</div>
           <div>ผลลัพธ์ทั้งหมด: {data ? data.length : 0 } รายการ</div>
           { DATA ? 
@@ -168,15 +168,15 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
             <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={data } />
           </div>
         }
-        <div className=" col-span-2 ">
-          <div className="my-5 h-60 place-item-center">
+        <div className=" col-span-2  ">
+          <div className="my-4 h-60 place-item-center bg-white  max-w-sm rounded shadow-lg">
             <div className="h-80">
               <LineChart  h="800" w="1000" data={data}  />
             </div>
           </div>
           <form onSubmit={fillteryear}>
           <div className="sticky top-0">
-            <div className=" max-w-sm rounded overflow-hidden shadow-lg">
+            <div className=" max-w-xl rounded overflow-hidden shadow-lg bg-white">
               <div className="px-6 py-4">
                 <div className="font-bold text-xl mb-2">ปีที่เผยแพร่</div>
                 <p className="text-gray-700 text-base">
@@ -196,7 +196,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
                     </label>
                   </div> */}
 
-                <select id="list" onChange={focuslist}>
+                <select id="list" onChange={focuslist} className=" bg-slate-200">
                   {
                     data_year_list.map((item, index)=>(
                       <option value={index} >{item}</option>
@@ -222,7 +222,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
                     </div>
                   ))} */}
                 
-                  <div class="grid grid-cols-3 p-5">
+                  <div class="grid grid-cols-3 p-5 ">
                     {data_year.map((item, index)=>(
                       
                       <div key={index} class="flex items-center mr-4">
@@ -232,11 +232,11 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
                           value={item.year}
                           // checked={checkyear[index]}
                           onChange={() => focusyearr( index)}
-                          class="w- h-3 accent-regal-red bg-gray-100 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:bg-gray-700"
+                          class="w- h-3 accent-regal-red bg-gray-100 rounded focus:ring-blue-500 "
                         />
                         <label
                           for={index}
-                          class="ml-2 text-sm font-medium text-gray-900 dark:text-text-dark"
+                          class="ml-2 text-sm font-medium text-gray-900"
                         >
                           {item.year}
                         </label>
@@ -249,8 +249,8 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
                 </p>
               </div>
             </div>
-            <div class="h-8"></div>
-            <div class=" max-w-sm rounded overflow-hidden shadow-lg">
+            <div class="h-8 "></div>
+            <div class=" max-w-sm rounded overflow-hidden shadow-lg bg-white">
               <div iv class="px-6 py-4">
                 <div class="font-bold text-xl mb-2">ผู้วิจัย</div>
                 <p class="text-gray-700 text-base">

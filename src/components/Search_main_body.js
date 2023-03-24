@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
+/* eslint-disable react/style-prop-object */
 /* eslint-disable no-const-assign */
 /* eslint-disable no-undef */
 import React from "react";
+import '../style/Search_main_body.css'
 import { NavLink } from "react-router-dom";
 // import { workData } from "./workData";
 
@@ -36,19 +39,19 @@ function Search_main_body({ data1, sendResearchIndex , searchdata }) {
               class="h-auto mx-auto pt-2 px-6 transition ease-in-out hover:-translate-y-1 hover:scale-105 duration-300 "
             >
               <div class="rounded">
-                <div class="w-full h-full flex flex-col justify-between  bg-regal-red rounded-lg border border-gray-400 mb-1 p-8">
+                <div class="w-full h-full flex flex-col justify-between bg-white rounded-lg border shadow-lg mb-1 p-8">
                   <div class="min-h-card">
-                    <h4 class="font-normal text-white ">
+                    <h4 class="font-semibold text-regal-red ">
                       {item.name_research}
                     </h4>
-                    <p class="font-normal2 text-white  text-[12px]">
+                    <p class="font-normal2 text-regal-red  text-[12px]">
                       ผู้วิจัย: {item.title_name}{item.firstname_professor}&nbsp;{item.lastname_professor} <br></br>Tag: {item.conference}
                       <br></br>From : {item.name_Type}
                       <br></br>Citation : {item.Citation}
                     </p>
                   </div>
                   <div>
-                    <div class="font-normal pt-3 flex items-center justify-between text-white  relative bottom-1 ">
+                    <div class="font-normal2 pt-3 flex items-center justify-between text-regal-red  relative bottom-1 ">
                       <p>{new Date(item.Publication_date).toLocaleDateString('en-US')}</p>
                     </div>
                   </div>

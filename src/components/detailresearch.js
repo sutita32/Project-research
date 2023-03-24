@@ -66,63 +66,63 @@ function Detailresearch({ getid}) {
         console.log("confer=>",confer)
     return (
       <>
-        <div class="bg-regal-red w-full h-5 mb-[50px]"></div>
-        <div className="h-fit w-8/12 set_center "><p class="topic-text text-regal-red">{dataresearch.name_research}</p></div>
-        <div class="flex place-content-center	">
+        <div className="bg-regal-red w-full h-5 mb-[50px]"></div>
+        <div className="h-fit w-8/12 set_center "><p className="topic-text text-regal-red">{dataresearch.name_research}</p></div>
+        <div className="flex place-content-center	">
           
         
-          <div class="flex w-8/12 h-auto mt-[20px] mb-8 bg-regal-red bg-opacity-30 rounded-[8px] p-16 shadow-sm">
-            <div class="grid  w-full h-full">
+          <div className="flex w-8/12 h-auto mt-[20px] mb-8 bg-white rounded-[10px] p-16 shadow-2xl">
+            <div className="grid  w-full h-full">
               
-              <div class="col-span-7 px-4 text-regal-red-text">
+              <div className="col-span-7 px-4 text-regal-red-text">
                 
-                <div class="detail-text grid grid-rows-7">
-                  <div class="grid grid-cols-8">
-                    <div class="col-span-2">ผู้วิจัย</div>
-                    {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
-                    <div class="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div>
+                <div className="detail-text grid grid-rows-7">
+                  <div className="grid grid-cols-8">
+                    <div className="col-span-2">ผู้วิจัย</div>
+                    {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
+                    <div className="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div>
                   </div>
-                  <div class="grid grid-cols-8">
-                    <div class="col-span-2">ผู้เขียน</div>
-                    {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
-                    <div class="col-span-6">: {dataresearch.authors}</div>
+                  <div className="grid grid-cols-8">
+                    <div className="col-span-2">ผู้เขียน</div>
+                    {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
+                    <div className="col-span-6">: {dataresearch.authors}</div>
                   </div>
-                  <div class="grid grid-cols-8">
-                    <div class="col-span-2">วันที่เผยแพร่</div>
-                    {/* <div class="col-span-6">: {workData[getid - 1].date}</div> */}
-                    <div class="col-span-6">: {new Date(dataresearch.Publication_date).toLocaleDateString('en-US') }</div>
+                  <div className="grid grid-cols-8">
+                    <div className="col-span-2">วันที่เผยแพร่</div>
+                    {/* <div className="col-span-6">: {workData[getid - 1].date}</div> */}
+                    <div className="col-span-6">: {new Date(dataresearch.Publication_date).toLocaleDateString('en-US') }</div>
                   </div>
-                  <div class="grid grid-cols-8">
+                  <div className="grid grid-cols-8">
                     {
                       wc[0] === "Conference" ?
-                      <><div class="col-span-2">Conference</div><div class="col-span-6">: {confer}</div></>
+                      <><div className="col-span-2">Conference</div><div className="col-span-6">: {confer}</div></>
                       :
-                      <><div class="col-span-2">Journal
-                      </div><div class="col-span-6">: {confer}</div></>
+                      <><div className="col-span-2">Journal
+                      </div><div className="col-span-6">: {confer}</div></>
                     }
                     
                   </div>
-                  <div class="grid grid-cols-8">
-                    {/* <div class="col-span-2">punlisher iee</div> */}
-                    {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
-                    <div class="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div>
+                  <div className="grid grid-cols-8">
+                    {/* <div className="col-span-2">punlisher iee</div> */}
+                    {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
+                    <div className="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div>
                   </div>
-                  <div class="grid grid-cols-8">
-                    <div class="col-span-2">รายละเอียด</div>
-                    <div class="col-span-6 ">
+                  <div className="grid grid-cols-8">
+                    <div className="col-span-2">รายละเอียด</div>
+                    <div className="col-span-6 ">
                       : {dataresearch.Description}
                     </div>
                   </div>
-                  <div class="grid grid-cols-8">
-                    <div class="col-span-2">total citations</div>
-                    <div class="col-span-6 pb-8">
+                  <div className="grid grid-cols-8">
+                    <div className="col-span-2">total citations</div>
+                    <div className="col-span-6 pb-8">
                       : {dataresearch.Citation}
                     </div>
                   </div>
-                  <div class="grid grid-cols-8">
-                    <div class="col-span-2">ลิงก์</div>
-                    {/* <div class="col-span-6">: {workData[getid - 1].userName}</div> */}
-                    <div class="col-span-6" >: <a href={dataresearch.Link}>{dataresearch.name_research}</a></div>
+                  <div className="grid grid-cols-8">
+                    <div className="col-span-2">ลิงก์</div>
+                    {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
+                    <div className="col-span-6" >: <a href={dataresearch.Link} className=" text-sky-400 ">{dataresearch.name_research}</a></div>
                   </div>
                 </div>
               </div>

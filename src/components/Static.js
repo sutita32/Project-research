@@ -243,8 +243,8 @@ function Static(props) {
                   <Space>
                     <div className="w-[24px] font-bold1">{yearNow}</div>
 
-                    <div className="h-[18px] w-[18px]">
-                      <BiChevronDown className="w-full h-full" />
+                    <div className="h-[18px] w-[18px] mr-3 ">
+                      <BiChevronDown className="w-full h-full ml-4" />
                     </div>
                   </Space>
                 </a>
@@ -257,12 +257,12 @@ function Static(props) {
             <div class="grid col-span-6 place-items-center font-bold1 text-[20px]">
               จำนวนงานวิจัย{typesNow}
             </div>
-            <div class="grid grid-rows-3 place-items-center col-span-4  bg-white bg-opacity-[0.3] font-bold1 text-[18px] py-[30px]">
-              <div>จำนวน</div>
-              <div>
+            <div class="grid grid-rows-3 place-items-center col-span-4  bg-white font-bold1 text-[18px] shadow-lg rounded-r-[28px] py-[30px]">
+              <div className=" text-regal-red font-semibold">จำนวน</div>
+              <div className=" text-regal-red ">
                 <SumNumber />
               </div>
-              <div>รายการ</div>
+              <div className=" text-regal-red font-semibold">รายการ</div>
             </div>
           </div>
         </div>
