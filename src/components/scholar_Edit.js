@@ -10,59 +10,11 @@ import { MdDeleteForever } from "react-icons/md";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
+import { NavLink } from "react-router-dom";
 
 function Scholar(props) {
-  console.log("getdata=>", props.getdata);
-  // const [dataScholar, setDatascholar] = useState([
-  //   {
-  //     id: 1,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  //   {
-  //     id: 2,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  //   {
-  //     id: 3,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  //   {
-  //     id: 4,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  //   {
-  //     id: 5,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  //   {
-  //     id: 6,
-  //     pname: 'Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram',
-  //     name: 'S Prasomphan',
-  //     Conference: '2015 International Conference on Systems, Signals and ImageProcessing …',
-  //     year: '2015',
-  //     cited: '38'
-  //   },
-  // ])
+  // console.log("getdata=>", props.getdata);
+  
   const [dataScholar, setDatascholar] = useState(
     props.getdata.filter((obj, index) => {
       return obj.name_Type === "scholar";
@@ -73,7 +25,7 @@ function Scholar(props) {
     dataScholar.slice(pageNow * 10 - 10, 11)
   );
   function handleDeleteClike(id) {
-    console.log("del id => ", id);
+    // console.log("del id => ", id);
     let token = localStorage.getItem("token");
     let temp = dataScholar;
     var myHeaders = new Headers();
@@ -108,7 +60,7 @@ function Scholar(props) {
             }
           }
           setDatascholar(t);
-          console.log("dataafterdel59995959559595959", dataScholar);
+          // console.log("dataafterdel59995959559595959", dataScholar);
           setDataShow(t.slice(pageNow * 10 - 10, pageNow * 10));
         }
         return console.log(result);
@@ -131,9 +83,9 @@ function Scholar(props) {
     // }
     // setDatascholar(research)
     setDataShow(dataScholar.slice(pageNow * 10 - 10, pageNow * 10));
-  }, [pageNow]);
-
-  const renderTable = (
+  },[pageNow]);
+  
+  const renderTable=(
     <>
       {dataShow.map((item, index) => (
         <div class="bg-white grid grid-cols-10" key={item.ID_research}>
@@ -141,7 +93,12 @@ function Scholar(props) {
             scope="row"
             class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7 overflow-hidden"
           >
-            <a href="#">{item.name_research}</a>
+            <NavLink
+              to={`../idresearch=${item.ID_research}`}
+              onClick={() => props.sendResearchIndex(item.ID_research)}
+            >
+              <a>{item.name_research}</a>
+            </NavLink>
             <p className="text-gray-400 font-normal3"> {item.Keyword}</p>
             <p className="text-gray-400 font-normal3"> {item.name_Type}</p>
             <p className="text-gray-400 font-normal3">
@@ -156,7 +113,7 @@ function Scholar(props) {
             <div className="flex">
               <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
                 <BiEditAlt
-                  onClick={() => props.openModal2(index)}
+                  onClick={() => props.openModal2(item.ID_research)}
                   className="h-full w-full"
                 />
               </button>

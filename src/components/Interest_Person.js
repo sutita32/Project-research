@@ -1,20 +1,44 @@
-import React from "react";
+import React,{ useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 
 function Interest_Person(props) {
-  const dataShow = [
-    { name: "สิทธิพล คำรนแมน", email: "สิทธิพล@edok.com", id: "103" },
-    { name: "วิชาญ บานบุรี", email: "วิชาญ@edok.com", id: "104" },
-    { name: "วงษ์ชาพัทธ์ นะจ๊ะ", email: "วงษ์ชาพัทธ์@edok.com", id: "105" },
-    { name: "สุธิตา ยาม้าหมด", email: "สุธิตา@edok.com", id: "106" },
-    { name: "ธงทอง ธงฟ้า", email: "ธงทอง@edok.com", id: "107" },
-  ];
-  return (
+  const [dataShow ,setdatashow] = useState([]);
+  const [isLoading , setIsLoading] = useState(true);
+  useEffect(()=>{
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "id": props.getCoreSkillID
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://localhost:4000/api/professor/getskilllistbyidskill", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result.massage === "professor is Success"){
+          setdatashow(result.data)
+          setIsLoading(false)
+        }
+        // return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+  },[]);
+
+
+  if(isLoading) return (<></>)
+  else return (
     <div>
       <div class="bg-regal-red w-full h-[50px]"></div>
       <div class="grid bg-[#F0F8FF] place-items-center h-[120px] w-full">
         <div class="grid place-content-center h-[30px] w-fit px-[10px] bg-regal-red rounded-[10px] text-white ">
-          {props.getCoreSkillID}
+          {dataShow[0].name_coreskill}
         </div>
       </div>
       <div class="bg-[#F0F8FF]">
@@ -42,15 +66,15 @@ function Interest_Person(props) {
             <div class="grid h-auto w-[90%] py-[10px] bg-white shadow-sm">
               <div class="font-bold1 h-[40px] w-full  grid grid-cols-10">
                 <div class="col-span-4 grid place-items-center">
-                  <div>{item.name}</div>
+                  <div>{item.title_name + item.firstname_professor +" "+ item.lastname_professor}</div>
                 </div>
                 <div class="col-span-4 grid place-items-center">
-                  <div>{item.email}</div>
+                  <div>{item.Email}</div>
                 </div>
                 <div class="col-span-2 grid place-items-center">
                   <NavLink
-                    to={`/id=${item.id}`}
-                    onClick={() => props.sendTeacherIndex(item.id)}
+                    to={`/id=${item.ID_professor}`}
+                    onClick={() => props.sendTeacherIndex(item.ID_professor)}
                   >
                     <div>กดเพื่อดูโปรไฟล์</div>
                   </NavLink>

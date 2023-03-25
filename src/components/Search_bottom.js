@@ -42,6 +42,7 @@ function Make_dot() {
 function Search_bottom({ page_now, searchdata }) {
   /////////////////////////////////
   const [resultBTPage, setResultBTPage] = useState([]);
+  // console.log("asearchdata searchdata searchdata =>",searchdata )
   useEffect(() => {
     let npage = 0;
     if (searchdata.data) {
@@ -58,7 +59,7 @@ function Search_bottom({ page_now, searchdata }) {
         for (let i = 1; i <= npage + 1; i++) {
           temp.push(<Make_circle data1={i} page_now={page_now} />);
         }
-        console.log("temp_lenght =====>", temp.length);
+        // console.log("temp_lenght =====>", temp.length);
         if (temp.length < 7) {
           for (let i = 0; i < temp.length; i++) {
             temp2.push(temp[i]);

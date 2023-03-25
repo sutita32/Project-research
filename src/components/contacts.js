@@ -27,7 +27,7 @@ function Contacts(props) {
           setteachdata(result.data);
           setIsLoading(false);
         }
-        return console.log(result);
+        // return console.log(result);
       })
       .catch((error) => console.log("error", error));
   }, []);

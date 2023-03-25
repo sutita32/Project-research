@@ -9,6 +9,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import Scholar from "./scholar";
 import Scopus from "./scopus";
 import { Bar } from "react-chartjs-2";
+import { NavLink } from "react-router-dom";
 function ProfilePage(props) {
   // console.log("getid=>",getid)
 
@@ -315,9 +316,15 @@ function ProfilePage(props) {
                 <div className="w-[140px] h-full "></div>
                 <div className="w-full h-fit flex flex-wrap">
                   {dataskill.map((item) => (
-                    <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
+                    <NavLink 
+                      to={`/interest_person/${item.ID_coreskill}`}
+                      onClick={() => props.sendCoreSkillID(item.ID_coreskill)}
+                    >
+                      <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
                       {item.name_coreskill}
                     </div>
+                    </NavLink>
+                    
                   ))}
                 </div>
               </div>

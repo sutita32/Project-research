@@ -9,8 +9,8 @@ function StaticPersonBottom({
   professorlist,
   sendTeacherIndex,
 }) {
-  console.log("dataresearch=>", dataresearch);
-  console.log("professorlist=>", professorlist);
+  // console.log("dataresearch=>", dataresearch);
+  // console.log("professorlist=>", professorlist);
   let list = [];
   if (typesNow === "จำแนกทั้งหมด") {
     for (let i = 0; i < professorlist.length; i++) {

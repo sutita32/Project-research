@@ -14,7 +14,7 @@ function Scholar(props) {
       research.push(props.getdata[i]);
     }
   }
-  console.log("getdata =>", research);
+  // console.log("getdata =>", research);
   return (
     <>
       {research.map((item, index) => (

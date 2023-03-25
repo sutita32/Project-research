@@ -21,8 +21,11 @@ import { IoMdAdd } from "react-icons/io";
 import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Bar } from "react-chartjs-2";
-
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import { NavLink, useNavigate } from "react-router-dom";
+import moment from "moment";
+
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -33,7 +36,8 @@ const getBase64 = (file) =>
   });
 
 function ProfilePage_Edit(props) {
-  console.log("ssssssssssssssssssssssssssssssssss", props.getID);
+  const MySwal = withReactContent(Swal);
+  // console.log("ssssssssssssssssssssssssssssssssss", props.getID);
   const navigate = useNavigate();
 
   // console.log( " auth=>",auth)
@@ -73,111 +77,218 @@ function ProfilePage_Edit(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [datapro, setdatapro] = useState([]);
   const [dataresearch, setdataresearch] = useState([]);
-
+  const [oldpassword, setoldpassword] = useState("");
+  const [newpassword, setnewpassword] = useState("");
   useEffect(() => {
+    let auth;
     const token = localStorage.getItem("token");
     if (!token) {
       localStorage.clear();
       navigate("/login");
     }
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer " + token);
+    if(props.getID){
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer " +token);
+      myHeaders.append("Content-Type", "application/json");
 
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-    fetch("http://localhost:4000/api/professor/get-data", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        if (result === "Invalid Token") {
-          localStorage.clear();
-          navigate("/login");
-        }
-        return console.log(result);
-      })
-      .catch((error) => console.log("error", error));
+      var raw = JSON.stringify({
+        "id": props.getID
+      });
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+      fetch("http://localhost:4000/api/professor/get-databyadmin", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data.length > 0) {
+            localStorage.setItem("user1",JSON.stringify(result.data[0]))
+            setUser(result.data[0]);
+            setimgsrc(result.data[0].img);
+            settitlenamet(result.data[0].title_name);
+            setfnamet(result.data[0].firstname_professor);
+            setlnamet(result.data[0].lastname_professor);
+            const wordname = result.data[0].Keyword.split(" ");
+            setfnamee(wordname[0]);
+            setlnamee(wordname[1]);
+            setemail(result.data[0].Email);
+          }
+          // return console.log(result);
+        })
+        .catch((error) => console.log("error", error));
 
-    let auth;
-    if (localStorage.getItem("user")) {
-      auth = JSON.parse(localStorage.getItem("user"));
-      setUser(auth);
-      setimgsrc(auth.img);
-      settitlenamet(auth.title_name);
-      setfnamet(auth.firstname_professor);
-      setlnamet(auth.lastname_professor);
-      const wordname = auth.Keyword.split(" ");
-      setfnamee(wordname[0]);
-      setlnamee(wordname[1]);
-      setemail(auth.Email);
+
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      var raw = JSON.stringify({
+        "id": props.getID,
+      });
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("http://localhost:4000/api/search/getresearch-idpro", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data) {
+            setdataresearch(result.data);
+            
+            setDataTable(
+              <Scholar
+                getdata={result.data}
+                openModal2={(item) => openModal2(item)}
+                sendResearchIndex={(item)=> props.sendResearchIndex(item)}
+              />
+            );
+            setIsLoading(false);
+          }
+          // return console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+
+      raw = JSON.stringify({
+        "id": props.getID,
+      });
+
+      requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data) {
+            setinterest(result.data);
+            setIsLoading(false);
+          }
+          // return console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+
+      fetch(
+        "http://localhost:4000/api/professor/get-qulificationbyidpro",
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data) {
+            setstudy(result.data);
+            setIsLoading(false);
+          }
+          // return console.log("qulification=>", result);
+        })
+        .catch((error) => console.log("error", error));
+
+    }else{
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", "Bearer " + token);
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow",
+      };
+      fetch("http://localhost:4000/api/professor/get-data", requestOptions)
+        .then((response) => response.text())
+        .then((result) => {
+          if (result === "Invalid Token") {
+            localStorage.clear();
+            navigate("/login");
+          }
+          // return console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+
+      let auth;
+      if (localStorage.getItem("user")) {
+        auth = JSON.parse(localStorage.getItem("user"));
+        setUser(auth);
+        setimgsrc(auth.img);
+        settitlenamet(auth.title_name);
+        setfnamet(auth.firstname_professor);
+        setlnamet(auth.lastname_professor);
+        const wordname = auth.Keyword.split(" ");
+        setfnamee(wordname[0]);
+        setlnamee(wordname[1]);
+        setemail(auth.Email);
+      }
+
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+      var raw = JSON.stringify({
+        id: auth.ID_professor,
+      });
+
+      var requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("http://localhost:4000/api/search/getresearch-idpro", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data) {
+            setdataresearch(result.data);
+            setIsLoading(false);
+            setDataTable(
+              <Scholar
+                getdata={result.data}
+                openModal2={(item) => openModal2(item)}
+                sendResearchIndex={(item)=> props.sendResearchIndex(item)}
+              />
+            );
+          }
+          // return console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+
+      raw = JSON.stringify({
+        id: auth.ID_professor,
+      });
+
+      requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
+      };
+
+      fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data) {
+            setinterest(result.data);
+            setIsLoading(false);
+          }
+          // return console.log(result);
+        })
+        .catch((error) => console.log("error", error));
+
+      fetch(
+        "http://localhost:4000/api/professor/get-qulificationbyidpro",
+        requestOptions
+      )
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.data) {
+            setstudy(result.data);
+            setIsLoading(false);
+          }
+          // return console.log("qulification=>", result);
+        })
+        .catch((error) => console.log("error", error));
     }
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var raw = JSON.stringify({
-      id: auth.ID_professor,
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:4000/api/search/getresearch-idpro", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data) {
-          setdataresearch(result.data);
-          setIsLoading(false);
-          setDataTable(
-            <Scholar
-              getdata={result.data}
-              openModal2={(item) => openModal2(item)}
-            />
-          );
-        }
-        // return console.log(result);
-      })
-      .catch((error) => console.log("error", error));
-
-    raw = JSON.stringify({
-      id: auth.ID_professor,
-    });
-
-    requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data) {
-          setinterest(result.data);
-          setIsLoading(false);
-        }
-        return console.log(result);
-      })
-      .catch((error) => console.log("error", error));
-
-    fetch(
-      "http://localhost:4000/api/professor/get-qulificationbyidpro",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.data) {
-          setstudy(result.data);
-          setIsLoading(false);
-        }
-        return console.log("qulification=>", result);
-      })
-      .catch((error) => console.log("error", error));
   }, []);
   const [canedit, setcanedit] = useState(true);
 
@@ -230,7 +341,7 @@ function ProfilePage_Edit(props) {
             setstudy(t);
           }
 
-          return console.log(result);
+          // return console.log(result);
         })
         .catch((error) => console.log("error", error));
     }
@@ -271,7 +382,7 @@ function ProfilePage_Edit(props) {
             }
             setinterest(t);
           }
-          return console.log(result);
+          // return console.log(result);
         })
         .catch((error) => console.log("error", error));
     }
@@ -299,16 +410,26 @@ function ProfilePage_Edit(props) {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);
     myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      title: titlenamet,
-      firstname: fnamet,
-      lastname: lnamet,
-      email: email,
-      phone: "",
-      position: "",
-      keyword: fnamee + " " + lnamee,
-    });
+    var raw;
+    if(props.getID){
+      raw = JSON.stringify({
+        title: titlenamet,
+        firstname: fnamet,
+        lastname: lnamet,
+        email: email,
+        keyword: fnamee + " " + lnamee,
+        IDpro : props.getID
+      });
+    }else{
+      raw = JSON.stringify({
+        title: titlenamet,
+        firstname: fnamet,
+        lastname: lnamet,
+        email: email,
+        keyword: fnamee + " " + lnamee,
+      });
+    }
+    
 
     var requestOptions = {
       method: "POST",
@@ -331,23 +452,37 @@ function ProfilePage_Edit(props) {
           setlnamee(lnamee);
           setemail(email);
         }
-        return console.log(result);
+        // return console.log(result);
       })
       .catch((error) => console.log("error", error));
 
     setIsModalOpen(false);
   };
   const handleCancel = () => {
-    let auth = JSON.parse(localStorage.getItem("user"));
-    setUser(auth);
-    setimgsrc(auth.img);
-    settitlenamet(auth.title_name);
-    setfnamet(auth.firstname_professor);
-    setlnamet(auth.lastname_professor);
-    const wordname = auth.Keyword.split(" ");
-    setfnamee(wordname[0]);
-    setlnamee(wordname[1]);
-    setemail(auth.Email);
+    if(props.getID){
+      let auth = JSON.parse(localStorage.getItem("user1"));
+      setUser(auth);
+      setimgsrc(auth.img);
+      settitlenamet(auth.title_name);
+      setfnamet(auth.firstname_professor);
+      setlnamet(auth.lastname_professor);
+      const wordname = auth.Keyword.split(" ");
+      setfnamee(wordname[0]);
+      setlnamee(wordname[1]);
+      setemail(auth.Email);
+    }else{
+      let auth = JSON.parse(localStorage.getItem("user"));
+      setUser(auth);
+      setimgsrc(auth.img);
+      settitlenamet(auth.title_name);
+      setfnamet(auth.firstname_professor);
+      setlnamet(auth.lastname_professor);
+      const wordname = auth.Keyword.split(" ");
+      setfnamee(wordname[0]);
+      setlnamee(wordname[1]);
+      setemail(auth.Email);
+    }
+    
 
     setIsModalOpen(false);
   };
@@ -367,6 +502,54 @@ function ProfilePage_Edit(props) {
       setlnamet(formJson.lastnamethai);
       setfnamee(formJson.firstnameeng);
       setlnamee(formJson.firstnameeng);
+      if(formJson.oldpassword && formJson.newpassword){
+        console.log("oldpassword=> ", formJson.oldpassword, "&newpassword=> ",formJson.newpassword);
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer "+token);
+        myHeaders.append("Content-Type", "application/json");
+        var raw;
+        if(props.getID){
+          raw = JSON.stringify({
+            "oldpassword": formJson.oldpassword,
+            "newpassword": formJson.newpassword,
+            "Idpro":props.getID
+          });
+        }else{
+          raw = JSON.stringify({
+            "oldpassword": formJson.oldpassword,
+            "newpassword": formJson.newpassword
+          });
+        }
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+
+        fetch("http://localhost:4000/api/auth/change-password", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            if(result.msg == 'Your password reset Success!!'){
+              MySwal.fire({
+                html:<i>{result.msg}</i>,
+                icon: 'success',
+              }).then((value) => {
+                setoldpassword("");
+                setnewpassword("");
+              })
+            }else{
+              MySwal.fire({
+                html:<i>{result.msg}</i>,
+                icon: 'error'
+            })
+            }
+            // return console.log(result);
+          })
+          .catch(error => console.log('error', error));
+        
+      }
       if (formJson.study) {
         var temp = study;
         console.log("temp=> ", temp);
@@ -374,10 +557,17 @@ function ProfilePage_Edit(props) {
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + token);
         myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-          qualification: formJson.study,
-        });
+        var raw;
+        if(props.getID){
+          raw = JSON.stringify({
+            qualification: formJson.study,
+            Idpro :props.getID
+          });
+        }else{
+          raw = JSON.stringify({
+            qualification: formJson.study,
+          });
+        }
 
         var requestOptions = {
           method: "POST",
@@ -394,27 +584,34 @@ function ProfilePage_Edit(props) {
           .then((result) => {
             if (result.data) {
               temp.push({
-                ID_qualification: result.data.insertId,
+                ID_qualification: result.data.insertId ? result.data.insertId : result.data.ID_qualification,
                 name_qualification: formJson.study,
               });
               setstudy(temp);
             }
-            return console.log(result);
+            // return console.log(result);
           })
           .catch((error) => console.log("error", error));
       }
       setemail(formJson.email);
       if (formJson.interest) {
         var temp = interest;
-        console.log("temp interest=> ", temp);
+        // console.log("temp interest=> ", temp);
         setinputinterest("");
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + token);
         myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-          skill: formJson.interest,
-        });
+        var raw;
+        if(props.getID){
+          raw = JSON.stringify({
+            skill: formJson.interest,
+            Idpro :props.getID
+          });
+        }else{
+          raw = JSON.stringify({
+            skill: formJson.interest,
+          });
+        }
 
         var requestOptions = {
           method: "POST",
@@ -431,12 +628,12 @@ function ProfilePage_Edit(props) {
           .then((result) => {
             if (result.data) {
               temp.push({
-                ID_coreskill: result.data.insertId,
+                ID_coreskill: result.data.insertId ? result.data.insertId : result.data.ID_coreskill ,
                 name_coreskill: formJson.interest,
               });
               setinterest(temp);
             }
-            return console.log(result);
+            // return console.log(result);
           })
           .catch((error) => console.log("error", error));
       }
@@ -449,6 +646,12 @@ function ProfilePage_Edit(props) {
   //   console.log("cancle");
   // };
 
+  const inputoldpasschange = (e) => {
+    setoldpassword(e.target.value);
+  };
+  const inputnewpasschange = (e) => {
+    setnewpassword(e.target.value);
+  };
   const inputstudychange = (e) => {
     setinputstudy(e.target.value);
   };
@@ -491,41 +694,6 @@ function ProfilePage_Edit(props) {
   const submitAdd = (e) => {
     e.preventDefault();
 
-    // const form = e.target;
-    // const formData = new FormData(form);
-    // // console.log("formData =>",formData)
-    // fetch("/some-api", { method: form.method, body: formData });
-    // var formJson = Object.fromEntries(formData.entries());
-    // formJson.date = dateAdd;
-    // formJson.publisher = publisherAdd;
-    // console.log(formJson);
-    // setShowAdd(
-    //   <div class="bg-white grid grid-cols-10">
-    //     <div
-    //       scope="row"
-    //       class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7"
-    //     >
-    //       <a href="#">{formJson.topic}</a>
-    //       <p className="text-gray-400 font-normal">{formJson.userName}</p>
-    //       <p className="text-gray-400 font-normal">{formJson.conference}</p>
-    //     </div>
-    //     <div class="grid place-content-center px-6 py-4">
-    //       {formJson.date.slice(0, 4)}
-    //     </div>
-    //     <div class="grid place-content-center px-6 py-4">55</div>
-    //     <div class="grid place-content-center px-6 py-4">
-    //       <div className="flex">
-    //         <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
-    //           <BiEditAlt className="h-full w-full" />
-    //         </button>
-    //         <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
-    //           <RiDeleteBin6Line className="h-full w-full" />
-    //         </button>
-    //       </div>
-    //     </div>
-    //   </div>
-    // );
-
     console.log(
       "outputdata=> " +
         JSON.stringify({
@@ -543,8 +711,21 @@ function ProfilePage_Edit(props) {
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer " + token);
     myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
+    var raw;
+    if(localStorage.getItem("Role") == 'Admin'){
+        raw = JSON.stringify({
+        name_re: topicAdd,
+        authors: userNameAdd,
+        Pu_date: dateAdd,
+        conference: conferenceAdd,
+        Publisher: PublicherAdd,
+        ID_Type: publisherAdd,
+        Description: descriptionAdd,
+        link: linkAdd,
+        Idpro: props.getID
+      });
+    }else{
+      raw = JSON.stringify({
       name_re: topicAdd,
       authors: userNameAdd,
       Pu_date: dateAdd,
@@ -554,6 +735,9 @@ function ProfilePage_Edit(props) {
       Description: descriptionAdd,
       link: linkAdd,
     });
+    }
+    
+    
 
     var requestOptions = {
       method: "POST",
@@ -602,6 +786,7 @@ function ProfilePage_Edit(props) {
     setUserNameAdd(e.target.value);
   };
   const onChangeDateAdd = (date, dateString) => {
+    // console.log("dateString=>",dateString)
     setDateAdd(dateString);
   };
   const conferenceAddChange = (e) => {
@@ -640,7 +825,7 @@ function ProfilePage_Edit(props) {
       "h-[35px] w-auto bg-white text-regal-red border-regal-red border-2 hover:bg-regal-red hover:text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     setDataTable(
-      <Scholar getdata={dataresearch} openModal2={(item) => openModal2(item)} />
+      <Scholar getdata={dataresearch} openModal2={(item) => openModal2(item)}  sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>
     );
     setTimeout(() => {
       window.scrollTo({
@@ -659,7 +844,7 @@ function ProfilePage_Edit(props) {
       "h-[35px] w-auto bg-regal-red text-white border-regal-red border-2 rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     setDataTable(
-      <Scopus getdata={dataresearch} openModal2={(item) => openModal2(item)} />
+      <Scopus getdata={dataresearch} openModal2={(item) => openModal2(item)} sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>
     );
     setTimeout(() => {
       window.scrollTo({
@@ -670,7 +855,7 @@ function ProfilePage_Edit(props) {
   };
 
   const [dataTable, setDataTable] = useState(
-    <Scholar getdata={dataresearch} openModal2={(item) => openModal2(item)} />
+    <Scholar getdata={dataresearch} openModal2={(item) => openModal2(item)} sendResearchIndex={(item)=> props.sendResearchIndex(item)} />
   );
   //แบ่งชื่อ-นามสกุล
   // const word = workData[0].userName.split(" ");
@@ -728,6 +913,8 @@ function ProfilePage_Edit(props) {
   }
 
   const openModal2 = (val) => {
+    // console.log(" openModal2",val)
+    // console.log(" dataresearch",dataresearch)
     if (val === "null") {
       setTopicAdd("");
       setUserNameAdd("");
@@ -738,14 +925,24 @@ function ProfilePage_Edit(props) {
       setDescriptionAdd("");
       setLinkAdd("");
     } else {
-      setTopicAdd(val);
-      setUserNameAdd(val);
-      setDateAdd(val);
-      setConferenceAdd(val);
-      setPublicherAdd(val);
-      setPublisherAdd(val);
-      setDescriptionAdd(val);
-      setLinkAdd(val);
+      let temp = dataresearch.filter((obj, index) => {
+        return obj.ID_research === val;
+      })
+      // console.log(" openModal2 temp",temp)
+      setTopicAdd(temp[0].name_research);
+      setUserNameAdd(temp[0].title_name + temp[0].firstname_professor +" "+temp[0].lastname_professor);
+      let date =new Date(temp[0].Publication_date).toISOString().split('T')[0];
+      setDateAdd(date);
+      setConferenceAdd(temp[0].ConferenceOrJornal);
+      setPublicherAdd(temp[0].Publisher);
+      if(temp[0].name_Type === 'scholar'){
+        setPublisherAdd('1')
+      }else{
+        setPublisherAdd('2')
+      }
+      
+      setDescriptionAdd(temp[0].Description);
+      setLinkAdd(temp[0].Link);
     }
     setIsModal2Open(true);
   };
@@ -786,7 +983,7 @@ function ProfilePage_Edit(props) {
                     <p>แก้ไขข้อมูล</p>
                     <div class="grid  place-items-center w-full h-fit">
                       <div>
-                        <Upload
+                        {/* <Upload
                           action="http://localhost:3000/"
                           listType="picture-card"
                           fileList={fileList}
@@ -801,7 +998,7 @@ function ProfilePage_Edit(props) {
                           onChange={handleChange}
                         >
                           {fileList.length >= 1 ? null : uploadButton}
-                        </Upload>
+                        </Upload> */}
                         {/* <Modal
                         open={previewOpen}
                         title={previewTitle}
@@ -940,6 +1137,29 @@ function ProfilePage_Edit(props) {
                     >
                       เพิ่ม
                     </button>
+                    <p>Change Password</p>
+                    <input
+                        class="w-[230px] mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="oldpassword"
+                        type="text"
+                        placeholder="Old Password"
+                        onChange={inputoldpasschange}
+                        value={oldpassword}
+                      />
+                      <input
+                        class="w-[240px] mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        name="newpassword"
+                        type="text"
+                        placeholder="New Password"
+                        onChange={inputnewpasschange}
+                        value={newpassword}
+                      />
+                    <button
+                      type="submit"
+                      className="ml-[15px] w-fit h-fit px-[15px] py-[8px] rounded-[10px] bg-regal-red text-white"
+                    >
+                      เปลี่ยน
+                    </button>
                     <div className="grid place-items-end w-full h-fit">
                       <div className="flex">
                         <div
@@ -1007,9 +1227,14 @@ function ProfilePage_Edit(props) {
                 <div className="w-[140px] h-full "></div>
                 <div className="w-full h-fit flex flex-wrap">
                   {interest.map((item) => (
+                    <NavLink
+                    to={`/interest_person/${item.ID_coreskill}`}
+                    onClick={() => props.sendCoreSkillID(item.ID_coreskill)}
+                  >
                     <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
                       {item.name_coreskill}
                     </div>
+                    </NavLink>
                   ))}
                 </div>
               </div>
@@ -1060,7 +1285,9 @@ function ProfilePage_Edit(props) {
                       value={userNameAdd}
                     />
                     <p>วันที่</p>
-                    <DatePicker onChange={onChangeDateAdd} />
+                    <DatePicker onChange={onChangeDateAdd} 
+                    value={moment(dateAdd)}
+                    />
                     <p>การประชุม & วารสารวิชาการ </p>
                     <p>
                       *หากเป็นการประชุมให้ใส่ Conference นำหน้า หรือ

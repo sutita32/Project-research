@@ -154,8 +154,8 @@ function Static(props) {
     console.log("info year=>", info);
   };
 
-  if (isLoading && dataresearch.length === 0) return <>Loading....</>;
-  else {
+  if (isLoading ) return <>Loading....</>;
+  else if( dataresearch.length > 0) {
     let c = 1;
     dataDropdown[1].items.push({
       label: (
@@ -270,6 +270,7 @@ function Static(props) {
       </>
     );
   }
+  else return (<></>)
 }
 
 export default Static;

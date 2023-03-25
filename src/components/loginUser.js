@@ -66,21 +66,59 @@ function LoginUser(props) {
       })
       .then(result => {
         if( result.user ){
-              ch=1;
-              localStorage.setItem("user",JSON.stringify(result.user))
-              localStorage.setItem("Role",result.Role)
-              MySwal.fire({
-                  html:<i>{result.msg}</i>,
-                  icon: 'success',
-              }).then((value) => {
-                localStorage.setItem('token',result.accessToken)
-                  if (loginstatus==="public")
-                  {
-                    navigate('/profile')
-                    props.loginstatus(loginstatus);
-                  }
-              })
-            }
+          ch=1;
+          localStorage.setItem("user",JSON.stringify(result.user))
+          localStorage.setItem("Role",result.Role)
+          MySwal.fire({
+            html:<i>{result.msg}</i>,
+            icon: 'success',
+          }).then((value) => {
+            localStorage.setItem('token',result.accessToken)
+              if (loginstatus==="public")
+              {
+                navigate('/profile')
+                props.loginstatus(loginstatus);
+              }
+          })
+        }
+        // return console.log(result);
+      })
+      .catch(error => console.log('error', error));
+    }
+    if(ch === 0){
+      raw = JSON.stringify({
+        "email": inputs.uname,
+        "password": inputs.pass
+      });
+
+      requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+      
+      await fetch("http://localhost:4000/api/auth/login-professor1", requestOptions)
+      .then(response => {
+        return response.json();
+      })
+      .then(result => {
+        if( result.user ){
+          ch=1;
+          localStorage.setItem("user",JSON.stringify(result.user))
+          localStorage.setItem("Role",result.Role)
+          MySwal.fire({
+            html:<i>{result.msg}</i>,
+            icon: 'success',
+          }).then((value) => {
+            localStorage.setItem('token',result.accessToken)
+              if (loginstatus==="public")
+              {
+                navigate('/profile')
+                props.loginstatus(loginstatus);
+              }
+          })
+        }
         // return console.log(result);
       })
       .catch(error => console.log('error', error));
