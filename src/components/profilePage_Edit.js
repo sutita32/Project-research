@@ -25,6 +25,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { NavLink, useNavigate } from "react-router-dom";
 import moment from "moment";
+import { Spin } from "antd";
 
 
 const getBase64 = (file) =>
@@ -947,7 +948,10 @@ function ProfilePage_Edit(props) {
     setIsModal2Open(true);
   };
 
-  if (isLoading) return <>Loading.......</>;
+  if (isLoading) return <><div className="h-[80px] pt-[40px]">
+  <Spin tip="Loading" size="large">
+    <div className="content" />
+  </Spin></div>;</>;
   else
     return (
       <div className="relative">
@@ -1182,7 +1186,6 @@ function ProfilePage_Edit(props) {
               <div className="flex justify-center w-full h-[300px] ">
                 <div className=" text-center font-bold1">
                   <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
-                    <div className=" h-[160px] w-[160px] rounded-full bg-[#EFEFEF] translate-y-[-60%] "></div>
                   </div>
                   <div className="text-[19px] py-[3px]">
                     {titlenamet + fnamet}

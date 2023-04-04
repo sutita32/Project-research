@@ -3,6 +3,7 @@ import { UserData } from "./Garph_stat";
 import { UserData_AJ } from "./Graph_aj";
 import "chart.js/auto";
 import { Doughnut } from "react-chartjs-2";
+import '../style/Static.css'
 
 function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
   let dataShow =[];
@@ -79,25 +80,129 @@ function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
     ],
   };
 
+  
   const options = {
+  //   scales: {
+  //     r: {
+  //       ticks: {
+  //         backdropPadding: {
+  //             x: 10,
+  //             y: 4
+  //         }
+  //       }
+  //   }
+  // },
+    
+    maintainAspectRatio : false,
     plugins: {
       legend: {
         display: false,
-        position: "bottom",
-        labels: {
-          boxWidth: 20,
-          boxHeight: 10,
-        },
       },
+      // datalabels: {
+      //   color: '#000',
+      //   align: 'end',
+      //   anchor: 'end',
+      //   formatter: function(value, context) {
+      //     return context.chart.data.labels[context.dataIndex];
+      //   },
+      //   font: {
+      //     size: 16,
+      //     style: 'bold',
+      //   }
+      // },
     },
     layout: {
-      padding: 20,
+      padding: 40,
     },
   };
 
+  const doughnutLabelsLine = { 
+    id:'doughnutLabelsLine',
+    afterDraw(chart, args, options){
+      const {ctx, chartArea:{top, bottom, left, right, width, height}} = chart;
+      chart.data.datasets.forEach((dataset, i) => {
+        chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
+          console.log(width," ", height);
+
+          if(chart.data.datasets[0].data[index] === 0){
+          }
+          else {
+            if(chart.data.datasets[0].data[index] > 2 && chart.data.datasets[0].data[index] < 16){
+              const {x, y} = datapoint.tooltipPosition();
+              console.log("x => ", x , " y =>", y);
+          const halfwidth = (width+80) / 2;
+          const halfheight = (height+80) / 2;
+          const xLine = x >= halfwidth ? x+30 : x-30;
+          const yLine = y >= halfheight ? y+22 : y-22;
+          const extraLine = x >= halfwidth ? 30 : -30;
+          
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(xLine, yLine);
+          ctx.lineTo(xLine + extraLine, yLine);
+          ctx.stroke();
+
+          const textWidth =  ctx.measureText(chart.data.labels[index]).width;
+          ctx.font = '10px Arial';
+          const textXPosition = x>= halfwidth ? 'left' : 'right';
+          ctx.textAlign = textXPosition;
+          ctx.textBaseLine = 'middle';
+          ctx.fillText(" " + chart.data.labels[index] + " ", xLine + extraLine, yLine);
+            }else if (chart.data.datasets[0].data[index] <= 2){
+              const {x, y} = datapoint.tooltipPosition();
+          const halfwidth = (width+80) / 2;
+          const halfheight = (height+80) / 2;
+          const xLine = x >= halfwidth ? x+30 : x-30;
+          const yLine = y >= halfheight ? y+50 : y-50;
+          const extraLine = x >= halfwidth ? 30 : -30;
+          
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(xLine, yLine);
+          ctx.lineTo(xLine + extraLine, yLine);
+          ctx.stroke();
+
+          const textWidth =  ctx.measureText(chart.data.labels[index]).width;
+          ctx.font = '10px Arial';
+          const textXPosition = x>= halfwidth ? 'left' : 'right';
+          ctx.textAlign = textXPosition;
+          ctx.textBaseLine = 'middle';
+          ctx.fillText(" " + chart.data.labels[index] + " ", xLine + extraLine, yLine);
+            }else{
+              const {x, y} = datapoint.tooltipPosition();
+          const halfwidth = (width+80) / 2;
+          const halfheight = (height+80 ) / 2;
+          const xLine = x >= halfwidth ? x+30 : x-30;
+          const yLine = y >= halfheight ? y+30 : y-30;
+          const extraLine = x >= halfwidth ? 30 : -30;
+          
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(xLine, yLine);
+          ctx.lineTo(xLine + extraLine, yLine);
+          ctx.stroke();
+
+          const textWidth =  ctx.measureText(chart.data.labels[index]).width;
+          ctx.font = '10px Arial';
+          const textXPosition = x>= halfwidth ? 'left' : 'right';
+          ctx.textAlign = textXPosition;
+          ctx.textBaseLine = 'middle';
+          ctx.fillText(" " + chart.data.labels[index] + " ", xLine + extraLine, yLine);
+            }
+          
+          }
+        })
+      });
+    }
+  }
+
   return (
     <>
-      <Doughnut data={data} options={options}></Doughnut>
+    <div className="w-full h-full flex justify-center items-center overflow-visible">
+    <div className="h-[300px] w-full overflow-visible">
+      <Doughnut data={data} options={options} plugins={[doughnutLabelsLine]} className="overflow-visible"> </Doughnut>
+      </div>
+      </div>
     </>
   );
 }

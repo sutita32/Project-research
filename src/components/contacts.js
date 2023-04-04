@@ -6,6 +6,7 @@ import { useState } from "react";
 import "../style/contacts.css";
 import { techData } from "./TeacherData";
 import { NavLink } from "react-router-dom";
+import { Alert, Space, Spin } from "antd";
 
 function Contacts(props) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -114,7 +115,10 @@ function Contacts(props) {
     );
   }
 
-  if (isLoading) return <>Loading</>;
+  if (isLoading) return <div className="h-[80px] pt-[40px]">
+    <Spin tip="Loading" size="large">
+      <div className="content" />
+    </Spin></div>;
   else
     return (
       <>

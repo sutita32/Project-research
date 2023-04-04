@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "../style/interests.css";
 import { NavLink } from "react-router-dom";
+import { Alert, Space, Spin } from "antd";
 
 function Interests(props) {
   const [dataskill, setdataskill] = useState([]);
@@ -27,7 +28,7 @@ function Interests(props) {
       .catch((error) => console.log("error", error));
   }, []);
 
-  if (isLoading) return <>Loading....</>;
+  if (isLoading) return <></>;
   else {
     // console.log("dataskill=>", dataskill);
     let temp = [];

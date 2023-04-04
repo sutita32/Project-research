@@ -5,8 +5,11 @@
 import React from "react";
 import "../style/user_person.css";
 import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {BsArrowLeftShort, BsArrowRightShort} from "react-icons/bs"
 
 function Scholar(props) {
+  
   // console.log("getdata =>",getdata)
   let research = [];
   for (let i = 0; i < props.getdata.length; i++) {
@@ -14,10 +17,36 @@ function Scholar(props) {
       research.push(props.getdata[i]);
     }
   }
+  const [pageNow, setPageNow] = useState(1);
+  const [dataShow, setDataShow] = useState(
+    research.slice(pageNow * 10 - 10, 11)
+  );
   // console.log("getdata =>", research);
+  const clickRight = () => {
+    setPageNow(pageNow + 1);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 1000,
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+
+  const clickLeft = () => {
+    setPageNow(pageNow - 1);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 1000,
+        behavior: "smooth",
+      });
+    }, 100);
+  };
+  useEffect(() => {
+    setDataShow(research.slice(pageNow * 10 - 10, pageNow * 10));
+  },[pageNow]);
   return (
     <>
-      {research.map((item, index) => (
+      {dataShow.map((item, index) => (
         <div class="bg-white grid grid-cols-10 ">
           <div
             scope="row"
@@ -39,6 +68,35 @@ function Scholar(props) {
           <div class="grid place-content-center px-6 py-4">{item.Citation}</div>
         </div>
       ))}
+      <div className="grid place-content-center w-full h-[40px] my-[8px]">
+        <div className="flex h-[40px] w-[150px]">
+          <div className="grid place-items-center h-[40px] w-[50px]">
+            <button
+              onClick={clickLeft}
+              className={pageNow === 1 ? "text-white cursor-default" : ""}
+              disabled = {pageNow === 1 ? true:false}
+            >
+              <BsArrowLeftShort className="h-[25px] w-[25px]" />
+            </button>
+          </div>
+          <div className="grid place-items-center h-[40px] w-[50px]">
+            {pageNow}
+          </div>
+          <div className="grid place-items-center h-[40px] w-[50px]">
+            <button
+              onClick={clickRight}
+              className={
+                pageNow === Math.ceil(research.length / 10)
+                  ? "text-white cursor-default"
+                  : ""
+              }
+              disabled = {pageNow === Math.ceil(research.length / 10) ? true:false}
+            >
+              <BsArrowRightShort className="h-[25px] w-[25px]" />
+            </button>
+          </div>
+        </div>
+      </div>
       {/* <div class="bg-white grid grid-cols-10">
         <div
           scope="row"

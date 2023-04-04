@@ -10,3 +10,9 @@
     color: #7d0f3f;
     background-color: #7d0f3f;
 }
+.ant-dropdown-menu {
+    max-height: 250px;
+    overflow: auto;
+    position: relative;
+    z-index: 10;
+}

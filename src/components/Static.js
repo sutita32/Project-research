@@ -10,7 +10,8 @@ import StaticPersonBottom from "./StaticPersonBottom";
 import { BiChevronDown } from "react-icons/bi";
 import { types } from "./Types";
 import { year } from "./Year";
-import { Dropdown, Space } from "antd";
+import { Dropdown, Space, Spin } from "antd";
+import ShowUpperTable from "./ShowUpperTable";
 
 function Static(props) {
   const [typesNow, setTypesNow] = useState(types[0].name);
@@ -20,6 +21,14 @@ function Static(props) {
   const [isLoading, setIsLoading] = useState(true);
   // const [listcolor ,setlistcolor] =useState(new Array(100).fill("#"+Math.floor(Math.random()*16777215).toString(16)));
   // const [listyeardrop , setlistyear] = useState([]);
+
+  const [dataTable, setDataTable] = useState(
+    <ShowUpperTable
+    // getdata={dataresearch}
+    // sendResearchIndex={(item) => props.sendResearchIndex(item)}
+    />
+  );
+
   let listcolor = [];
   for (let i = 0; i < 100; i++) {
     listcolor.push("#" + Math.floor(Math.random() * 16777215).toString(16));
@@ -154,8 +163,12 @@ function Static(props) {
     console.log("info year=>", info);
   };
 
-  if (isLoading ) return <>Loading....</>;
-  else if( dataresearch.length > 0) {
+  if (isLoading) return <div className="h-[80px] pt-[40px]">
+    <Spin tip="Loading" size="large">
+      <div className="content" />
+    </Spin></div>;
+
+  else if (dataresearch.length > 0) {
     let c = 1;
     dataDropdown[1].items.push({
       label: (
@@ -191,7 +204,7 @@ function Static(props) {
     return (
       <>
         <div className="h-[30px] w-full bg-regal-red"></div>
-        <div className="bg-[#F0F8FF] pl-[120px] pt-[40px] pb-[20px]">
+        <div className="bg-[#F0F8FF] pl-[80px] pt-[40px] pb-[20px]">
           <Dropdown
             menu={{
               items: dataDropdown[0].items,
@@ -211,8 +224,8 @@ function Static(props) {
             </a>
           </Dropdown>
         </div>
-        <div className=" h-[550px] flex bg-[#F0F8FF]">
-          <div className="h-[400px] w-[400px] top-[0px] left-[120px] relative shadow-2xl px-[30px] py-[30px] bg-white rounded-[20px]">
+        <div className=" h-[500px] flex bg-[#F0F8FF]">
+          <div className="h-[400px] w-[640px] top-[0px] left-[80px] relative shadow-2xl py-[30px] bg-white rounded-[20px] overflow-visible">
             <p className=" font-normal text-center">จำนวนงานวิจัย{typesNow}</p>
             <Graph1
               typesNow={typesNow}
@@ -222,7 +235,7 @@ function Static(props) {
               listcolor={listcolor}
             />
           </div>
-          <div className=" h-[400px] w-[800px] top-[0px] left-[240px] relative shadow-2xl px-[30px] py-[30px] bg-white rounded-[20px]">
+          <div className=" h-[400px] w-[760px] top-[0px] left-[100px] relative shadow-2xl px-[30px] py-[30px] bg-white rounded-[20px]">
             <p className=" font-normal text-center">
               จำนวนงานวิจัย{typesNow}ในปี ค.ศ. {yearNow}
             </p>
@@ -252,11 +265,37 @@ function Static(props) {
             </div>
           </div>
         </div>
+
+        <div class="bg-[#F0F8FF]">
+          <div class="grid place-items-center w-full min-h-[70px]">
+            <div class="grid h-auto w-[90%]">
+              <div class="text-white font-bold1 text-[17px] h-[45px] w-full bg-regal-red rounded-[5px] grid grid-cols-10">
+                <div
+                  scope="col"
+                  className="px-6 py-3 rounded-l-lg font-medium col-span-8"
+                >
+                  Product name
+                </div>
+                <div></div>
+                <div
+                  scope="col"
+                  className="grid place-content-center px-6 py-3 font-medium"
+                >
+                  YEAR
+                </div>
+              </div>
+            </div>
+            {dataTable}
+            <div class="w-full h-[30px]"></div>
+          </div>
+        </div>
+
         <div className="flex justify-center bg-[#F0F8FF]  h-[200px] w-full">
           <div class="grid grid-cols-10  h-[100%] w-[80%] rounded-[30px] bg-regal-red text-white">
             <div class="grid col-span-6 place-items-center font-bold1 text-[20px]">
               จำนวนงานวิจัย{typesNow}
             </div>
+
             <div class="grid grid-rows-3 place-items-center col-span-4  bg-white font-bold1 text-[18px] shadow-lg rounded-r-[28px] py-[30px]">
               <div className=" text-regal-red font-semibold">จำนวน</div>
               <div className=" text-regal-red ">

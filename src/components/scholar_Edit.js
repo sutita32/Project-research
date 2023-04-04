@@ -69,10 +69,22 @@ function Scholar(props) {
   }
   const clickRight = () => {
     setPageNow(pageNow + 1);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 1000,
+        behavior: "smooth",
+      });
+    }, 100);
   };
 
   const clickLeft = () => {
     setPageNow(pageNow - 1);
+    setTimeout(() => {
+      window.scrollTo({
+        top: 1000,
+        behavior: "smooth",
+      });
+    }, 100);
   };
   useEffect(() => {
     // let research= [];
@@ -133,6 +145,7 @@ function Scholar(props) {
             <button
               onClick={clickLeft}
               className={pageNow === 1 ? "text-white cursor-default" : ""}
+              disabled = {pageNow === 1 ? true:false}
             >
               <BsArrowLeftShort className="h-[25px] w-[25px]" />
             </button>
@@ -148,6 +161,7 @@ function Scholar(props) {
                   ? "text-white cursor-default"
                   : ""
               }
+              disabled = {pageNow === Math.ceil(dataScholar.length / 10) ? true:false}
             >
               <BsArrowRightShort className="h-[25px] w-[25px]" />
             </button>

@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/scope */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-undef */
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect } from "react";
 import "../style/profilePage.css";
 import { BiEdit } from "react-icons/bi";
@@ -10,6 +14,7 @@ import Scholar from "./scholar";
 import Scopus from "./scopus";
 import { Bar } from "react-chartjs-2";
 import { NavLink } from "react-router-dom";
+import { Alert, Space, Spin } from "antd";
 function ProfilePage(props) {
   // console.log("getid=>",getid)
 
@@ -18,7 +23,30 @@ function ProfilePage(props) {
   const [dataresearch, setdataresearch] = useState([]);
   const [dataskill, setdataskill] = useState([]);
   const [dataqulification, setqulification] = useState([]);
+  //ปุ่มเรียงมากไปน้อยน้อยไปมาก หาdaTAYEAR ไม่เจอ
+  const [order, setorder] = useState("ASC");
+  console.log(dataresearch,"year")
+    const sorting =(col)=>{
+      if(order ==="ASC"){
+        const sorted =[...dataresearch].sort((a, b) =>
+        a[col].toLowerCase() > b[col].toLowerCase() ? 1: -1
+        
+        );
+        setdataresearch(sorted);
+        setorder("DSC");
+      }
+      if(order ==="DSC"){
+        const sorted =[...dataresearch].sort((a, b) =>
+        a[col].toLowerCase() < b[col].toLowerCase() ? 1: -1
+        
+        );
+        setdataresearch(sorted);
+        setorder("ASC");
+      }
+      ////ถึงตรงนี้่อะติ้กกี้ แล้วก็มี onclickตรง YEAR ทำหปุ่มไว้ละ
+    }
 
+    
   useEffect(() => {
     // console.log("getid =>",getid)
     var myHeaders = new Headers();
@@ -256,7 +284,10 @@ function ProfilePage(props) {
   //   );
   // }
 
-  if (isLoading) return <>Loading.....</>;
+  if (isLoading) return <>
+  <Spin tip="Loading" size="large">
+  <div className="content" />
+</Spin></>;
   else
     return (
       <div className="relative">
@@ -274,7 +305,6 @@ function ProfilePage(props) {
               <div className="flex justify-center w-full h-[300px] ">
                 <div className=" text-center font-bold1">
                   <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
-                    <div className=" h-[160px] w-[160px] rounded-full bg-[#EFEFEF] translate-y-[-60%] "></div>
                   </div>
                   <div className="text-[19px] py-[3px]">
                     {datapro.title_name +
@@ -351,8 +381,9 @@ function ProfilePage(props) {
                     scope="col"
                     className="grid place-content-center px-6 py-3 font-medium"
                   >
-                    YEAR
+                    <button onClick={()=>sorting("dataresearch")}>YEAR</button>
                   </div>
+                 
                   <div
                     scope="col"
                     className="grid place-content-center px-6 py-3 font-medium"
@@ -366,7 +397,10 @@ function ProfilePage(props) {
           </div>
         </div>
         <div class="z-[20] grid place-items-center absolute top-[148px] w-full h-[140px]">
-          <img alt="" src={datapro.img} class="h-[140px] rounded-full"></img>
+          <img
+            src={datapro.img}
+            class="h-[140px] w-[140px] rounded-full object-cover"
+          ></img>
         </div>
         <div class="z-[10] grid place-items-center absolute top-[140px] w-full h-[80px] transform translate-y-[100%] overflow-hidden">
           <div className="relative transform translate-y-[-50%]">
