@@ -283,6 +283,10 @@ function App() {
                 sendTeacherIndex={(item) => {
                   sendTeacherIndex(item);
                 }}
+
+                sendResearchIndex={(item)=>{
+                  sendResearchIndex(item);
+                }}
               />
             }
           />

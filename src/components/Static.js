@@ -24,15 +24,18 @@ function Static(props) {
 
   const [dataTable, setDataTable] = useState(
     <ShowUpperTable
-    // getdata={dataresearch}
+    getdata={dataresearch}
     // sendResearchIndex={(item) => props.sendResearchIndex(item)}
     />
   );
-
+  
   let listcolor = [];
   for (let i = 0; i < 100; i++) {
     listcolor.push("#" + Math.floor(Math.random() * 16777215).toString(16));
   }
+
+  let filterresearch = [];
+
   useEffect(() => {
     var requestOptions = {
       method: "GET",
@@ -47,6 +50,7 @@ function Static(props) {
       .then((result) => {
         if (result.data) {
           setdataresearch(result.data);
+          setDataTable(<ShowUpperTable getdata={result.data}  yearNow ={yearNow} typesNow={typesNow} sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>)
           setIsLoading(false);
         }
         // return console.log("dataresearch=>",result);
@@ -75,29 +79,117 @@ function Static(props) {
     return (
       <StaticPersonBottom
         typesNow={typesNow}
+        yearNow={yearNow}
         dataresearch={dataresearch}
         professorlist={professorlist}
         sendTeacherIndex={(item) => props.sendTeacherIndex(item)}
       />
     );
   }
+  // function setfilter(data){
+  //   setDataTable(<ShowUpperTable getdata={data}/>)
+  // }
+  useEffect(()=>{
+    let filterresearch =[];
+    if(typesNow === "จำแนกทั้งหมด"){
+      if(yearNow === "ทั้งหมด"){
+        filterresearch =dataresearch;
+      }else {
+        for(let i=0;i<dataresearch.length;i++){
+          if(yearNow === new Date(dataresearch[i].Publication_date).getFullYear().toString()){
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+      }
+    }else if(typesNow === "จำแนกตาม Scholar"){
+      if(yearNow === "ทั้งหมด"){
+        for(let i=0;i<dataresearch.length;i++){
+          if(dataresearch[i].ID_Type === 1){
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+      }else {
+        for(let i=0;i<dataresearch.length;i++){
+          if(yearNow === new Date(dataresearch[i].Publication_date).getFullYear().toString() && dataresearch[i].ID_Type === 1){
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+      }
+    }else if(typesNow === "จำแนกตาม Scopus"){
+      if(yearNow === "ทั้งหมด"){
+        for(let i=0;i<dataresearch.length;i++){
+          if(dataresearch[i].ID_Type === 2){
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+      }else {
+        for(let i=0;i<dataresearch.length;i++){
+          if(yearNow === new Date(dataresearch[i].Publication_date).getFullYear().toString() && dataresearch[i].ID_Type === 2){
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+      }
+    }
 
+    setDataTable(<ShowUpperTable getdata={filterresearch} yearNow ={yearNow} typesNow={typesNow} sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>)
+  },[yearNow , typesNow])
   function SumNumber() {
     var sum = 0;
+    filterresearch.length = 0;
     if (typesNow === types[0].name) {
-      return dataresearch.length;
+      if(yearNow === "ทั้งหมด"){
+        filterresearch = dataresearch;
+        // setfilter(filterresearch)
+        return dataresearch.length;
+      }else {
+        for (let i = 0; i < dataresearch.length; i++) {
+          if (new Date(dataresearch[i].Publication_date).getFullYear().toString() === yearNow) {
+            sum++;
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+        return sum;
+      }
+      
     } else if (typesNow === types[1].name) {
-      for (let i = 0; i < dataresearch.length; i++) {
-        if (dataresearch[i].ID_Type === 1) sum++;
+      if(yearNow === "ทั้งหมด"){
+        for (let i = 0; i < dataresearch.length; i++) {
+          if (dataresearch[i].ID_Type === 1) {
+            sum++;
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+        return sum;
+      }else{
+        for (let i = 0; i < dataresearch.length; i++) {
+          if (new Date(dataresearch[i].Publication_date).getFullYear().toString() === yearNow && dataresearch[i].ID_Type === 1 ) {
+            sum++;
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+        return sum;
       }
-      return sum;
     } else if (typesNow === types[2].name) {
-      for (let i = 0; i < dataresearch.length; i++) {
-        if (dataresearch[i].ID_Type === 2) sum++;
+      if(yearNow === "ทั้งหมด"){
+        for (let i = 0; i < dataresearch.length; i++) {
+          if (dataresearch[i].ID_Type === 2) {
+            sum++;
+            filterresearch.push(dataresearch[i]);
+          }
+        }
+        return sum;
+      }else{
+        for (let i = 0; i < dataresearch.length; i++) {
+          if (new Date(dataresearch[i].Publication_date).getFullYear().toString() === yearNow && dataresearch[i].ID_Type === 2 ){
+            sum++;
+            filterresearch.push(dataresearch[i]);
+          } 
+        }
+        return sum;
       }
-      return sum;
     }
   }
+
 
   //set form ใส่ dropdown ต้องเป็นคำว่า items เท่านั้น
   let dataDropdown = [
@@ -157,10 +249,10 @@ function Static(props) {
     setTypesNow(types[info.key].name);
   };
   const onClickYear = (info) => {
-    console.log("info year=>", info);
+    // console.log("info year=>", info);
     setYearNow(dataDropdown[1].items[info.key].value);
     // setYearNow(year[info.key].id);
-    console.log("info year=>", info);
+    // console.log("info year=>", info);
   };
 
   if (isLoading) return <div className="h-[80px] pt-[40px]">
@@ -170,17 +262,17 @@ function Static(props) {
 
   else if (dataresearch.length > 0) {
     let c = 1;
-    dataDropdown[1].items.push({
-      label: (
-        <button className="font-bold1 w-full h-full text-start">
-          {new Date(dataresearch[0].Publication_date).getFullYear()}
-        </button>
-      ),
-      key: "1",
-      value: new Date(dataresearch[0].Publication_date)
-        .getFullYear()
-        .toString(),
-    });
+    // dataDropdown[1].items.push({
+    //   label: (
+    //     <button className="font-bold1 w-full h-full text-start">
+    //       {new Date(dataresearch[0].Publication_date).getFullYear()}
+    //     </button>
+    //   ),
+    //   key: "1",
+    //   value: new Date(dataresearch[0].Publication_date)
+    //     .getFullYear()
+    //     .toString(),
+    // });
     let temp = new Date(dataresearch[0].Publication_date).getFullYear();
     for (let i = 1; i < dataresearch.length; i++) {
       let com = new Date(dataresearch[i].Publication_date).getFullYear();
@@ -191,7 +283,7 @@ function Static(props) {
               {new Date(dataresearch[i].Publication_date).getFullYear()}
             </button>
           ),
-          key: (c + 1).toString(),
+          key: (c).toString(),
           value: new Date(dataresearch[i].Publication_date)
             .getFullYear()
             .toString(),
@@ -201,6 +293,7 @@ function Static(props) {
       }
     }
 
+    
     return (
       <>
         <div className="h-[30px] w-full bg-regal-red"></div>

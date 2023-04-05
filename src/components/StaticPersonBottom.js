@@ -5,6 +5,7 @@ import "../style/Static.css";
 import { NavLink } from "react-router-dom";
 function StaticPersonBottom({
   typesNow,
+  yearNow,
   dataresearch,
   professorlist,
   sendTeacherIndex,
@@ -18,8 +19,11 @@ function StaticPersonBottom({
       for (let j = 0; j < dataresearch.length; j++) {
         if (
           professorlist[i].Keyword === dataresearch[j].Keyword &&
-          typesNow === "จำแนกทั้งหมด"
+          typesNow === "จำแนกทั้งหมด" && yearNow === "ทั้งหมด"
         )
+          sum++;
+        else if (professorlist[i].Keyword === dataresearch[j].Keyword &&
+          typesNow === "จำแนกทั้งหมด" && yearNow === new Date(dataresearch[j].Publication_date).getFullYear().toString()) 
           sum++;
       }
       list.push({
@@ -38,9 +42,12 @@ function StaticPersonBottom({
       for (let j = 0; j < dataresearch.length; j++) {
         if (
           professorlist[i].Keyword === dataresearch[j].Keyword &&
-          dataresearch[j].ID_Type === 1
+          dataresearch[j].ID_Type === 1 && yearNow === "ทั้งหมด"
         )
           sum++;
+          else if (professorlist[i].Keyword === dataresearch[j].Keyword &&
+            dataresearch[j].ID_Type === 1 && yearNow === new Date(dataresearch[j].Publication_date).getFullYear().toString()) 
+            sum++;
       }
       list.push({
         ID: professorlist[i].ID_professor,
@@ -58,9 +65,12 @@ function StaticPersonBottom({
       for (let j = 0; j < dataresearch.length; j++) {
         if (
           professorlist[i].Keyword === dataresearch[j].Keyword &&
-          dataresearch[j].ID_Type === 2
+          dataresearch[j].ID_Type === 2&& yearNow === "ทั้งหมด"
         )
           sum++;
+          else if (professorlist[i].Keyword === dataresearch[j].Keyword &&
+            dataresearch[j].ID_Type === 2 && yearNow === new Date(dataresearch[j].Publication_date).getFullYear().toString()) 
+            sum++;
       }
       list.push({
         ID: professorlist[i].ID_professor,

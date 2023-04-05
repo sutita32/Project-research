@@ -122,14 +122,14 @@ function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
       const {ctx, chartArea:{top, bottom, left, right, width, height}} = chart;
       chart.data.datasets.forEach((dataset, i) => {
         chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
-          console.log(width," ", height);
+          // console.log(width," ", height);
 
           if(chart.data.datasets[0].data[index] === 0){
           }
           else {
             if(chart.data.datasets[0].data[index] > 2 && chart.data.datasets[0].data[index] < 16){
               const {x, y} = datapoint.tooltipPosition();
-              console.log("x => ", x , " y =>", y);
+              // console.log("x => ", x , " y =>", y);
           const halfwidth = (width+80) / 2;
           const halfheight = (height+80) / 2;
           const xLine = x >= halfwidth ? x+30 : x-30;

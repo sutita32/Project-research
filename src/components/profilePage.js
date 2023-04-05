@@ -21,30 +21,21 @@ function ProfilePage(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [datapro, setdatapro] = useState([]);
   const [dataresearch, setdataresearch] = useState([]);
+  const [dataresearchgraph , setdataresearchgraph]= useState([]);
   const [dataskill, setdataskill] = useState([]);
   const [dataqulification, setqulification] = useState([]);
+  const [dataTable, setDataTable] = useState(
+    <Scholar
+      getdata={dataresearch}
+      sendResearchIndex={(item) => props.sendResearchIndex(item)}
+    />
+  );
+  const [focustype , setfocustype] = useState("scholar");
+  const [focussorty , setfocussorty] = useState(true);
+  const [focussortc , setfocussortc] = useState(false);
   //ปุ่มเรียงมากไปน้อยน้อยไปมาก หาdaTAYEAR ไม่เจอ
   const [order, setorder] = useState("ASC");
-  console.log(dataresearch,"year")
-    const sorting =(col)=>{
-      if(order ==="ASC"){
-        const sorted =[...dataresearch].sort((a, b) =>
-        a[col].toLowerCase() > b[col].toLowerCase() ? 1: -1
-        
-        );
-        setdataresearch(sorted);
-        setorder("DSC");
-      }
-      if(order ==="DSC"){
-        const sorted =[...dataresearch].sort((a, b) =>
-        a[col].toLowerCase() < b[col].toLowerCase() ? 1: -1
-        
-        );
-        setdataresearch(sorted);
-        setorder("ASC");
-      }
-      ////ถึงตรงนี้่อะติ้กกี้ แล้วก็มี onclickตรง YEAR ทำหปุ่มไว้ละ
-    }
+  // console.log(dataresearch,"year")
 
     
   useEffect(() => {
@@ -92,14 +83,17 @@ function ProfilePage(props) {
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {
-          setdataresearch(result.data);
-          setIsLoading(false);
+          setdataresearchgraph(result.data.sort((a, b) => new Date(a.Publication_date).getFullYear()- new Date(b.Publication_date).getFullYear() ));
+          setdataresearch(result.data.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() ));
+          
           setDataTable(
             <Scholar
-              getdata={result.data}
+              getdata={result.data.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )}
               sendResearchIndex={(item) => props.sendResearchIndex(item)}
+              status={true}
             />
           );
+          setIsLoading(false);
         }
         // return console.log(result);
       })
@@ -158,10 +152,12 @@ function ProfilePage(props) {
       "h-[35px] w-auto bg-white text-regal-red border-regal-red border-2 hover:bg-regal-red hover:text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     console.log("กดสกอลา");
+    setfocustype("scholar");
     setDataTable(
       <Scholar
         getdata={dataresearch}
         sendResearchIndex={(item) => props.sendResearchIndex(item)}
+        status={true}
       />
     );
     setTimeout(() => {
@@ -181,10 +177,12 @@ function ProfilePage(props) {
       "h-[35px] w-auto bg-regal-red text-white border-regal-red border-2 rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
     console.log("กดสกอปัส");
+    setfocustype("scopus");
     setDataTable(
       <Scopus
         getdata={dataresearch}
         sendResearchIndex={(item) => props.sendResearchIndex(item)}
+        status={false}
       />
     );
     setTimeout(() => {
@@ -194,25 +192,101 @@ function ProfilePage(props) {
       });
     }, 100);
   };
+  const sortingyear =()=>{
+    setfocussorty(true);
+    setfocussortc(false);
+  }
+  const sortingcited =()=>{
+    setfocussorty(false);
+    setfocussortc(true);
+  }
+  
+  useEffect(()=>{
+    if(focussorty == true){
+      let listdata = dataresearch;
+      listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
+      if(focustype === "scholar"){
+        setDataTable(
+          <Scholar
+            getdata={listdata}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={true}
+          />
+        )
+      }else if(focustype === "scopus"){
+        setDataTable(
+          <Scopus
+            getdata={listdata}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={true}
+          />
+        )
+      }
+    }else if(focussortc){
+      let listdata = dataresearch;
+      listdata.sort((a, b) => b.Citation- a.Citation)
+      if(focustype === "scholar"){
+        setDataTable(
+          <Scholar
+            getdata={listdata}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={false}
+          />
+        )
+      }else if(focustype === "scopus"){
+        setDataTable(
+          <Scopus
+            getdata={listdata}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={false}
+          />
+        )
+      }
+    }
+    
+  },[focussorty,focussortc])
 
-  const [dataTable, setDataTable] = useState(
-    <Scholar
-      getdata={dataresearch}
-      sendResearchIndex={(item) => props.sendResearchIndex(item)}
-    />
-  );
+  // useEffect(()=>{
+  //   if(focussortc == true){
+  //     let listdata = dataresearch;
+  //     listdata.sort((a, b) => b.Citation- a.Citation)
+  //     if(focustype === "scholar"){
+  //       setDataTable(
+  //         <Scholar
+  //           getdata={listdata}
+  //           sendResearchIndex={(item) => props.sendResearchIndex(item)}
+  //           status={false}
+  //         />
+  //       )
+  //     }else if(focustype === "scopus"){
+  //       setDataTable(
+  //         <Scopus
+  //           getdata={listdata}
+  //           sendResearchIndex={(item) => props.sendResearchIndex(item)}
+  //           status={false}
+  //         />
+  //       )
+  //     }
+  //   }
+    
+  // },[focussortc]);
+
+  useEffect(()=>{
+    setdataresearchgraph( dataresearchgraph.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() ))
+  },[dataresearch])
   //แบ่งชื่อ-นามสกุล
   const word = workData[0].userName.split(" ");
 
-  function Graph() {
+  function Graph123() {
     let year = [];
     let sum = [];
-    if (dataresearch.length > 0) {
-      year.push(new Date(dataresearch[0].Publication_date).getFullYear());
-      let tempy = new Date(dataresearch[0].Publication_date).getFullYear();
+    if (dataresearchgraph.length > 0) {
+      console.log("dataresearch graph=>",dataresearchgraph)
+      year.push(new Date(dataresearchgraph[0].Publication_date).getFullYear());
+      let tempy = new Date(dataresearchgraph[0].Publication_date).getFullYear();
       let c = 1;
-      for (let i = 1; i < dataresearch.length; i++) {
-        let y = new Date(dataresearch[i].Publication_date).getFullYear();
+      for (let i = 1; i < dataresearchgraph.length; i++) {
+        let y = new Date(dataresearchgraph[i].Publication_date).getFullYear();
         if (y === tempy) c++;
         else {
           year.push(y);
@@ -220,7 +294,7 @@ function ProfilePage(props) {
           sum.push(c);
           c = 1;
         }
-        if (i === dataresearch.length - 1) {
+        if (i === dataresearchgraph.length - 1) {
           // year.push(y);
           // tempy = y;
           sum.push(c);
@@ -256,33 +330,6 @@ function ProfilePage(props) {
     );
   }
 
-  // function Graph() {
-  //   const data = {
-  //     labels: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022],
-  //     datasets: [
-  //       {
-  //         label: "My First Dataset",
-  //         data: [65, 59, 80, 81, 56, 55, 40, 20],
-  //         backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-  //         borderColor: ["rgba(255, 99, 132, 0.2)"],
-  //         borderWidth: 1,
-  //       },
-  //     ],
-  //   };
-  //   const options = {
-  //     plugins: {
-  //       legend: {
-  //         display: false,
-  //       },
-  //     },
-  //     responsive: true,
-  //   };
-  //   return (
-  //     <>
-  //       <Bar data={data} options={options}></Bar>
-  //     </>
-  //   );
-  // }
 
   if (isLoading) return <>
   <Spin tip="Loading" size="large">
@@ -329,7 +376,7 @@ function ProfilePage(props) {
               </div>
               <div className="grid place-items-center w-full h-fit">
                 <div class="h-[260px] w-[1000px] grid place-items-center">
-                  <Graph />
+                  <Graph123 />
                 </div>
               </div>
               <div className="grid place-items-center w-full h-[10px]">
@@ -381,14 +428,15 @@ function ProfilePage(props) {
                     scope="col"
                     className="grid place-content-center px-6 py-3 font-medium"
                   >
-                    <button onClick={()=>sorting("dataresearch")}>YEAR</button>
+                    <button onClick={()=>sortingyear()}>YEAR</button>
                   </div>
                  
                   <div
                     scope="col"
                     className="grid place-content-center px-6 py-3 font-medium"
                   >
-                    CITED BY
+                    <button onClick={()=>sortingcited()}>CITED BY</button>
+                    
                   </div>
                 </thead>
                 <tbody>{dataTable}</tbody>

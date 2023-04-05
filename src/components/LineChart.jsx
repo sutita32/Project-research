@@ -41,6 +41,13 @@ function LineChart(item) {
     for(let i=1;i<item.data.length;i++){
       let yearr = new Date(item.data[i].Publication_date).getFullYear();
       // console.log("index=",i," stat=>Year=>",yearr, "&pu",item.data[i].Publication_date)
+      if(i === item.data.length-1 ){
+        stat.push({
+          year : yearr,
+          N : count+1
+        })
+        break;
+      }
       if(yearr === temp ){
         count++;
       }else{

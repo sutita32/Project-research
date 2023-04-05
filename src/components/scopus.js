@@ -9,10 +9,11 @@ import { useState, useEffect } from "react";
 import {BsArrowLeftShort, BsArrowRightShort} from "react-icons/bs"
 
 function Scopus(props) {
-  // console.log("getdata =>",getdata)
+  // console.log("getdata =>",props.getdata)
   let research = [];
+
   for (let i = 0; i < props.getdata.length; i++) {
-    if (props.getdata[i].ID_Type == 2) {
+    if (props.getdata[i].ID_Type === 2) {
       research.push(props.getdata[i]);
     }
   }
@@ -20,6 +21,18 @@ function Scopus(props) {
   const [dataShow, setDataShow] = useState(
     research.slice(pageNow * 10 - 10, 11)
   );
+
+  useEffect(()=>{
+    research.length=0;
+    for (let i = 0; i < props.getdata.length; i++) {
+      if (props.getdata[i].ID_Type === 2) {
+        research.push(props.getdata[i]);
+      }
+    }
+    setPageNow(1)
+    setDataShow(research.slice(1* 10 - 10, 11));
+
+  },[props.getdata, props.status])
   // console.log("getdata =>", research);
   const clickRight = () => {
     setPageNow(pageNow + 1);
@@ -41,6 +54,7 @@ function Scopus(props) {
     }, 100);
   };
   useEffect(() => {
+    
     setDataShow(research.slice(pageNow * 10 - 10, pageNow * 10));
   },[pageNow]);
   return (
