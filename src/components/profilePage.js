@@ -15,6 +15,8 @@ import Scopus from "./scopus";
 import { Bar } from "react-chartjs-2";
 import { NavLink } from "react-router-dom";
 import { Alert, Space, Spin } from "antd";
+import Graph123 from "./Graph_profile";
+
 function ProfilePage(props) {
   // console.log("getid=>",getid)
 
@@ -83,12 +85,13 @@ function ProfilePage(props) {
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {
-          setdataresearchgraph(result.data.sort((a, b) => new Date(a.Publication_date).getFullYear()- new Date(b.Publication_date).getFullYear() ));
-          setdataresearch(result.data.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() ));
-          
+          setdataresearchgraph(result.data);
+          setdataresearch(result.data);
+          var temp = result.data;
+
           setDataTable(
             <Scholar
-              getdata={result.data.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )}
+              getdata={temp.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear() )}
               sendResearchIndex={(item) => props.sendResearchIndex(item)}
               status={true}
             />
@@ -153,9 +156,11 @@ function ProfilePage(props) {
     );
     console.log("กดสกอลา");
     setfocustype("scholar");
+    var listdata = dataresearch;
+    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
     setDataTable(
       <Scholar
-        getdata={dataresearch}
+        getdata={listdata}
         sendResearchIndex={(item) => props.sendResearchIndex(item)}
         status={true}
       />
@@ -178,9 +183,11 @@ function ProfilePage(props) {
     );
     console.log("กดสกอปัส");
     setfocustype("scopus");
+    var listdata = dataresearch;
+    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
     setDataTable(
       <Scopus
-        getdata={dataresearch}
+        getdata={listdata}
         sendResearchIndex={(item) => props.sendResearchIndex(item)}
         status={false}
       />
@@ -202,9 +209,9 @@ function ProfilePage(props) {
   }
   
   useEffect(()=>{
-    if(focussorty == true){
+    if(focussorty){
       let listdata = dataresearch;
-      listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
+      listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
       if(focustype === "scholar"){
         setDataTable(
           <Scholar
@@ -223,12 +230,13 @@ function ProfilePage(props) {
         )
       }
     }else if(focussortc){
-      let listdata = dataresearch;
-      listdata.sort((a, b) => b.Citation- a.Citation)
+      var listdata1 = dataresearch;
+      listdata1 = listdata1.sort((a, b) => b.Citation- a.Citation);
+      console.log("do ci =>",listdata1)
       if(focustype === "scholar"){
         setDataTable(
           <Scholar
-            getdata={listdata}
+            getdata={listdata1}
             sendResearchIndex={(item) => props.sendResearchIndex(item)}
             status={false}
           />
@@ -236,7 +244,7 @@ function ProfilePage(props) {
       }else if(focustype === "scopus"){
         setDataTable(
           <Scopus
-            getdata={listdata}
+            getdata={listdata1}
             sendResearchIndex={(item) => props.sendResearchIndex(item)}
             status={false}
           />
@@ -271,65 +279,8 @@ function ProfilePage(props) {
     
   // },[focussortc]);
 
-  useEffect(()=>{
-    setdataresearchgraph( dataresearchgraph.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() ))
-  },[dataresearch])
   //แบ่งชื่อ-นามสกุล
   const word = workData[0].userName.split(" ");
-
-  function Graph123() {
-    let year = [];
-    let sum = [];
-    if (dataresearchgraph.length > 0) {
-      console.log("dataresearch graph=>",dataresearchgraph)
-      year.push(new Date(dataresearchgraph[0].Publication_date).getFullYear());
-      let tempy = new Date(dataresearchgraph[0].Publication_date).getFullYear();
-      let c = 1;
-      for (let i = 1; i < dataresearchgraph.length; i++) {
-        let y = new Date(dataresearchgraph[i].Publication_date).getFullYear();
-        if (y === tempy) c++;
-        else {
-          year.push(y);
-          tempy = y;
-          sum.push(c);
-          c = 1;
-        }
-        if (i === dataresearchgraph.length - 1) {
-          // year.push(y);
-          // tempy = y;
-          sum.push(c);
-        }
-      }
-    }
-
-    const data = {
-      labels: year,
-      datasets: [
-        {
-          label: "Research is have",
-          data: sum,
-          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-          borderColor: ["rgba(255, 99, 132, 0.2)"],
-          borderWidth: 1,
-        },
-      ],
-    };
-
-    const options = {
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-      responsive: true,
-    };
-    return (
-      <>
-        <Bar data={data} options={options}></Bar>
-      </>
-    );
-  }
-
 
   if (isLoading) return <>
   <Spin tip="Loading" size="large">
@@ -376,7 +327,7 @@ function ProfilePage(props) {
               </div>
               <div className="grid place-items-center w-full h-fit">
                 <div class="h-[260px] w-[1000px] grid place-items-center">
-                  <Graph123 />
+                  <Graph123 getdata={dataresearchgraph} />
                 </div>
               </div>
               <div className="grid place-items-center w-full h-[10px]">

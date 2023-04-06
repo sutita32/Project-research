@@ -45,7 +45,9 @@ function Search_main_body({ data1, sendResearchIndex , searchdata }) {
                       {item.name_research}
                     </h4>
                     <p class="font-normal2 text-regal-red  text-[12px]">
-                      ผู้วิจัย: {item.title_name}{item.firstname_professor}&nbsp;{item.lastname_professor} <br></br>Tag: {item.conference}
+                      ผู้วิจัย: {item.title_name}{item.firstname_professor}&nbsp;{item.lastname_professor} 
+                      <br></br>ผู้เขียน: {item.authors}
+                      <br></br>Tag: {item.conference}
                       <br></br>From : {item.name_Type}
                       <br></br>Citation : {item.Citation}
                     </p>

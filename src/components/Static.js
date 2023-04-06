@@ -138,9 +138,12 @@ function Static(props) {
     filterresearch.length = 0;
     if (typesNow === types[0].name) {
       if(yearNow === "ทั้งหมด"){
-        filterresearch = dataresearch;
+        for(let i=0 ;i<dataresearch.length;i++) filterresearch.push(dataresearch[i]);
+        filterresearch = filterresearch.filter((obj, index) => {
+          return index === filterresearch.findIndex(o =>  obj.name_research.toLowerCase() === o.name_research.toLowerCase());
+        });
         // setfilter(filterresearch)
-        return dataresearch.length;
+        return filterresearch.length;
       }else {
         for (let i = 0; i < dataresearch.length; i++) {
           if (new Date(dataresearch[i].Publication_date).getFullYear().toString() === yearNow) {

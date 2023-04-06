@@ -81,7 +81,7 @@ function Scholar(props) {
               {item.name_research}
             </NavLink>
 
-            <p className="text-gray-400 font-normal3"> {item.Keyword}</p>
+            <p className="text-gray-400 font-normal3"> {item.authors}</p>
             <p className="text-gray-400 font-normal3">{item.conference}</p>
           </div>
           <div class="grid place-content-center px-6 py-4">

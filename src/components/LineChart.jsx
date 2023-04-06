@@ -46,7 +46,6 @@ function LineChart(item) {
           year : yearr,
           N : count+1
         })
-        break;
       }
       if(yearr === temp ){
         count++;
@@ -57,6 +56,12 @@ function LineChart(item) {
         })
         count=1;
         temp=yearr;
+      }
+      if(i === item.data.length-1 ){
+        stat.push({
+          year : yearr,
+          N : count
+        })
       }
     }
   }

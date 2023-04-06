@@ -26,7 +26,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { NavLink, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { Spin } from "antd";
-
+import Graph123 from "./Graph_profile";
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
@@ -134,7 +134,7 @@ function ProfilePage_Edit(props) {
         redirect: "follow",
       };
 
-      fetch("http://localhost:4000/api/search/getresearch-idpro", requestOptions)
+      fetch("http://localhost:4000/api/search/getresearchbypro", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.data) {
@@ -142,7 +142,7 @@ function ProfilePage_Edit(props) {
             
             setDataTable(
               <Scholar
-                getdata={result.data}
+                getdata={result.data.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear() )}
                 openModal2={(item) => openModal2(item)}
                 sendResearchIndex={(item)=> props.sendResearchIndex(item)}
               />
@@ -236,7 +236,7 @@ function ProfilePage_Edit(props) {
         redirect: "follow",
       };
 
-      fetch("http://localhost:4000/api/search/getresearch-idpro", requestOptions)
+      fetch("http://localhost:4000/api/search/getresearchbypro", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.data) {
@@ -244,7 +244,7 @@ function ProfilePage_Edit(props) {
             setIsLoading(false);
             setDataTable(
               <Scholar
-                getdata={result.data}
+                getdata={result.data.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear() )}
                 openModal2={(item) => openModal2(item)}
                 sendResearchIndex={(item)=> props.sendResearchIndex(item)}
               />
@@ -691,6 +691,10 @@ function ProfilePage_Edit(props) {
   const [publisherAdd, setPublisherAdd] = useState("");
   const [descriptionAdd, setDescriptionAdd] = useState("");
   const [linkAdd, setLinkAdd] = useState("");
+  const [focustype , setfocustype] = useState("scholar");
+  const [focussorty , setfocussorty] = useState(true);
+  const [focussortc , setfocussortc] = useState(false);
+
 
   const submitAdd = (e) => {
     e.preventDefault();
@@ -766,6 +770,15 @@ function ProfilePage_Edit(props) {
             Description: descriptionAdd,
             Link: linkAdd,
           });
+          MySwal.fire({
+            html:<i>{result.msg}</i>,
+            icon: 'success',
+          })
+        }else{
+          MySwal.fire({
+            html:<i>{result.msg}</i>,
+            icon: 'error'
+          })
         }
         return console.log(result);
       })
@@ -825,8 +838,11 @@ function ProfilePage_Edit(props) {
     setScopustBtn(
       "h-[35px] w-auto bg-white text-regal-red border-regal-red border-2 hover:bg-regal-red hover:text-white rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
+    setfocustype("scholar");
+    var listdata = dataresearch;
+    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
     setDataTable(
-      <Scholar getdata={dataresearch} openModal2={(item) => openModal2(item)}  sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>
+      <Scholar getdata={listdata} openModal2={(item) => openModal2(item)}  sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>
     );
     setTimeout(() => {
       window.scrollTo({
@@ -844,8 +860,11 @@ function ProfilePage_Edit(props) {
     setScopustBtn(
       "h-[35px] w-auto bg-regal-red text-white border-regal-red border-2 rounded-[12px] px-[20px] text-[16px] mx-[15px] mt-[10px] font-normal4"
     );
+    setfocustype("scopus");
+    var listdata = dataresearch;
+    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
     setDataTable(
-      <Scopus getdata={dataresearch} openModal2={(item) => openModal2(item)} sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>
+      <Scopus getdata={listdata} openModal2={(item) => openModal2(item)} sendResearchIndex={(item)=> props.sendResearchIndex(item)}/>
     );
     setTimeout(() => {
       window.scrollTo({
@@ -861,57 +880,65 @@ function ProfilePage_Edit(props) {
   //แบ่งชื่อ-นามสกุล
   // const word = workData[0].userName.split(" ");
 
-  const word = workData[0].userName.split(" ");
-  let img = "../img/adp.jpg";
-  function Graph() {
-    let year = [];
-    let sum = [];
-    if (dataresearch.length > 0) {
-      year.push(new Date(dataresearch[0].Publication_date).getFullYear());
-      let tempy = new Date(dataresearch[0].Publication_date).getFullYear();
-      let c = 1;
-      for (let i = 1; i < dataresearch.length; i++) {
-        let y = new Date(dataresearch[i].Publication_date).getFullYear();
-        if (y === tempy) c++;
-        else {
-          year.push(y);
-          tempy = y;
-          sum.push(c);
-          c = 1;
-        }
-        if (i === dataresearch.length - 1) {
-          // year.push(y);
-          // tempy = y;
-          sum.push(c);
-        }
+  const sortingyear =()=>{
+    setfocussorty(true);
+    setfocussortc(false);
+  }
+  const sortingcited =()=>{
+    setfocussorty(false);
+    setfocussortc(true);
+  }
+
+  useEffect(()=>{
+    if(focussorty){
+      let listdata = dataresearch;
+      listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear())
+      if(focustype === "scholar"){
+        setDataTable(
+          <Scholar
+            getdata={listdata}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={true}
+          />
+        )
+      }else if(focustype === "scopus"){
+        setDataTable(
+          <Scopus
+            getdata={listdata}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={true}
+          />
+        )
+      }
+    }else if(focussortc){
+      var listdata1 = dataresearch;
+      listdata1 = listdata1.sort((a, b) => b.Citation- a.Citation);
+      
+      if(focustype === "scholar"){
+        console.log("do ci =>",listdata1)
+        setDataTable(
+          <Scholar
+            getdata={listdata1}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={false}
+          />
+        )
+      }else if(focustype === "scopus"){
+        setDataTable(
+          <Scopus
+            getdata={listdata1}
+            sendResearchIndex={(item) => props.sendResearchIndex(item)}
+            status={false}
+          />
+        )
       }
     }
-    const data = {
-      labels: year,
-      datasets: [
-        {
-          label: "My First Dataset",
-          data: sum,
-          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-          borderColor: ["rgba(255, 99, 132, 0.2)"],
-          borderWidth: 1,
-        },
-      ],
-    };
-    const options = {
-      plugins: {
-        legend: {
-          display: false,
-        },
-      },
-      responsive: true,
-    };
-    return (
-      <>
-        <Bar data={data} options={options}></Bar>
-      </>
-    );
-  }
+    
+  },[focussorty,focussortc])
+
+  const word = workData[0].userName.split(" ");
+  let img = "../img/adp.jpg";
+
 
   const openModal2 = (val) => {
     // console.log(" openModal2",val)
@@ -1213,7 +1240,7 @@ function ProfilePage_Edit(props) {
               </div>
               <div className="grid place-items-center w-full h-fit">
                 <div class="h-[260px] w-[1000px] grid place-items-center">
-                  <Graph />
+                  <Graph123 getdata={dataresearch} />
                 </div>
               </div>
               <div className="grid place-items-center w-full h-[10px]">
@@ -1375,13 +1402,13 @@ function ProfilePage_Edit(props) {
                     scope="col"
                     className="grid place-content-center px-6 py-3 font-medium"
                   >
-                    YEAR
+                     <button onClick={()=>sortingyear()}>YEAR</button>
                   </div>
                   <div
                     scope="col"
                     className="grid place-content-center px-6 py-3 font-medium"
                   >
-                    CITED BY
+                    <button onClick={()=>sortingcited()}>CITED BY</button>
                   </div>
                   <div
                     scope="col"

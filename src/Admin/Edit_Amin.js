@@ -152,7 +152,7 @@ function Edit_Amin(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/professor/get-all-data", requestOptions)
+    fetch("http://localhost:4000/api/professor/get-all-databyadmin", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {
@@ -306,17 +306,55 @@ function Edit_Amin(props) {
     },
   ];
   const onDelete = (record) => {
-    console.log("record =>", record);
+    // console.log("record =>", record);
     Modal.confirm({
       title: "คุณแน่ใจจะลบรายชื่ออาจารย์ ?",
       okText: "Yes",
       okType: "danger",
       onOk: () => {
+        let token = localStorage.getItem("token");
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer "+token);
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          "proID": record.ID_professor
+        });
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+
+        fetch("http://localhost:4000/api/professor/delete-data", requestOptions)
+          .then(response => response.text())
+          .then((result) =>{
+              if(result === "delete Success"){
+                MySwal.fire({
+                  html:<i>{`Delete Success !!`}</i>,
+                  icon: 'success',
+                }).then((value) => {
+                  window.location.reload(false);
+                })
+              }else{
+                MySwal.fire({
+                  html:<i>{`Delete Faile !!`}</i>,
+                  icon: 'error',
+                }).then((value) => {
+                  window.location.reload(false);
+                })
+              }
+          })
+          .catch(error => console.log('error', error));
+
         setData((pre) => {
           return pre.filter(
             (person) => person.ID_professor !== record.ID_professor
           );
         });
+        
       },
     });
   };

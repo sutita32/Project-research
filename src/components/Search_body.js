@@ -64,13 +64,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
     
     for(let i=1;i<list_year_sort.length;i++){
       let year = new Date(list_year_sort[i].Publication_date).getFullYear();
-      if(i === list_year_sort.length-1 ){
-        data_year.push({
-          year : year,
-          N : count+1
-        })
-        break;
-      }
+      
       if(temp1 === year){
         count++;
       }else{
@@ -80,6 +74,12 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
         })
         temp1 = new Date(list_year_sort[i].Publication_date).getFullYear();
         count=1;
+      }
+      if(i === list_year_sort.length-1 ){
+        data_year.push({
+          year : year,
+          N : count
+        })
       }
     }
     // console.log("data_yeart=>",data_year)
