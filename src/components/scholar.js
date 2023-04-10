@@ -10,17 +10,30 @@ import {BsArrowLeftShort, BsArrowRightShort} from "react-icons/bs"
 
 function Scholar(props) {
   
-  // console.log("getdata =>",getdata)
+  // console.log("getdata =>",props.getdata)
   let research = [];
   for (let i = 0; i < props.getdata.length; i++) {
     if (props.getdata[i].ID_Type === 1) {
       research.push(props.getdata[i]);
     }
   }
+  const [isLoading ,setIsLoading] = useState(true);
   const [pageNow, setPageNow] = useState(1);
   const [dataShow, setDataShow] = useState(
     research.slice(pageNow * 10 - 10, 11)
   );
+
+  useEffect(()=>{
+    research.length=0;
+    for (let i = 0; i < props.getdata.length; i++) {
+      if (props.getdata[i].ID_Type === 1) {
+        research.push(props.getdata[i]);
+      }
+    }
+    setPageNow(1)
+    setDataShow(research.slice(1* 10 - 10, 11));
+    setIsLoading(false)
+  },[props.getdata, props.status])
   // console.log("getdata =>", research);
   const clickRight = () => {
     setPageNow(pageNow + 1);
@@ -42,9 +55,18 @@ function Scholar(props) {
     }, 100);
   };
   useEffect(() => {
+    // research.length=0;
+    // for (let i = 0; i < props.getdata.length; i++) {
+    //   if (props.getdata[i].ID_Type === 1) {
+    //     research.push(props.getdata[i]);
+    //   }
+    // }
     setDataShow(research.slice(pageNow * 10 - 10, pageNow * 10));
   },[pageNow]);
-  return (
+
+
+  if(isLoading) return (<></>)
+  else return (
     <>
       {dataShow.map((item, index) => (
         <div class="bg-white grid grid-cols-10 ">
@@ -59,7 +81,7 @@ function Scholar(props) {
               {item.name_research}
             </NavLink>
 
-            <p className="text-gray-400 font-normal3"> {item.Keyword}</p>
+            <p className="text-gray-400 font-normal3"> {item.authors}</p>
             <p className="text-gray-400 font-normal3">{item.conference}</p>
           </div>
           <div class="grid place-content-center px-6 py-4">

@@ -13,17 +13,35 @@ import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
 function Scholar(props) {
-  // console.log("getdata=>", props.getdata);
+  console.log("getdata=>", props.getdata);
   
   const [dataScholar, setDatascholar] = useState(
     props.getdata.filter((obj, index) => {
       return obj.name_Type === "scholar";
     })
   );
+  // let research = [];
+  // for (let i = 0; i < props.getdata.length; i++) {
+  //   if (props.getdata[i].ID_Type === 1) {
+  //     research.push(props.getdata[i]);
+  //   }
+  // }
   const [pageNow, setPageNow] = useState(1);
   const [dataShow, setDataShow] = useState(
     dataScholar.slice(pageNow * 10 - 10, 11)
   );
+
+  useEffect(()=>{
+    setDatascholar(props.getdata.filter((obj, index) => {
+      return obj.name_Type === "scholar";
+    }));
+    let list = props.getdata.filter((obj, index) => {
+      return obj.name_Type === "scholar";
+    });
+  
+    setPageNow(1)
+    setDataShow(list.slice(1* 10 - 10, 11))
+  },[props.getdata,props.status])
   function handleDeleteClike(id) {
     // console.log("del id => ", id);
     let token = localStorage.getItem("token");

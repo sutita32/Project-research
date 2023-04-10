@@ -9,12 +9,15 @@ function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
   let dataShow =[];
 
   if (typesNow === "จำแนกทั้งหมด"){
+    // dataresearch = dataresearch.filter((obj, index) => {
+    //   return index === dataresearch.findIndex(o =>  obj.name_research.toLowerCase() === o.name_research.toLowerCase());
+    // });
     for(let i=0 ;i < professorlist.length ;i++){
       let count = 0;
       for( let j=0;j<dataresearch.length ;j++){
         let year = new Date(dataresearch[j].Publication_date).getFullYear().toString();
-        if( dataresearch[j].Keyword === professorlist[i].Keyword && yearNow === "ทั้งหมด" ) count++;
-        else if(dataresearch[j].Keyword === professorlist[i].Keyword && year === yearNow) {
+        if( (dataresearch[j].Keyword === professorlist[i].Keyword || dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase()))&& yearNow === "ทั้งหมด" ) count++;
+        else if((dataresearch[j].Keyword === professorlist[i].Keyword || dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) && year === yearNow) {
           count++;
         }
       }
@@ -30,8 +33,8 @@ function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
       let count = 0;
       for( let j=0;j<dataresearch.length ;j++){
         let year = new Date(dataresearch[j].Publication_date).getFullYear().toString();
-        if( dataresearch[j].Keyword === professorlist[i].Keyword && yearNow === "ทั้งหมด" && dataresearch[j].ID_Type === 1) count++;
-        else if(dataresearch[j].Keyword === professorlist[i].Keyword && year === yearNow && dataresearch[j].ID_Type === 1) {
+        if( (dataresearch[j].Keyword === professorlist[i].Keyword || dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) && yearNow === "ทั้งหมด" && dataresearch[j].ID_Type === 1) count++;
+        else if((dataresearch[j].Keyword === professorlist[i].Keyword || dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) && year === yearNow && dataresearch[j].ID_Type === 1) {
           count++;
         }
       }
@@ -48,8 +51,8 @@ function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
       let count = 0;
       for( let j=0;j<dataresearch.length ;j++){
         let year = new Date(dataresearch[j].Publication_date).getFullYear().toString();
-        if( dataresearch[j].Keyword === professorlist[i].Keyword && yearNow === "ทั้งหมด" && dataresearch[j].ID_Type === 2) count++;
-        else if(dataresearch[j].Keyword === professorlist[i].Keyword && year === yearNow && dataresearch[j].ID_Type === 2) {
+        if( (dataresearch[j].Keyword === professorlist[i].Keyword || dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) && yearNow === "ทั้งหมด" && dataresearch[j].ID_Type === 2) count++;
+        else if((dataresearch[j].Keyword === professorlist[i].Keyword || dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) && year === yearNow && dataresearch[j].ID_Type === 2) {
           count++;
         }
       }
@@ -122,14 +125,14 @@ function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
       const {ctx, chartArea:{top, bottom, left, right, width, height}} = chart;
       chart.data.datasets.forEach((dataset, i) => {
         chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
-          console.log(width," ", height);
+          // console.log(width," ", height);
 
           if(chart.data.datasets[0].data[index] === 0){
           }
           else {
             if(chart.data.datasets[0].data[index] > 2 && chart.data.datasets[0].data[index] < 16){
               const {x, y} = datapoint.tooltipPosition();
-              console.log("x => ", x , " y =>", y);
+              // console.log("x => ", x , " y =>", y);
           const halfwidth = (width+80) / 2;
           const halfheight = (height+80) / 2;
           const xLine = x >= halfwidth ? x+30 : x-30;

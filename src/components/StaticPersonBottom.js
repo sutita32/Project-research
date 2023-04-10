@@ -5,6 +5,7 @@ import "../style/Static.css";
 import { NavLink } from "react-router-dom";
 function StaticPersonBottom({
   typesNow,
+  yearNow,
   dataresearch,
   professorlist,
   sendTeacherIndex,
@@ -13,13 +14,19 @@ function StaticPersonBottom({
   // console.log("professorlist=>", professorlist);
   let list = [];
   if (typesNow === "จำแนกทั้งหมด") {
+    // dataresearch = dataresearch.filter((obj, index) => {
+    //   return index === dataresearch.findIndex(o =>  obj.name_research.toLowerCase() === o.name_research.toLowerCase());
+    // });
     for (let i = 0; i < professorlist.length; i++) {
       let sum = 0;
       for (let j = 0; j < dataresearch.length; j++) {
         if (
-          professorlist[i].Keyword === dataresearch[j].Keyword &&
-          typesNow === "จำแนกทั้งหมด"
+          (professorlist[i].Keyword === dataresearch[j].Keyword ||  dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) &&
+          typesNow === "จำแนกทั้งหมด" && yearNow === "ทั้งหมด"
         )
+          sum++;
+        else if ((professorlist[i].Keyword === dataresearch[j].Keyword ||  dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) &&
+          typesNow === "จำแนกทั้งหมด" && yearNow === new Date(dataresearch[j].Publication_date).getFullYear().toString()) 
           sum++;
       }
       list.push({
@@ -37,10 +44,13 @@ function StaticPersonBottom({
       let sum = 0;
       for (let j = 0; j < dataresearch.length; j++) {
         if (
-          professorlist[i].Keyword === dataresearch[j].Keyword &&
-          dataresearch[j].ID_Type === 1
+          (professorlist[i].Keyword === dataresearch[j].Keyword ||  dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) &&
+          dataresearch[j].ID_Type === 1 && yearNow === "ทั้งหมด"
         )
           sum++;
+          else if ((professorlist[i].Keyword === dataresearch[j].Keyword ||  dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) &&
+            dataresearch[j].ID_Type === 1 && yearNow === new Date(dataresearch[j].Publication_date).getFullYear().toString()) 
+            sum++;
       }
       list.push({
         ID: professorlist[i].ID_professor,
@@ -57,10 +67,13 @@ function StaticPersonBottom({
       let sum = 0;
       for (let j = 0; j < dataresearch.length; j++) {
         if (
-          professorlist[i].Keyword === dataresearch[j].Keyword &&
-          dataresearch[j].ID_Type === 2
+          (professorlist[i].Keyword === dataresearch[j].Keyword ||  dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) &&
+          dataresearch[j].ID_Type === 2&& yearNow === "ทั้งหมด"
         )
           sum++;
+          else if ((professorlist[i].Keyword === dataresearch[j].Keyword ||  dataresearch[j].authors.toLowerCase().includes(professorlist[i].Keyword.toLowerCase())) &&
+            dataresearch[j].ID_Type === 2 && yearNow === new Date(dataresearch[j].Publication_date).getFullYear().toString()) 
+            sum++;
       }
       list.push({
         ID: professorlist[i].ID_professor,

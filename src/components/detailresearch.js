@@ -77,11 +77,11 @@ function Detailresearch({ getid}) {
               <div className="col-span-7 px-4 text-regal-red-text">
                 
                 <div className="detail-text grid grid-rows-7">
-                  <div className="grid grid-cols-8">
-                    <div className="col-span-2">ผู้วิจัย</div>
+                  {/* <div className="grid grid-cols-8"> */}
+                    {/* <div className="col-span-2">ผู้วิจัย</div> */}
                     {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
-                    <div className="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div>
-                  </div>
+                    {/* <div className="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div> */}
+                  {/* </div> */}
                   <div className="grid grid-cols-8">
                     <div className="col-span-2">ผู้เขียน</div>
                     {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
@@ -96,17 +96,24 @@ function Detailresearch({ getid}) {
                     {
                       wc[0] === "Conference" ?
                       <><div className="col-span-2">Conference</div><div className="col-span-6">: {confer}</div></>
-                      :
-                      <><div className="col-span-2">Journal
-                      </div><div className="col-span-6">: {confer}</div></>
+                      :  wc[0] === "Journal" ? 
+                        <><div className="col-span-2">Journal
+                        </div><div className="col-span-6"> : {confer}</div></>
+                        :
+                        <><div className="col-span-2"> Conference Or Journal
+                        </div><div className="col-span-6"> : {dataresearch.conference}</div></>
                     }
                     
                   </div>
-                  {/* <div className="grid grid-cols-8"> */}
-                    {/* <div className="col-span-2">punlisher iee</div> */}
-                    {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
-                    {/* <div className="col-span-6">: {dataresearch.title_name+dataresearch.firstname_professor+" "+dataresearch.lastname_professor}</div> */}
-                  {/* </div> */}
+                  {
+                    dataresearch.Publisher !== '-' ? 
+                    <div className="grid grid-cols-8">
+                      <div className="col-span-2">Publisher</div>
+                      <div className="col-span-6">: {dataresearch.Publisher}</div>
+                    </div>
+                    :<></>
+                  }
+                  
                   <div className="grid grid-cols-8">
                     <div className="col-span-2">รายละเอียด</div>
                     <div className="col-span-6 ">
@@ -123,6 +130,12 @@ function Detailresearch({ getid}) {
                     <div className="col-span-2">ลิงก์</div>
                     {/* <div className="col-span-6">: {workData[getid - 1].userName}</div> */}
                     <div className="col-span-6" >: <a href={dataresearch.Link} className=" text-sky-400 ">{dataresearch.name_research}</a></div>
+                  </div>
+                  <div className="grid grid-cols-8">
+                    <div className="col-span-2">Scraping From </div>
+                    <div className="col-span-6 pb-8">
+                      : {dataresearch.name_Type}
+                    </div>
                   </div>
                 </div>
               </div>

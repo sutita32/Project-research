@@ -32,33 +32,44 @@ function Interests(props) {
   else {
     // console.log("dataskill=>", dataskill);
     let temp = [];
-    let t = dataskill[0].ID_coreskill;
+    let t = dataskill[0];
     let count = 1;
-    for (let i = 0; i < dataskill.length; i++) {
-      if (i === dataskill.length - 1) {
-        temp.push({
-          data: dataskill[i],
-          count: count + 1,
-        });
-        break;
-      }
-      if (t === dataskill[i].ID_coreskill) {
+    for (let i = 1; i < dataskill.length; i++) {
+      
+      if (t.ID_coreskill === dataskill[i].ID_coreskill) {
         count++;
       } else {
         temp.push({
-          data: dataskill[i - 1],
+          data: t,
           count: count,
         });
         count = 1;
-        t = dataskill[i].ID_coreskill;
+        t = dataskill[i];
+      }
+      if (i === dataskill.length - 1) {
+        temp.push({
+          data: dataskill[i],
+          count: count ,
+        });
       }
     }
+    temp.sort((a, b) => {
+      return b.count - a.count;
+    });
+    let temp1=[];
+    let c= 1;
+    for(let i=0;i<temp.length;i++) {
+      if(c <=10) temp1.push(temp[i]);
+      c++;
+    }
+
+    // console.log("dataskill=>", temp1);
 
     return (
       <>
         <div className="toppic">Interesting</div>
         <div className="interest">
-          {temp.map((item, index) => (
+          {temp1.map((item, index) => (
             <div className="contianner">
               <NavLink
                 to={`/interest_person/${item.data.ID_coreskill}`}

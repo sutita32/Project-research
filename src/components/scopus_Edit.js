@@ -11,19 +11,7 @@ import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 
 function Scopus(props) {
-  // const [dataScopus, setDatascopus] = useState([
-  //   {
-  //     id: 1,
-  //     pname:
-  //       "Improvement of speech emotion recognition with neural networkclassifier by using speech spectrogram",
-  //     name: "S Prasomphan",
-  //     Conference:
-  //       "2015 International Conference on Systems, Signals and ImageProcessing …",
-  //     year: "2015",
-  //     cited: "38",
-  //   },
-  //
-  // ]);
+
   const [dataScopus, setDatascopus] = useState(
     props.getdata.filter((obj, index) => {
       return obj.name_Type === "Scopus";
@@ -76,6 +64,19 @@ function Scopus(props) {
   const [dataShow, setDataShow] = useState(
     dataScopus.slice(pageNow * 10 - 10, 11)
   );
+
+  useEffect(()=>{
+    setDatascopus(props.getdata.filter((obj, index) => {
+      return obj.name_Type === "Scopus";
+    }));
+    let list = props.getdata.filter((obj, index) => {
+      return obj.name_Type === "Scopus";
+    });
+  
+    setPageNow(1)
+
+    setDataShow(list.slice(1* 10 - 10, 11))
+  },[props.getdata,props.status])
 
   const clickRight = () => {
     setPageNow(pageNow + 1);
