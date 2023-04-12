@@ -1,6 +1,9 @@
  @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 
+.font-in-tag{
+    font-family: 'Prompt', sans-serif;
 
+}
 .toppic{
     text-align: center;
     font-family: 'Prompt', sans-serif;
@@ -15,7 +18,7 @@
     
 }
 .contianner{
-    margin: 50px 20px 30px 50px;
+    margin: 30px 15px 20px 30px;
     
 }
 .index-one{
@@ -72,4 +75,43 @@
     display: flex;
     flex-wrap: wrap;
     margin: 10px 150px;
+}
+@media screen and (max-width: 390px) {
+    .interest{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0px 10px;
+        justify-content: center;
+        
+    }
+    .contianner{
+        margin: 12px 4px 12px 4px;
+        
+    }
+}
+@media screen and (min-width: 390px) and (max-width: 480px){
+    .interest{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0px 10px;
+        justify-content: center;
+        
+    }
+    .contianner{
+        margin: 12px 4px 12px 4px;
+        
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 920px){
+    .interest{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0px 10px;
+        justify-content: center;
+        
+    }
+    .contianner{
+        margin: 12px 4px 12px 4px;
+        
+    }
 }

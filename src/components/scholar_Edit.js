@@ -118,10 +118,10 @@ function Scholar(props) {
   const renderTable=(
     <>
       {dataShow.map((item, index) => (
-        <div class="bg-white grid grid-cols-10" key={item.ID_research}>
+        <div class="bg-white grid body_low_table" key={item.ID_research}>
           <div
             scope="row"
-            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7 overflow-hidden"
+            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap body_low_table_product overflow-hidden"
           >
             <NavLink
               to={`../idresearch=${item.ID_research}`}
@@ -141,13 +141,13 @@ function Scholar(props) {
           <div class="grid place-content-center px-6 py-4">{item.Citation}</div>
           <div class="grid place-content-center px-6 py-4">
             <div className="flex">
-              <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
+              <button className="class_icon hover:text-gray-500">
                 <BiEditAlt
                   onClick={() => props.openModal2(item.ID_research)}
                   className="h-full w-full"
                 />
               </button>
-              <button className="h-[25px] w-[25px] mx-[14px] hover:text-gray-500">
+              <button className="class_icon hover:text-gray-500">
                 <RiDeleteBin6Line
                   className="h-full w-full"
                   onClick={() => handleDeleteClike(item.ID_research)}

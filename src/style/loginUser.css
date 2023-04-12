@@ -8,7 +8,6 @@
   .continie{
     z-index: -1;
     position: relative;
-    
   }
   .form-2{
     display: flex;
@@ -16,7 +15,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 20px;
-    height: 100vh;
+    height: 76vh;
     font-family: 'Prompt', sans-serif;
   }
   .form-img{
@@ -53,10 +52,6 @@
   
   .login-form {
     background-color: #ffffff;
-    padding-bottom: 5rem;
-    padding-left:5rem ;
-    padding-right: 5rem;
-
     border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
@@ -128,16 +123,58 @@
     font-family: 'Prompt', sans-serif;
     color: white;
   }
-  /*.form-bg{
-  background-color: blueviolet;
-  height: 740px;
-}*/
-/* .make-center{
-  width: auto;
-  height: auto;
+@media screen and (max-width: 390px) {
+  
+  .form-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 70vh;
+    font-family: 'Prompt', sans-serif;
+  }
+  .form-img{
+    background-image: url(/src/img/ภาควิชา.jpg);
+    background-size: cover;
+    background-position: 0% 50%;
+    background-size: 170%
+  }
 }
-.sector{
-  width:inherit;
-  height: 400px;
-  border: 1px solid aqua;
-} */
+
+@media screen and (min-width:391px) and (max-width:480px) {
+  .form-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 90vh;
+    font-family: 'Prompt', sans-serif;
+  }
+  .form-img{
+    background-image: url(/src/img/ภาควิชา.jpg);
+    background-size: cover;
+    background-position: 0% 50%;
+    background-size: 154%
+  }
+    
+}
+@media screen and (min-width:481px) and (max-width:920px) {
+  .form-2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    font-family: 'Prompt', sans-serif;
+  }
+  .form-img{
+    background-image: url(/src/img/ภาควิชา.jpg);
+    background-size: cover;
+    background-position: 0% 50%;
+    background-size: 154%
+  }
+    
+}

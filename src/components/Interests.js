@@ -76,7 +76,7 @@ function Interests(props) {
                 onClick={() => props.sendCoreSkillID(item.data.ID_coreskill)}
               >
                 <a class="index-one">
-                  <span className="button font-medium ">
+                  <span className="button font-in-tag max-[480px]:text-[13px]">
                     {item.data.name_coreskill}
                   </span>
                 </a>

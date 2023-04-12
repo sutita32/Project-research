@@ -23,4 +23,69 @@ background-size: auto 100%;
 .line-right{
     box-shadow: 1px 0px black;
 }
+.head_low_table{
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+.head_low_table_product{
+    grid-column: span 7 / span 7;
+}
+.head_low_table_contact{
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+.head_low_table_product_contact{
+    grid-column: span 8 / span 8;
+}
+.class_graph123{
+    padding-top: 0px;
+}
+.class_tab_tag{
+    width: 140px;
+}
+.class_tab_tag2{
+    
+}
+.edit_button_pos1{
+place-items: end;
+}
+.edit_button_pos2{
+    margin-right: 40px;
+    margin-top: 30px;
+}
+.class_add_btn_pos{
+    place-content: end;
+    padding-top: 10px;
+    padding-right: 30px;
+}
+@media screen and (max-width: 920px) {
+    .head_low_table{
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .head_low_table_product{
+        grid-column: span 2 / span 2;
+    }
+    .head_low_table_contact{
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .head_low_table_product_contact{
+        grid-column: span 3 / span 3;
+    }
+    .class_tab_tag{
+        width: 0px;
+    }
+    .class_tab_tag2{
+        justify-content: center;
+    }
+    .edit_button_pos1{
+        place-items: center;
+        }
+        .edit_button_pos2{
+            margin-right: 0px;
+            margin-top: 70px;
 
+        }
+}
+@media screen and (max-width: 480px) {
+    .class_graph123{
+        padding-top: 80px;
+    }
+}

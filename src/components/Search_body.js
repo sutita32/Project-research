@@ -167,7 +167,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
           }
         </div>
       </div>
-      <div className="grid grid-cols-8 gap-4">
+      <div className="grid min-[921px]:grid-cols-8 gap-4 max-[920px]:grid-cols-6 ">
         { data && !DATA ?
           // displaysearch(data1,sendWorkIndex,tempdata ? tempdata:data)
           <div className="col-span-6">
@@ -178,7 +178,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
             <Search_main_body data1={data1} sendResearchIndex={(item)=> sendResearchIndex(item)} searchdata={DATA } />
           </div>
         }
-        <div className=" col-span-2  ">
+        <div className=" col-span-2 max-[480px]:hidden">
           <div className="my-4 h-60 place-item-center bg-white  max-w-sm rounded shadow-lg">
             <div className="h-80">
               <LineChart  h="800" w="1000" data={data}  />

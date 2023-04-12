@@ -67,11 +67,11 @@ function Detailresearch({ getid}) {
     return (
       <>
         <div className="bg-regal-red w-full h-5 mb-[50px]"></div>
-        <div className="h-fit w-8/12 set_center "><p className="topic-text text-regal-red">{dataresearch.name_research}</p></div>
+        <div className="h-fit min-[481px]:w-8/12 max-[480px]:w-10/12 set_center"><p className="topic-text text-regal-red">{dataresearch.name_research}</p></div>
         <div className="flex place-content-center	">
           
         
-          <div className="flex w-8/12 h-auto mt-[20px] mb-8 bg-white rounded-[10px] p-16 shadow-2xl">
+          <div className="flex min-[481px]:w-8/12 max-[480px]:w-10/12 h-auto mt-[20px] mb-8 bg-white rounded-[10px] min-[481px]:px-16 min-[481px]:py-16 shadow-2xl max-[480px]:px-6 max-[480px]:py-10">
             <div className="grid  w-full h-full">
               
               <div className="col-span-7 px-4 text-regal-red-text">

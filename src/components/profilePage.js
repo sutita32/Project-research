@@ -23,7 +23,7 @@ function ProfilePage(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [datapro, setdatapro] = useState([]);
   const [dataresearch, setdataresearch] = useState([]);
-  const [dataresearchgraph , setdataresearchgraph]= useState([]);
+  const [dataresearchgraph, setdataresearchgraph] = useState([]);
   const [dataskill, setdataskill] = useState([]);
   const [dataqulification, setqulification] = useState([]);
   const [dataTable, setDataTable] = useState(
@@ -32,14 +32,14 @@ function ProfilePage(props) {
       sendResearchIndex={(item) => props.sendResearchIndex(item)}
     />
   );
-  const [focustype , setfocustype] = useState("scholar");
-  const [focussorty , setfocussorty] = useState(true);
-  const [focussortc , setfocussortc] = useState(false);
+  const [focustype, setfocustype] = useState("scholar");
+  const [focussorty, setfocussorty] = useState(true);
+  const [focussortc, setfocussortc] = useState(false);
   //ปุ่มเรียงมากไปน้อยน้อยไปมาก หาdaTAYEAR ไม่เจอ
   const [order, setorder] = useState("ASC");
   // console.log(dataresearch,"year")
 
-    
+
   useEffect(() => {
     // console.log("getid =>",getid)
     var myHeaders = new Headers();
@@ -91,7 +91,7 @@ function ProfilePage(props) {
 
           setDataTable(
             <Scholar
-              getdata={temp.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear() )}
+              getdata={temp.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear())}
               sendResearchIndex={(item) => props.sendResearchIndex(item)}
               status={true}
             />
@@ -157,7 +157,7 @@ function ProfilePage(props) {
     console.log("กดสกอลา");
     setfocustype("scholar");
     var listdata = dataresearch;
-    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
+    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear())
     setDataTable(
       <Scholar
         getdata={listdata}
@@ -184,7 +184,7 @@ function ProfilePage(props) {
     console.log("กดสกอปัส");
     setfocustype("scopus");
     var listdata = dataresearch;
-    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
+    listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear())
     setDataTable(
       <Scopus
         getdata={listdata}
@@ -199,20 +199,20 @@ function ProfilePage(props) {
       });
     }, 100);
   };
-  const sortingyear =()=>{
+  const sortingyear = () => {
     setfocussorty(true);
     setfocussortc(false);
   }
-  const sortingcited =()=>{
+  const sortingcited = () => {
     setfocussorty(false);
     setfocussortc(true);
   }
-  
-  useEffect(()=>{
-    if(focussorty){
+
+  useEffect(() => {
+    if (focussorty) {
       let listdata = dataresearch;
-      listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear()- new Date(a.Publication_date).getFullYear() )
-      if(focustype === "scholar"){
+      listdata = listdata.sort((a, b) => new Date(b.Publication_date).getFullYear() - new Date(a.Publication_date).getFullYear())
+      if (focustype === "scholar") {
         setDataTable(
           <Scholar
             getdata={listdata}
@@ -220,7 +220,7 @@ function ProfilePage(props) {
             status={true}
           />
         )
-      }else if(focustype === "scopus"){
+      } else if (focustype === "scopus") {
         setDataTable(
           <Scopus
             getdata={listdata}
@@ -229,11 +229,11 @@ function ProfilePage(props) {
           />
         )
       }
-    }else if(focussortc){
+    } else if (focussortc) {
       var listdata1 = dataresearch;
-      listdata1 = listdata1.sort((a, b) => b.Citation- a.Citation);
-      console.log("do ci =>",listdata1)
-      if(focustype === "scholar"){
+      listdata1 = listdata1.sort((a, b) => b.Citation - a.Citation);
+      console.log("do ci =>", listdata1)
+      if (focustype === "scholar") {
         setDataTable(
           <Scholar
             getdata={listdata1}
@@ -241,7 +241,7 @@ function ProfilePage(props) {
             status={false}
           />
         )
-      }else if(focustype === "scopus"){
+      } else if (focustype === "scopus") {
         setDataTable(
           <Scopus
             getdata={listdata1}
@@ -251,8 +251,8 @@ function ProfilePage(props) {
         )
       }
     }
-    
-  },[focussorty,focussortc])
+
+  }, [focussorty, focussortc])
 
   // useEffect(()=>{
   //   if(focussortc == true){
@@ -276,16 +276,16 @@ function ProfilePage(props) {
   //       )
   //     }
   //   }
-    
+
   // },[focussortc]);
 
   //แบ่งชื่อ-นามสกุล
   const word = workData[0].userName.split(" ");
 
   if (isLoading) return <>
-  <Spin tip="Loading" size="large">
-  <div className="content" />
-</Spin></>;
+    <Spin tip="Loading" size="large">
+      <div className="content" />
+    </Spin></>;
   else
     return (
       <div className="relative">
@@ -301,17 +301,17 @@ function ProfilePage(props) {
             <div class="gap-[8px] w-full h-full bg-white rounded-[8px] ">
               <div className="w-full h-[120px]"></div>
               <div className="flex justify-center w-full h-[300px] ">
-                <div className=" text-center font-bold1">
+                <div className=" text-center font-bold1 max-[480px]:text-[14px]">
                   <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
                   </div>
-                  <div className="text-[19px] py-[3px]">
+                  <div className="min-[921px]:text-[19px] max-[480px]:text-[14px] py-[3px]">
                     {datapro.title_name +
                       datapro.firstname_professor +
                       " " +
                       datapro.lastname_professor}
                   </div>
                   <div className="py-[3px]">{datapro.Keyword}</div>
-                  <div className=" font-bold mt-[30px] py-[3px]">
+                  <div className=" font-bold max-[480px]:text-[14px] mt-[30px] py-[3px]">
                     วุฒิการศึกษา
                   </div>
                   {dataqulification.map((item, index) => (
@@ -325,8 +325,8 @@ function ProfilePage(props) {
                   </div>
                 </div>
               </div>
-              <div className="grid place-items-center w-full h-fit">
-                <div class="h-[260px] w-[1000px] grid place-items-center">
+              <div className="grid place-items-center w-full h-fit class_graph123">
+                <div class="h-[260px] min-[481px]:w-[1000px] max-[480]:w-[200px]  grid place-items-center">
                   <Graph123 getdata={dataresearchgraph} />
                 </div>
               </div>
@@ -335,31 +335,31 @@ function ProfilePage(props) {
               </div>
               <div className="flex justify-center w-full h-fit">
                 <div className="w-full h-fit">
-                  <div className="font-bold1 font-bold py-[8px] h-fit w-fit ml-[100px] mt-[40px]">
+                  <div className="font-bold1 max-[480px]:text-[14px] py-[8px] h-fit w-fit ml-[100px] mt-[40px]">
                     Interests
                   </div>
                 </div>
               </div>
               <div className="flex w-full h-fit mb-[20px]">
-                <div className="w-[140px] h-full "></div>
-                <div className="w-full h-fit flex flex-wrap">
+                <div className=" class_tab_tag h-full"></div>
+                <div className="w-full h-fit flex flex-wrap class_tab_tag2">
                   {dataskill.map((item) => (
-                    <NavLink 
+                    <NavLink
                       to={`/interest_person/${item.ID_coreskill}`}
                       onClick={() => props.sendCoreSkillID(item.ID_coreskill)}
                     >
-                      <div className="font-bold1 text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
-                      {item.name_coreskill}
-                    </div>
+                      <div className="font-bold1 max-[480px]:text-[14px] text-white py-[8px] px-[15px] bg-regal-red rounded-[10px] w-fit h-fit mt-[16px] ml-[18px]">
+                        {item.name_coreskill}
+                      </div>
                     </NavLink>
-                    
+
                   ))}
                 </div>
               </div>
               <div className="grid place-items-center w-full h-[10px]">
                 <div className="h-[1px] w-[95%] border-t-[1px] border-gray-300"></div>
               </div>
-              <div className="flex mt-[20px] ml-[30px]">
+              <div className="flex mt-[20px] ml-[30px] max-[480px]:text-[14px]">
                 <button onClick={clickScholar} className={scholarBtn}>
                   Scholar
                 </button>
@@ -368,26 +368,26 @@ function ProfilePage(props) {
                 </button>
               </div>
               <div className="mt-[13px] flex flex-col justify-center mx-[20px]">
-                <thead className="grid grid-cols-10 text-xs text-white uppercase bg-regal-red w-full rounded-[10px]">
+                <thead className="grid head_low_table_contact text-xs text-white uppercase bg-regal-red w-full rounded-[10px]">
                   <div
                     scope="col"
-                    className="px-6 py-3 rounded-l-lg font-medium col-span-8"
+                    className="px-6 py-3 rounded-l-lg font-medium max-[480px]:text-[10px] head_low_table_product_contact"
                   >
                     Product name
                   </div>
                   <div
                     scope="col"
-                    className="grid place-content-center px-6 py-3 font-medium"
+                    className="grid place-content-center px-6 py-3 font-medium max-[480px]:text-[10px]"
                   >
-                    <button onClick={()=>sortingyear()}>YEAR</button>
+                    <button onClick={() => sortingyear()}>YEAR</button>
                   </div>
-                 
+
                   <div
                     scope="col"
-                    className="grid place-content-center px-6 py-3 font-medium"
+                    className="grid place-content-center px-6 py-3 font-medium max-[480px]:text-[10px]"
                   >
-                    <button onClick={()=>sortingcited()}>CITED BY</button>
-                    
+                    <button onClick={() => sortingcited()}>CITED BY</button>
+
                   </div>
                 </thead>
                 <tbody>{dataTable}</tbody>

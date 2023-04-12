@@ -15,3 +15,17 @@
 .set_center{
     margin: 0 auto;
 }
+@media screen and (max-width: 480px) {
+    .topic-text{
+        font-family: 'Prompt', sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+    }
+    .detail-text{
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight: 200;
+        line-height: 40px;
+        color: "#7d0f3f";
+    }
+}

@@ -416,7 +416,7 @@ function Edit_Amin(props) {
     return (
       <>
         <form className="grid place-content-center bg-gray-600">
-          <div className="grid place-content-center bg-gray-300 w-[800px] h-fit my-[20px] rounded-[5px]">
+          <div className="grid place-content-center bg-gray-300 h-fit my-[20px] rounded-[5px] class_gray_area text-center">
             <div className="h-[50px] mt-[8px]">
               เวลา set up ปัจจุบัน {Massagescrap} ตั้งเวลาในการดึง
             </div>
@@ -434,7 +434,7 @@ function Edit_Amin(props) {
           </div>
         </form>
         <div className="h-[900px]  bg-gray-300 pt-[60px]" >
-          <div className="make-center w-[1200px]">{renderTable}</div>
+          <div className="make-center w-10/12">{renderTable}</div>
         </div>
       </>
     );

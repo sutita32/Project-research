@@ -112,10 +112,10 @@ function Scopus(props) {
   const renderTable = (
     <>
       {dataShow.map((item, index) => (
-        <div class="bg-white grid grid-cols-10" key={item.ID_research}>
+        <div class="bg-white grid body_low_table" key={item.ID_research}>
           <div
             scope="row"
-            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-7 overflow-hidden"
+            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap body_low_table_product overflow-hidden"
           >
             <NavLink
               to={`../idresearch=${item.ID_research}`}

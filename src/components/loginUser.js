@@ -204,11 +204,12 @@ function LoginUser(props) {
   return (
   <>
     <div className="relative form-img">
-      <div className='absolute top-0 left-0 h-full w-full bg-btw'></div>
-    <div className='grid grid-cols-2'>
-    <div className='grid place-content-center add-font text-[35px] ml-[60px] text-center'></div>
+      <div className='absolute top-0 left-0 h-full w-full bg-btw '></div>
+    <div className='grid  min-[921px]:grid-cols-2 max-[920px]:grid-cols-1'>
+   <div></div>
+
       <div className="form-2">
-        <div className="z-20 login-form">
+        <div className="z-20 pb-[4rem] max-[391px]:px-[2rem] min-[391px]:px-[5rem] login-form">
           <div class="text-center mb-[3rem] mt-[2rem] text-[18px]"></div>
           <div  className="title"><a href='/login_admin'>LOGIN</a></div>
           {renderForm}

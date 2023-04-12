@@ -11,4 +11,28 @@
         font-family: 'Prompt', sans-serif;
         font-size: 15px;
         font-weight: 100;
+
+}@media screen  and (min-width: 481px)and (max-width: 920px) {
+    .font-contacts{
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight: 100;
+    }
+    .data1{
+        margin-right: auto;
+    }
+    .data2{
+        margin-right: 700px;
+    }
+    
 }
+@media screen and (min-width: 390px) and (max-width: 480px) {
+    .font-contacts{
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight: 100;
+    }
+
+    
+}
+

@@ -18,7 +18,7 @@ function Footer() {
             มหาวิทยาลัยเทคโนโลยีพระจอมเกล้าพระนครเหนือ
             </p>
           </div>
-          <div class="pl-[90px]">
+          <div class="pl-[90px] max-[480px]:pl-0">
             <p
               class="mb-4 flex justify-center font-normal1 md:justify-start">
               เมนูลัด

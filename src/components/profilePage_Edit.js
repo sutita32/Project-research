@@ -992,10 +992,10 @@ function ProfilePage_Edit(props) {
         <div class=" grid place-items-center w-full min-h-[500px] top-[130px] pb-[50px] pt-[220px]">
           <div class="rounded-[20px] w-10/12 h-fit bg-[#EFEFEF] p-[17px] overflow-hidden">
             <div class="gap-[8px] w-full h-full bg-white rounded-[8px] ">
-              <div className="grid place-items-end w-full h-[120px]">
+              <div className="grid edit_button_pos1 w-full h-[120px]">
                 <button
                   onClick={showModal}
-                  className="z-[20] px-[18px] py-[8px] rounded-[12px] font-bold1 bg-regal-red mr-[40px] mb-[50px] text-white hover:bg-white hover:text-regal-red border-2 border-regal-red hover:border-2 hover:border-regal-red"
+                  className="z-[20] px-[18px] py-[8px] rounded-[12px] font-bold1 bg-regal-red edit_button_pos2 text-white hover:bg-white hover:text-regal-red border-2 border-regal-red hover:border-2 hover:border-regal-red"
                 >
                   <div className="flex">
                     แก้ไขข้อมูล
@@ -1007,8 +1007,8 @@ function ProfilePage_Edit(props) {
                 <Modal
                   footer={null}
                   open={isModalOpen}
-                  width={650}
                   onCancel={handleCancel}
+                  width={650}
                 >
                   <form onSubmit={submitModal}>
                     <p>แก้ไขข้อมูล</p>
@@ -1214,7 +1214,7 @@ function ProfilePage_Edit(props) {
                 <div className=" text-center font-bold1">
                   <div className="absolute h-[100px] w-[160px] overflow-hidden left-[679px] top-[237px]">
                   </div>
-                  <div className="text-[19px] py-[3px]">
+                  <div className="max-[480]:text-[14px] py-[3px]">
                     {titlenamet + fnamet}
                     {"  "}
                     {lnamet}
@@ -1224,7 +1224,7 @@ function ProfilePage_Edit(props) {
                     {"  "}
                     {lnamee}
                   </div>
-                  <div className=" font-bold mt-[30px] py-[3px]">
+                  <div className=" font-bold max-[480]:text-[14px] mt-[30px] py-[3px]">
                     วุฒิการศึกษา
                   </div>
                   {study.map((item, index) => (
@@ -1238,8 +1238,8 @@ function ProfilePage_Edit(props) {
                     </div>
                 </div>
               </div>
-              <div className="grid place-items-center w-full h-fit">
-                <div class="h-[260px] w-[1000px] grid place-items-center">
+              <div className="grid place-items-center w-full h-fit class_graph123">
+                <div class="h-[260px] min-[481px]:w-[1000px] max-[480]:w-[200px]  grid place-items-center">
                   <Graph123 getdata={dataresearch} />
                 </div>
               </div>
@@ -1248,14 +1248,14 @@ function ProfilePage_Edit(props) {
               </div>
               <div className="flex justify-center w-full h-fit">
                 <div className="w-full h-fit">
-                  <div className="font-bold1 font-bold py-[8px] h-fit w-fit ml-[100px] mt-[40px]">
+                  <div className="font-bold1 max-[480]:text-[14px] py-[8px] h-fit w-fit ml-[100px] mt-[40px]">
                     Interests
                   </div>
                 </div>
               </div>
               <div className="flex w-full h-fit">
-                <div className="w-[140px] h-full "></div>
-                <div className="w-full h-fit flex flex-wrap">
+                <div className=" class_tab_tag h-full"></div>
+                <div className="w-full h-fit flex flex-wrap class_tab_tag2">
                   {interest.map((item) => (
                     <NavLink
                     to={`/interest_person/${item.ID_coreskill}`}
@@ -1279,7 +1279,7 @@ function ProfilePage_Edit(props) {
                   Scopus
                 </button>
                 {/* ปุ่ม Add------------------------------------------------------------------------ */}
-                <button
+                {/* <button
                   onClick={() => openModal2("null")}
                   className="absolute right-[50px] top-[10px] bg-regal-red text-white rounded-[12px] hover:bg-white hover:text-regal-red border-[2px] border-regal-red px-[16px] py-[3px]"
                 >
@@ -1387,14 +1387,124 @@ function ProfilePage_Edit(props) {
                       </button>
                     </div>
                   </form>
-                </Modal>
+                </Modal> */}
                 {/* ------------------------------------------------------------------------------------------ */}
               </div>
+              <div className="grid place-content-center w-full h-fit class_add_btn_pos"><button
+                  onClick={() => openModal2("null")}
+                  className="bg-regal-red text-white rounded-[12px] hover:bg-white hover:text-regal-red border-[2px] border-regal-red px-[16px] py-[3px]"
+                >
+                  <div className="h-[25px] w-[25px]">
+                    <IoMdAdd className="h-full w-full"></IoMdAdd>
+                  </div>
+                </button>
+                <Modal
+                  open={isModal2Open}
+                  onCancel={() => setIsModal2Open(false)}
+                  width={600}
+                  footer={null}
+                >
+                  <form onSubmit={submitAdd}>
+                    <div>เพิ่มข้อมูล</div>
+                    <p>หัวข้อ</p>
+                    <input
+                      class="w-full mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      name="topic"
+                      type="text"
+                      placeholder="เพิ่มชื่อหัวข้อ.."
+                      onChange={topicAddChange}
+                      value={topicAdd}
+                    />
+
+                    <p>ผู้วิจัย</p>
+                    <input
+                      class="w-full mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      name="userName"
+                      type="text"
+                      placeholder="เพิ่มชื่อผู้วิจัย.."
+                      onChange={userNameAddChange}
+                      value={userNameAdd}
+                    />
+                    <p>วันที่</p>
+                    <DatePicker onChange={onChangeDateAdd} 
+                    value={moment(dateAdd)}
+                    />
+                    <p>การประชุม & วารสารวิชาการ </p>
+                    <p>
+                      *หากเป็นการประชุมให้ใส่ Conference นำหน้า หรือ
+                      หากเป็นวารสารวิชาการให้ใส่ Journal นำหน้า
+                    </p>
+                    <input
+                      class="w-full mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      name="conference"
+                      type="text"
+                      placeholder="เช่น Conference ******* หรือ Journal *********"
+                      onChange={conferenceAddChange}
+                      value={conferenceAdd}
+                    />
+                    <p>ผู้เผยแพร่</p>
+                    <input
+                      class="w-full mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      name="conference"
+                      type="text"
+                      placeholder="เพิ่มผู้เผยแพร่.."
+                      onChange={publicherAddChange}
+                      value={PublicherAdd}
+                    />
+                    <p>แหล่งที่มา</p>
+                    <Select
+                      onChange={publisherChange}
+                      value={publisherAdd}
+                      style={{
+                        width: 120,
+                      }}
+                      options={[
+                        {
+                          value: "1",
+                          label: "Scholar",
+                        },
+                        {
+                          value: "2",
+                          label: "Scopus",
+                        },
+                      ]}
+                    ></Select>
+                    <p>รายละเอียด</p>
+                    <textarea
+                      class="w-full mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      name="description"
+                      type="text"
+                      rows="4"
+                      placeholder="เพิ่มรายละเอียด.."
+                      onChange={descriptionAddChange}
+                      value={descriptionAdd}
+                    />
+                    <p>ลิงก์</p>
+                    <input
+                      class="w-full mb-[5px] shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      name="link"
+                      type="text"
+                      placeholder="www.xxxxxxxxxxxxxx.com"
+                      onChange={linkAddChange}
+                      value={linkAdd}
+                    />
+                    <div className="grid place-items-end">
+                      <button
+                        type="submit"
+                        onClick={() => setIsModal2Open(false)}
+                        className="h-fit w-fit border-[1px] border-regal-red bg-regal-red text-white hover:bg-regal-red-hover rounded-[10px] mt-[10px] mb-[6px] px-[16px] py-[8px]"
+                      >
+                        บันทึก
+                      </button>
+                    </div>
+                  </form>
+                </Modal></div>
+              
               <div className="mt-[13px] flex flex-col justify-center mx-[20px]">
-                <thead className="grid grid-cols-10 text-xs text-white uppercase bg-regal-red w-full rounded-[10px]">
+                <div className="head_low_table grid text-xs text-white uppercase bg-regal-red w-full rounded-[10px]">
                   <div
                     scope="col"
-                    className="px-6 py-3 rounded-l-lg font-medium col-span-7"
+                    className="px-6 py-3 rounded-l-lg font-medium head_low_table_product"
                   >
                     Product name
                   </div>
@@ -1414,7 +1524,7 @@ function ProfilePage_Edit(props) {
                     scope="col"
                     className="grid place-content-center px-6 py-3 font-medium"
                   ></div>
-                </thead>
+                </div>
                 <tbody>
                   {dataTable}
                   {showAdd}

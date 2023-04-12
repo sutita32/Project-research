@@ -146,7 +146,7 @@ function Search(props) {
 
   return (
     <>
-      <div class="h-auto w-full grid bg-regal-red place-content-center">
+      <div class="h-auto w-full grid bg-regal-red place-content-center ">
         <div className="bg-search-bar">
           <div>
           

@@ -6,6 +6,9 @@
 .font-bold1{
     font-family: 'Prompt', sans-serif;
 }
+.font-normal{
+    font-size: 17px;
+}
 .dropdown-class{
     color: #7d0f3f;
     background-color: #7d0f3f;
@@ -16,3 +19,80 @@
     position: relative;
     z-index: 10;
 }
+.font-medium1{
+    font-family: 'Prompt', sans-serif;
+    font-size: 17px;
+}
+@media screen and (max-width: 390px) {
+    .font-semibold1{
+        font-family: 'Prompt', sans-serif;
+        font-size: 10px;
+    }
+    .font-bold1{
+        font-family: 'Prompt', sans-serif;
+    }
+    .dropdown-class{
+        color: #7d0f3f;
+        background-color: #7d0f3f;
+    }
+    .ant-dropdown-menu {
+        max-height: 250px;
+        overflow: auto;
+        position: relative;
+        z-index: 10;
+    }
+    .font-normal{
+        font-size: 10px;
+    }
+    .font-medium1{
+        font-family: 'Prompt', sans-serif;
+        font-size: 10px;
+    }
+  }
+@media screen and (min-width:391px) and (max-width:480px) {
+
+    .font-semibold1{
+        font-family: 'Prompt', sans-serif;
+        font-size: 12px;
+    }
+    .font-bold1{
+        font-family: 'Prompt', sans-serif;
+    }
+    .dropdown-class{
+        color: #7d0f3f;
+        background-color: #7d0f3f;
+    }
+    .ant-dropdown-menu {
+        max-height: 250px;
+        overflow: auto;
+        position: relative;
+        z-index: 10;
+    }
+    .font-normal{
+        font-size: 14px;
+    }
+    .font-medium1{
+        font-family: 'Prompt', sans-serif;
+        font-size: 10px;
+    }
+  }
+@media screen and (min-width:481px) and (max-width:920px) {
+    .font-semibold1{
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+    }
+    .font-bold1{
+        font-family: 'Prompt', sans-serif;
+    }
+    .dropdown-class{
+        color: #7d0f3f;
+        background-color: #7d0f3f;
+    }
+    .ant-dropdown-menu {
+        max-height: 250px;
+        overflow: auto;
+        position: relative;
+        z-index: 10;
+    }
+      
+  }

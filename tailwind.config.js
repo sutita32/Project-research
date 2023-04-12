@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        '0': 'repeat(0, minmax(0, 1fr))'
+      },
       colors: {
       'regal-red': '#7d0f3f',
         'regal-red2': '#873358',

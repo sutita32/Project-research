@@ -127,9 +127,10 @@ function Graph1({ typesNow, yearNow,dataresearch ,professorlist ,listcolor}) {
         chart.getDatasetMeta(i).data.forEach((datapoint, index) => {
           // console.log(width," ", height);
 
-          if(chart.data.datasets[0].data[index] === 0){
+         
+          if(chart.data.datasets[0].data[index] === 0 || chart.data.datasets[0].data[index] === 1 ){
           }
-          else {
+          else { console.log(chart.data.datasets[0].data[index])
             if(chart.data.datasets[0].data[index] > 2 && chart.data.datasets[0].data[index] < 16){
               const {x, y} = datapoint.tooltipPosition();
               // console.log("x => ", x , " y =>", y);

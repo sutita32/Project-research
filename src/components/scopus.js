@@ -60,10 +60,10 @@ function Scopus(props) {
   return (
     <>
       {dataShow.map((item, index) => (
-        <div class="bg-white grid grid-cols-10">
+        <div class="bg-white grid body_low_table_contact">
           <div
             scope="row"
-            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap col-span-8 overflow-hidden"
+            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap body_low_table_product_contact overflow-hidden"
           >
             <NavLink
               to={`../idresearch=${item.ID_research}`}

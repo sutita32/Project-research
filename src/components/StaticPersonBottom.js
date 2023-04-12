@@ -94,8 +94,8 @@ function StaticPersonBottom({
     <div class="bg-[#F0F8FF] pt-[30px]">
       <div class="grid place-items-center w-full min-h-[70px]">
         <div class="grid h-auto w-[90%]">
-          <div class="text-white font-bold1 text-[17px] h-[45px] w-full bg-regal-red rounded-[5px] grid grid-cols-10">
-            <div class="col-span-1  grid place-items-center">
+          <div class="text-white font-bold1 min-[921px]:text-[17px] max-[920px]:text-[10px] h-[45px] w-full bg-regal-red rounded-[5px] grid grid-cols-10">
+            <div class="col-span-1  grid place-items-center ">
               <div>ลำดับที่</div>
             </div>
             <div class="grid place-items-center col-span-5 ">
@@ -111,7 +111,7 @@ function StaticPersonBottom({
         </div>
         {dataShow.map((item, index) => (
           <div class="grid h-auto w-[90%] py-[10px] bg-white shadow-sm">
-            <div class="font-bold1 h-[40px] w-full  grid grid-cols-10">
+            <div class="font-medium1 h-[40px] w-full  grid grid-cols-10">
               <div class="col-span-1  grid place-items-center">
                 <div>{index + 1}</div>
               </div>

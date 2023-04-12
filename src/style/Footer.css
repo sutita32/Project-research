@@ -8,3 +8,13 @@
     font-family: 'Prompt', sans-serif;
     font-size: 16px;
 }
+@media screen and (max-width: 480px) {
+    .font-normal1 {
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+    }
+    .font-normal2{
+        font-family: 'Prompt', sans-serif;
+        font-size: 12px;
+    }
+}

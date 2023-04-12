@@ -320,8 +320,8 @@ function Static(props) {
             </a>
           </Dropdown>
         </div>
-        <div className=" h-[500px] flex bg-[#F0F8FF]">
-          <div className="h-[400px] w-[640px] top-[0px] left-[80px] relative shadow-2xl py-[30px] bg-white rounded-[20px] overflow-visible">
+        <div className=" max-[391px]:h-[700px] max-[481px]:h-[800px] max-[920px]:h-[1000px] min-[921px]:h-[500px] min-[921px]:flex bg-[#F0F8FF]">
+          <div className="max-[920px]:mb-[20px] max-[920px]:w-full  min-[921px]:h-[400px] min-[921px]:w-[640px] top-[0px] max-[920px]:left-0 min-[921px]:left-[80px] relative shadow-2xl py-[30px] bg-white rounded-[20px] overflow-visible">
             <p className=" font-normal text-center">จำนวนงานวิจัย{typesNow}</p>
             <Graph1
               typesNow={typesNow}
@@ -331,7 +331,7 @@ function Static(props) {
               listcolor={listcolor}
             />
           </div>
-          <div className=" h-[400px] w-[760px] top-[0px] left-[100px] relative shadow-2xl px-[30px] py-[30px] bg-white rounded-[20px]">
+          <div className=" min-[921px]:h-[400px] min-[921px]:w-[760px] top-[0px] max-[920px]:left-0 min-[921px]:left-[100px] relative shadow-2xl px-[30px] py-[30px] bg-white rounded-[20px]">
             <p className=" font-normal text-center">
               จำนวนงานวิจัย{typesNow}ในปี ค.ศ. {yearNow}
             </p>
@@ -365,17 +365,17 @@ function Static(props) {
         <div class="bg-[#F0F8FF]">
           <div class="grid place-items-center w-full min-h-[70px]">
             <div class="grid h-auto w-[90%]">
-              <div class="text-white font-bold1 text-[17px] h-[45px] w-full bg-regal-red rounded-[5px] grid grid-cols-10">
+              <div class="text-white font-medium text-[17px] h-[45px] w-full bg-regal-red rounded-[5px] grid grid-cols-10">
                 <div
                   scope="col"
-                  className="px-6 py-3 rounded-l-lg font-medium col-span-8"
+                  className="px-6 py-3 rounded-l-lg font-medium1 col-span-8"
                 >
                   Product name
                 </div>
                 <div></div>
                 <div
                   scope="col"
-                  className="grid place-content-center px-6 py-3 font-medium"
+                  className="grid place-content-center  py-3 font-medium1 "
                 >
                   YEAR
                 </div>
@@ -388,7 +388,7 @@ function Static(props) {
 
         <div className="flex justify-center bg-[#F0F8FF]  h-[200px] w-full">
           <div class="grid grid-cols-10  h-[100%] w-[80%] rounded-[30px] bg-regal-red text-white">
-            <div class="grid col-span-6 place-items-center font-bold1 text-[20px]">
+            <div class="grid col-span-6 place-items-center font-bold1 text-[20px] text-center">
               จำนวนงานวิจัย{typesNow}
             </div>
 

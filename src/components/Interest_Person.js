@@ -45,7 +45,7 @@ function Interest_Person(props) {
       <div className="bg-[#F0F8FF]">
         <div className="grid place-items-center w-full min-h-[70px]">
           <div className="grid h-auto w-[90%]">
-            <div className="text-white font-bold1 text-[17px] h-[45px] w-full bg-regal-red rounded-[5px] grid grid-cols-10">
+            <div className="text-white font-bold1 min-[921px]:text-[17px] max-[920px]:text-[14px] h-[45px] w-full bg-regal-red rounded-[5px] grid grid-cols-10">
               <div className=" col-span-4 grid place-items-center">รายชื่อ</div>
               <div className="col-span-4 grid place-items-center">อีเมล</div>
               <div className="col-span-2 grid place-items-center"></div>
@@ -65,11 +65,11 @@ function Interest_Person(props) {
           </div>
           {dataShow.map((item) => (
             <div className="grid h-auto w-[90%] py-[10px] bg-white shadow-sm">
-              <div className="font-bold1 h-[40px] w-full  grid grid-cols-10">
-                <div className="col-span-4 grid place-items-center">
+              <div className="font-bold1 min-[921px]:text-[17px] max-[480px]:text-[10px] max-[920px]:text-[17px] h-[40px] w-full  grid grid-cols-10">
+                <div className="col-span-4 grid place-items-center overflow-hidden">
                   <div>{item.title_name + item.firstname_professor +" "+ item.lastname_professor}</div>
                 </div>
-                <div className="col-span-4 grid place-items-center">
+                <div className="col-span-4 grid place-items-center overflow-hidden">
                   <div>{item.Email}</div>
                 </div>
                 <div className="col-span-2 grid place-items-center">

@@ -65,13 +65,13 @@ function Contacts(props) {
     // console.log("data2=>",data2)
     return (
       <>
-        <div class="grid grid-rows-4 divide-y place-content-center">
+        <div class="grid grid-rows-4 divide-y place-content-center" >
           {data1.map((item, index) => (
-            <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px]">
+            <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] max-[480px]:w-full max-[480px]:m-[0px] max-[480px]:my-[10px]">
               <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
                 <img alt="" class="" src={item.img}></img>
               </div>
-              <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="col-span-7 place-items-start h-full w-full pt-[15px] min-[390px]:w-full min-[390px]:ml-[10px]  max-[390px]:ml-[20px]">
                 <div class="h-auto w-auto text-start">
                   <NavLink
                     onClick={() => props.sendTeacherIndex(item.ID_professor)}
@@ -82,7 +82,7 @@ function Contacts(props) {
                       " " +
                       item.lastname_professor}
                   </NavLink>
-                </div>
+                </div>  
                 <div class="h-auto w-auto text-start">{item.Email}</div>
               </div>
             </div>
@@ -90,11 +90,11 @@ function Contacts(props) {
         </div>
         <div class="grid grid-rows-4 divide-y place-content-center">
           {data2.map((item, index) => (
-            <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] my-[10px] ">
+            <div class="font-contacts h-[80px] grid grid-cols-10 px-[80px] w-[500px] m-[10px] max-[480px]:w-full max-[480px]:m-[0px] max-[480px]:my-[10px]">
               <div class="col-span-3 h-[60px] w-[60px] overflow-hidden rounded-full mt-[10px] ml-[10px]">
                 <img alt="" class="" src={item.img}></img>
               </div>
-              <div class="col-span-7 place-items-start h-full w-full pt-[15px]">
+              <div class="col-span-7 place-items-start h-full w-full pt-[15px] min-[390px]:w-full min-[390px]:ml-[10px]  max-[390px]:ml-[20px]">
                 <div class="h-auto w-auto text-start">
                   <NavLink
                     onClick={() => props.sendTeacherIndex(item.ID_professor)}
@@ -105,7 +105,7 @@ function Contacts(props) {
                       " " +
                       item.lastname_professor}
                   </NavLink>
-                </div>
+                </div>  
                 <div class="h-auto w-auto text-start">{item.Email}</div>
               </div>
             </div>
@@ -126,8 +126,8 @@ function Contacts(props) {
           Persons (Dept. of Computer Science Faculty of Science)
         </div>
         <div class="grid">
-          <div class="place-self-center h-[400px] w-full">
-            <div class="grid w-[1400px] grid-cols-2 mx-auto text-center divide-x">
+          <div class=" place-self-center min-[920px]:h-[400px] max-[480px]:h-[800px] w-full">
+            <div class="grid min-[920px]:w-[1400px] min-[920px]:grid-cols-2 mx-auto min-[920px]:text-center max-[920px]:grid-rows-2 max-[920px]:w-full max-[480px]:divide-y max-[920px]:place-content-center" >
               <SetData
                 sendTeacherIndex={(item) => props.sendTeacherIndex(item)}
               />

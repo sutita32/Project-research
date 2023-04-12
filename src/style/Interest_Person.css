@@ -4,3 +4,25 @@
     font-size: 36px;
     font-weight:bold
 }
+@media screen and (max-width: 390px) {
+    .head_text{
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight:bold
+    }
+  }
+@media screen and (min-width:391px) and (max-width:480px) {
+    .head_text{
+        font-family: 'Prompt', sans-serif;
+        font-size: 18px;
+        font-weight:bold
+    }
+  }
+@media screen and (min-width:481px) and (max-width:920px) {
+    .head_text{
+        font-family: 'Prompt', sans-serif;
+        font-size: 36px;
+        font-weight:bold
+    }
+      
+  }

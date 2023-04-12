@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 .header{
+
     background: #7D0F3F;
     
 }
@@ -14,6 +15,7 @@
     
 }
 .header-main {
+    width: 100%;
     background: rgb(255, 255, 255);
     padding-left: 250px;
     height: 130px;
@@ -59,11 +61,176 @@
 }
 .testbt{
 	display:inline-block;
-
 	cursor:pointer;
     font-family: 'Prompt', sans-serif;
 	font-size:16px;
 	text-decoration:none;
     font-weight: bold;
+    
+}
+.mobile-menu{
+    display: none;
+}
+@media screen and (max-width: 480px) {
+    .mobile-menu {
+        display: block;
+        color: #730b3a;
+        font-size: 2rem;
+        margin-right: 3.5rem;
+    }
+    .header-main {
+        width: auto;
+        background: rgb(255, 255, 255);
+        padding-left: 40px;
+        height: 130px;
+        display: flex;
+        justify-content: space-between;
+        
+    }
+    .container{
+        font-size: 10px;
+    }
+    .menu {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        flex-direction: column;
+        top: 168px;
+        left: -100%;
+        opacity: 0;
+        transition: 0.5s ease;
+       
+    }
+    .menu.active {
+        width: 100%;
+        background: #730b3a;
+        left: 0;
+        opacity: 1;
+        z-index: 1;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.5s ease;
+    }
+    .menu li {
+        padding-right: 0 ;
+        color: #ffff;
+    }
+    .menu li a{
+        color: #ffffff;
+    }
+    .menu-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 10vw;
+        padding: 
+        10px 0;
+    }
+    .menu li{
+        color: #ffffff;
+        align-items: center;
+        justify-content: center;
+    }
+    #btnLogin{
+        background-color:#ffffff00;
+        border-radius:0px;
+        border:0px solid #ffffff;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family: 'Prompt', sans-serif;
+        font-size:14px;
+        padding:10px 21px;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #730b3a;
+    }
+    
+}
+@media screen and (min-width:481px) and (max-width:920px) {
+    .mobile-menu {
+        display: block;
+        color: #0c0c0c;
+        font-size: 2rem;
+        margin-right: 7rem;
+    }
+    .header-main {
+        width: auto;
+        background: rgb(255, 255, 255);
+        padding-left: 100px;
+        height: 130px;
+        display: flex;
+        justify-content: space-between;
+        
+    }
+    .container{
+        font-size: 12px;
+    }
+    .menu {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        flex-direction: column;
+        top: 168px;
+        left: -100%;
+        opacity: 0;
+        transition: 0.5s ease;
+       
+    }
+    .menu.active {
+        width: 100%;
+        background: #730b3a;
+        left: 0;
+        opacity: 1;
+        z-index: 1;
+        padding-left: 0;
+        padding-right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.5s ease;
+    }
+    .menu li {
+        padding-right: 0 ;
+        color: #ffff;
+    }
+    .menu li a{
+        color: #ffffff;
+        font-size: 20px;
+    }
+    .menu-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 10vw;
+        padding: 
+        10px 0;
+    }
+    .menu li{
+        color: #ffffff;
+        align-items: center;
+        justify-content: center;
+    }
+    #btnLogin{
+        background-color:#ffffff00;
+        border-radius:0px;
+        border:0px solid #ffffff;
+        display:inline-block;
+        cursor:pointer;
+        color:#ffffff;
+        font-family: 'Prompt', sans-serif;
+        font-size:20px;
+        padding:10px 21px;
+        text-decoration:none;
+        text-shadow:0px 1px 0px #730b3a;
+    }
     
 }

@@ -17,3 +17,29 @@
 .set_head_table{
     background-color: black;
 }
+.class_gray_area{
+    width: 800px;
+}
+@media screen and (max-width: 480px) {
+    .edit{
+        font-size: 15px;
+        text-align: center;
+        margin-right: 10px;
+    
+    }
+    .edit-delete{
+        font-size: 15px;
+    }
+    .edit-1{
+        display: flex;
+        margin-right: 0px;
+     }
+     .class_gray_area{
+        width: 300px;
+    }
+}
+@media screen and (max-width: 920px) and (min-width: 481px) {
+    .class_gray_area{
+        width: 600px;
+    }
+}

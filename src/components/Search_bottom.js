@@ -132,7 +132,7 @@ function Search_bottom({ page_now, searchdata }) {
 
   return (
     <>
-      <div class="grid grid-cols-8">
+      <div class="grid min-[481px]:grid-cols-8 max-[480px]:grid-cols-6">
         <div class="body-set-bottom col-span-6 place-self-center min-h-full">
           <div class="h-12 mx-auto w-auto font-bold">{resultBTPage}</div>
         </div>
