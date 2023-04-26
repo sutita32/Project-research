@@ -9,7 +9,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-
+import { baseurl } from "./setapi";
 function Scopus(props) {
 
   const [dataScopus, setDatascopus] = useState(
@@ -36,7 +36,7 @@ function Scopus(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/research/del-researchbypro", requestOptions)
+    fetch(baseurl+"api/research/del-researchbypro", requestOptions)
       .then(response => response.text())
       .then(result => {
         if(result === 'delete Success'){

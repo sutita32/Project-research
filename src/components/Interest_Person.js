@@ -1,7 +1,7 @@
 import React,{ useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 import "../style/Interest_Person.css"
-
+import { baseurl } from "./setapi";
 function Interest_Person(props) {
   const [dataShow ,setdatashow] = useState([]);
   const [isLoading , setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ function Interest_Person(props) {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:4000/api/professor/getskilllistbyidskill", requestOptions)
+    fetch(baseurl+"api/professor/getskilllistbyidskill", requestOptions)
       .then(response => response.json())
       .then(result => {
         if(result.massage === "professor is Success"){

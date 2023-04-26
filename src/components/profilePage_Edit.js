@@ -27,7 +27,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { Spin } from "antd";
 import Graph123 from "./Graph_profile";
-
+import { baseurl } from './setapi';
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -101,7 +101,7 @@ function ProfilePage_Edit(props) {
         body: raw,
         redirect: "follow",
       };
-      fetch("http://localhost:4000/api/professor/get-databyadmin", requestOptions)
+      fetch(baseurl+"api/professor/get-databyadmin", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.data.length > 0) {
@@ -134,7 +134,7 @@ function ProfilePage_Edit(props) {
         redirect: "follow",
       };
 
-      fetch("http://localhost:4000/api/search/getresearchbypro", requestOptions)
+      fetch(baseurl+"api/search/getresearchbypro", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.data) {
@@ -164,7 +164,7 @@ function ProfilePage_Edit(props) {
         redirect: "follow",
       };
 
-      fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+      fetch(baseurl+"api/professor/getskillbyidpro", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.data) {
@@ -176,7 +176,7 @@ function ProfilePage_Edit(props) {
         .catch((error) => console.log("error", error));
 
       fetch(
-        "http://localhost:4000/api/professor/get-qulificationbyidpro",
+        baseurl+"api/professor/get-qulificationbyidpro",
         requestOptions
       )
         .then((response) => response.json())
@@ -198,7 +198,7 @@ function ProfilePage_Edit(props) {
         headers: myHeaders,
         redirect: "follow",
       };
-      fetch("http://localhost:4000/api/professor/get-data", requestOptions)
+      fetch(baseurl+"api/professor/get-data", requestOptions)
         .then((response) => response.text())
         .then((result) => {
           if (result === "Invalid Token") {
@@ -236,7 +236,7 @@ function ProfilePage_Edit(props) {
         redirect: "follow",
       };
 
-      fetch("http://localhost:4000/api/search/getresearchbypro", requestOptions)
+      fetch(baseurl+"api/search/getresearchbypro", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.data) {
@@ -265,7 +265,7 @@ function ProfilePage_Edit(props) {
         redirect: "follow",
       };
 
-      fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+      fetch(baseurl+"api/professor/getskillbyidpro", requestOptions)
         .then((response) => response.json())
         .then((result) => {
           if (result.data) {
@@ -277,7 +277,7 @@ function ProfilePage_Edit(props) {
         .catch((error) => console.log("error", error));
 
       fetch(
-        "http://localhost:4000/api/professor/get-qulificationbyidpro",
+        baseurl+"api/professor/get-qulificationbyidpro",
         requestOptions
       )
         .then((response) => response.json())
@@ -327,7 +327,7 @@ function ProfilePage_Edit(props) {
       };
 
       fetch(
-        "http://localhost:4000/api/professor/del-studtbyidpro",
+        baseurl+"api/professor/del-studtbyidpro",
         requestOptions
       )
         .then((response) => response.text())
@@ -369,7 +369,7 @@ function ProfilePage_Edit(props) {
       };
 
       fetch(
-        "http://localhost:4000/api/professor/del-skillbyidpro",
+        baseurl+"/api/professor/del-skillbyidpro",
         requestOptions
       )
         .then((response) => response.text())
@@ -440,7 +440,7 @@ function ProfilePage_Edit(props) {
     };
 
     fetch(
-      "http://localhost:4000/api/professor/update-professor",
+      baseurl+"api/professor/update-professor",
       requestOptions
     )
       .then((response) => response.json())
@@ -529,7 +529,7 @@ function ProfilePage_Edit(props) {
           redirect: 'follow'
         };
 
-        fetch("http://localhost:4000/api/auth/change-password", requestOptions)
+        fetch(baseurl+"api/auth/change-password", requestOptions)
           .then(response => response.json())
           .then(result => {
             if(result.msg == 'Your password reset Success!!'){
@@ -578,7 +578,7 @@ function ProfilePage_Edit(props) {
         };
 
         fetch(
-          "http://localhost:4000/api/professor/insert-qulificationbyidpro",
+          baseurl+"api/professor/insert-qulificationbyidpro",
           requestOptions
         )
           .then((response) => response.json())
@@ -622,7 +622,7 @@ function ProfilePage_Edit(props) {
         };
 
         fetch(
-          "http://localhost:4000/api/professor/insert-skillbypro",
+          baseurl+"api/professor/insert-skillbypro",
           requestOptions
         )
           .then((response) => response.json())
@@ -752,7 +752,7 @@ function ProfilePage_Edit(props) {
     };
 
     fetch(
-      "http://localhost:4000/api/research/insert-researchbypro",
+      baseurl+"api/research/insert-researchbypro",
       requestOptions
     )
       .then((response) => response.json())

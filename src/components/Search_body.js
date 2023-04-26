@@ -64,7 +64,6 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
     
     for(let i=1;i<list_year_sort.length;i++){
       let year = new Date(list_year_sort[i].Publication_date).getFullYear();
-      
       if(temp1 === year){
         count++;
       }else{
@@ -142,7 +141,7 @@ function Search_body({ data1, sendResearchIndex , searchdata ,setsearchdata} ) {
           }
         }
       }
-   
+  
     // console.log("tempdata =>",test)
     // console.log("tempdata =>",tempdata)
     if(test.length > 0){

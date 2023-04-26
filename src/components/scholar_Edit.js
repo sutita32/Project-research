@@ -11,7 +11,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
-
+import { baseurl } from "./setapi";
 function Scholar(props) {
   console.log("getdata=>", props.getdata);
   
@@ -62,7 +62,7 @@ function Scholar(props) {
     };
 
     fetch(
-      "http://localhost:4000/api/research/del-researchbypro",
+      baseurl+"api/research/del-researchbypro",
       requestOptions
     )
       .then((response) => response.text())

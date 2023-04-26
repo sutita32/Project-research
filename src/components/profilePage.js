@@ -16,6 +16,7 @@ import { Bar } from "react-chartjs-2";
 import { NavLink } from "react-router-dom";
 import { Alert, Space, Spin } from "antd";
 import Graph123 from "./Graph_profile";
+import { baseurl } from "./setapi";
 
 function ProfilePage(props) {
   // console.log("getid=>",getid)
@@ -57,7 +58,7 @@ function ProfilePage(props) {
     };
 
     fetch(
-      "http://localhost:4000/api/professor/get-data-not-verify",
+      baseurl+"api/professor/get-data-not-verify",
       requestOptions
     )
       .then((response) => response.json())
@@ -81,7 +82,7 @@ function ProfilePage(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/search/getresearchbypro", requestOptions)
+    fetch(baseurl+"api/search/getresearchbypro", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {
@@ -113,7 +114,7 @@ function ProfilePage(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/professor/getskillbyidpro", requestOptions)
+    fetch(baseurl+"api/professor/getskillbyidpro", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {
@@ -125,7 +126,7 @@ function ProfilePage(props) {
       .catch((error) => console.log("error", error));
 
     fetch(
-      "http://localhost:4000/api/professor/get-qulificationbyidpro",
+      baseurl+"api/professor/get-qulificationbyidpro",
       requestOptions
     )
       .then((response) => response.json())

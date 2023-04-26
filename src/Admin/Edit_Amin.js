@@ -11,6 +11,7 @@ import * as FileSaver from "file-saver";
 import "../style/Edit_Admin.css";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { baseurl } from "../components/setapi";
 
 function Edit_Amin(props) {
   const navigate = useNavigate();
@@ -123,7 +124,7 @@ function Edit_Amin(props) {
       headers: myHeaders,
       redirect: "follow",
     };
-    fetch("http://localhost:4000/api/admin/get-databyid", requestOptions)
+    fetch(baseurl+"api/admin/get-databyid", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         if (result === "Invalid Token") {
@@ -136,7 +137,7 @@ function Edit_Amin(props) {
       })
       .catch((error) => console.log("error", error));
 
-    fetch("http://localhost:4000/api/admin/get-timescrap", requestOptions)
+    fetch(baseurl+"api/admin/get-timescrap", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.Timeset) {
@@ -152,7 +153,7 @@ function Edit_Amin(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/professor/get-all-databyadmin", requestOptions)
+    fetch(baseurl+"api/professor/get-all-databyadmin", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {
@@ -181,7 +182,7 @@ function Edit_Amin(props) {
     };
 
     let data1 = await fetch(
-      "http://localhost:4000/api/research/getresearch-idpro",
+      baseurl+"api/research/getresearch-idpro",
       requestOptions
     )
       .then((response) => response.json())
@@ -244,7 +245,7 @@ function Edit_Amin(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/admin/settime", requestOptions)
+    fetch(baseurl+"api/admin/settime", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result) return console.log(result);
@@ -328,7 +329,7 @@ function Edit_Amin(props) {
           redirect: 'follow'
         };
 
-        fetch("http://localhost:4000/api/professor/delete-data", requestOptions)
+        fetch(baseurl+"api/professor/delete-data", requestOptions)
           .then(response => response.text())
           .then((result) =>{
               if(result === "delete Success"){
