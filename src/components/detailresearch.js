@@ -5,7 +5,7 @@ import { workData } from "./workData";
 import "../style/detailPage.css";
 import LineChart from "./LineChart";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { baseurl } from "./setapi";
 
 function Detailresearch({ getid}) {
 
@@ -30,7 +30,7 @@ function Detailresearch({ getid}) {
         redirect: 'follow'
         };
 
-        fetch("http://localhost:4000/api/research/getresearch", requestOptions)
+        fetch(baseurl+"api/research/getresearch", requestOptions)
         .then(response => response.json())
         .then(result => {
             if(result.data){

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { baseurl } from './setapi';
 function Form_forgotpass() {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
@@ -30,7 +31,7 @@ function Form_forgotpass() {
         redirect: 'follow'
         };
 
-        fetch("http://localhost:4000/api/auth/reset-password", requestOptions)
+        fetch(baseurl+"api/auth/reset-password", requestOptions)
         .then(response => response.json())
         .then(result => {
             if(result.msg === 'Your password reset Success!!'){

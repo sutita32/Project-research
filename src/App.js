@@ -35,7 +35,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Interest_Person from "./components/Interest_Person";
 
-////
+
 let Searchdata = 0;
 
 function Home_Page(props) {

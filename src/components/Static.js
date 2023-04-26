@@ -12,6 +12,7 @@ import { types } from "./Types";
 import { year } from "./Year";
 import { Dropdown, Space, Spin } from "antd";
 import ShowUpperTable from "./ShowUpperTable";
+import { baseurl } from "./setapi";
 
 function Static(props) {
   const [typesNow, setTypesNow] = useState(types[0].name);
@@ -43,7 +44,7 @@ function Static(props) {
     };
 
     fetch(
-      "http://localhost:4000/api/search/get-all-orderbyyear",
+      baseurl+"api/search/get-all-orderbyyear",
       requestOptions
     )
       .then((response) => response.json())
@@ -60,7 +61,7 @@ function Static(props) {
         return console.log("error", error);
       });
 
-    fetch("http://localhost:4000/api/professor/get-all-data", requestOptions)
+    fetch(baseurl+"api/professor/get-all-data", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {

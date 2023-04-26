@@ -7,7 +7,7 @@ import "../style/contacts.css";
 import { techData } from "./TeacherData";
 import { NavLink } from "react-router-dom";
 import { Alert, Space, Spin } from "antd";
-
+import { baseurl } from './setapi';
 function Contacts(props) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -19,7 +19,7 @@ function Contacts(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/professor/get-all-data", requestOptions)
+    fetch(baseurl+"api/professor/get-all-data", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {

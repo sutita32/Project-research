@@ -10,7 +10,7 @@ import './Header'
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-
+import { baseurl } from './setapi';
 
 function LoginUser(props) {
   const [loginstatus,setloginstatus] = useState("public")
@@ -60,7 +60,7 @@ function LoginUser(props) {
         redirect: 'follow'
       };
       
-      await fetch("http://localhost:4000/api/auth/login-professor", requestOptions)
+      await fetch(baseurl+"api/auth/login-professor", requestOptions)
       .then(response => {
         return response.json();
       })
@@ -98,7 +98,7 @@ function LoginUser(props) {
         redirect: 'follow'
       };
       
-      await fetch("http://localhost:4000/api/auth/login-professor1", requestOptions)
+      await fetch(baseurl+"api/auth/login-professor1", requestOptions)
       .then(response => {
         return response.json();
       })
@@ -137,7 +137,7 @@ function LoginUser(props) {
         redirect: 'follow'
       };
   
-      fetch("http://localhost:4000/api/auth/login-admin", requestOptions)
+      fetch(baseurl+"api/auth/login-admin", requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.user){

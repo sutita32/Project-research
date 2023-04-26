@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../style/interests.css";
 import { NavLink } from "react-router-dom";
 import { Alert, Space, Spin } from "antd";
-
+import { baseurl } from "./setapi";
 function Interests(props) {
   const [dataskill, setdataskill] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +15,7 @@ function Interests(props) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:4000/api/professor/get-all-skill", requestOptions)
+    fetch(baseurl+"api/professor/get-all-skill", requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.data) {

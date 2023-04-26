@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../style/Search_searchBar.css";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { baseurl } from "./setapi";
 function Search(props) {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
@@ -36,7 +36,7 @@ function Search(props) {
     if((!isChecked1 && !isChecked2 )||(isChecked1 && isChecked2 )){
       console.log("search All =>>>>>")
       
-      fetch("http://localhost:4000/api/search/search-keyword", requestOptions)
+      fetch(baseurl+"api/search/search-keyword", requestOptions)
         .then(response => {
           return response.json();
         })
@@ -63,7 +63,7 @@ function Search(props) {
     }
     if(isChecked1 && !isChecked2){
       console.log("research =>>>>>")
-      fetch("http://localhost:4000/api/search/search-keyword-research", requestOptions)
+      fetch(baseurl+"api/search/search-keyword-research", requestOptions)
       .then(response => response.json())
       .then(result => {
         if(result.data != null){
@@ -85,7 +85,7 @@ function Search(props) {
     }
     if(!isChecked1 && isChecked2 ){
       console.log("professor =>>>>>")
-      fetch("http://localhost:4000/api/search/search-keyword-professor", requestOptions)
+      fetch(baseurl+"api/search/search-keyword-professor", requestOptions)
       .then(response => response.json())
       .then(result => {
         if(result.data != null){
@@ -118,7 +118,7 @@ function Search(props) {
       body: raw,
       redirect: 'follow'
     };
-    fetch("http://localhost:4000/api/search/search-keyword", requestOptions)
+    fetch(baseurl+"api/search/search-keyword", requestOptions)
         .then(response => {
           return response.json();
         })

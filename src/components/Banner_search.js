@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import '../style/Banner_search.css'
 import { FiSearch } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-
+import { baseurl } from './setapi';
 function Banner_seach(props) {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({});
@@ -27,7 +27,7 @@ function Banner_seach(props) {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:4000/api/search/search-keyword", requestOptions)
+    fetch(baseurl+"api/search/search-keyword", requestOptions)
       .then(response => {
         return response.json();
       })
